@@ -1,0 +1,12 @@
+[
+  {
+    "id": "nora",
+    "aktorId": "urn:altinn:person:identifier-no:nora-rahimi",
+    "playwrightId": "rahimi-berg"
+  },
+  {
+    "id": "amir",
+    "aktorId": "urn:altinn:person:identifier-no:amir-rahimi",
+    "playwrightId": "rahimi-berg-amir"
+  }
+]

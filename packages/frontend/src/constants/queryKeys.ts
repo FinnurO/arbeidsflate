@@ -1,4 +1,9 @@
 export const QUERY_KEYS = {
+  OVERSIKT: 'oversikt',
+  OVERSIKT_TILGANGER: 'oversiktTilganger',
+  OVERSIKT_SAMMENHENGER: 'oversiktSammenhenger',
+  OVERSIKT_TJENESTE: 'oversiktTjeneste',
+  OVERSIKT_DIALOGER: 'oversiktDialoger',
   DIALOG_BY_ID: 'dialogById',
   CURRENT_DIALOG_TITLE: 'currentDialogTitle',
   PARTIES: 'parties',

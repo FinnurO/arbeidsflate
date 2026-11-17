@@ -1,0 +1,67 @@
+[
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "aktor": "urn:altinn:person:identifier-no:nora-rahimi",
+    "rolle": "selv",
+    "rolletekst": "Skatt, helse og arbeid",
+    "hjemmel": {
+      "beskrivelse": "Du er logget inn som deg selv",
+      "kilde": {
+        "virksomhet": "Digitaliseringsdirektoratet",
+        "system": "ID-porten"
+      }
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "aktor": "urn:altinn:person:identifier-no:amir-rahimi",
+    "rolle": "foresatt",
+    "rolletekst": "Barn og skole · Du er foresatt",
+    "hjemmel": {
+      "beskrivelse": "Du har foreldreansvar",
+      "kilde": {
+        "virksomhet": "Skatteetaten",
+        "system": "Folkeregisteret"
+      }
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "aktor": "urn:altinn:organization:identifier-no:lykke-bistro",
+    "rolle": "daglig-leder",
+    "rolletekst": "Starte og drive bedrift · Du er daglig leder",
+    "hjemmel": {
+      "beskrivelse": "Du er daglig leder",
+      "kilde": {
+        "virksomhet": "Brønnøysundregistrene",
+        "system": "Enhetsregisteret"
+      }
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "aktor": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+    "rolle": "arving",
+    "rolletekst": "Dødsfall og arv · Du er arving",
+    "hjemmel": {
+      "beskrivelse": "Du har formuesfullmakt",
+      "kilde": {
+        "virksomhet": "Lykke tingrett",
+        "hentet": "2026-10-22T09:00:00+02:00"
+      }
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:amir-rahimi",
+    "aktor": "urn:altinn:person:identifier-no:amir-rahimi",
+    "rolle": "selv",
+    "rolletekst": "Det som gjelder deg på skolen",
+    "hjemmel": {
+      "beskrivelse": "Du er logget inn som deg selv",
+      "kilde": {
+        "virksomhet": "Digitaliseringsdirektoratet",
+        "system": "ID-porten"
+      }
+    }
+  }
+]

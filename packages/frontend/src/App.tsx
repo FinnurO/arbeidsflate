@@ -11,6 +11,9 @@ import { DialogDetailsPage } from './pages/DialogDetailsPage/DialogDetailsPage.t
 import { ErrorPage } from './pages/Error/Error.tsx';
 import { Inbox } from './pages/Inbox/Inbox.tsx';
 import { FrontChannelLogout } from './pages/LogoutPage/FrontChannelLogout.tsx';
+import { AktorOversikt } from './pages/Oversikt/AktorOversikt.tsx';
+import { OversiktHjem } from './pages/Oversikt/OversiktHjem.tsx';
+import { TjenesteSide } from './pages/Oversikt/TjenesteSide.tsx';
 import { NotificationsPage } from './pages/Profile/NotificationsPage/NotificationsPage.tsx';
 import { PartiesOverviewPage } from './pages/Profile/PartiesOverviewPage/PartiesOverviewPage.tsx';
 import { Profile } from './pages/Profile/Profile.tsx';
@@ -55,6 +58,12 @@ function App() {
             <Route path={DIALOG_PREVIEW_ROUTE} element={withErrorBoundary(<DialogPreviewRoute />, 'Dialog Preview')} />
           )}
           <Route path={PageRoutes.savedSearches} element={withErrorBoundary(<SavedSearchesPage />, 'Saved Searches')} />
+          <Route path={PageRoutes.oversikt} element={withErrorBoundary(<OversiktHjem />, 'Oversikt')} />
+          <Route
+            path={PageRoutes.oversiktAktor}
+            element={withErrorBoundary(<AktorOversikt key="aktor" />, 'Oversikt for aktor')}
+          />
+          <Route path={PageRoutes.oversiktTjeneste} element={withErrorBoundary(<TjenesteSide />, 'Tjeneste')} />
           <Route path={PageRoutes.redirect} element={<RedirectPage />} />
           <Route path={PageRoutes.error} element={<ErrorPage />} />
           <Route path="*" element={<Navigate to="/" />} />

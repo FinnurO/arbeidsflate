@@ -1,0 +1,337 @@
+{
+  "aktor": {
+    "id": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+    "type": "dodsbo",
+    "navn": "Dødsboet etter Reza Rahimi",
+    "initialer": "RR",
+    "beskrivelse": "Faren din og Amirs bestefar · Døde 12. oktober 2026"
+  },
+  "livssituasjoner": [
+    {
+      "id": "dodsfall-og-arv",
+      "type": "dodsfall-og-arv",
+      "tittel": "Dødsfall og arv",
+      "aktivFase": "forste-ukene",
+      "faser": [
+        {
+          "id": "forste-ukene",
+          "tittel": "Rett etter dødsfallet",
+          "steg": [
+            {
+              "id": "melding",
+              "tittel": "Melding om dødsfallet",
+              "beskrivelse": "Du trenger ikke melde fra. Legen meldte dødsfallet, og Folkeregisteret har varslet tingretten, Nav og Skatteetaten.",
+              "status": "ordnet-automatisk",
+              "ansvarlig": "Skatteetaten"
+            },
+            {
+              "id": "gravferdsstonad",
+              "tittel": "Søk om gravferdsstønad",
+              "beskrivelse": "Opplysninger om dødsboet fylles ut for deg.",
+              "status": "krever-handling",
+              "ansvarlig": "Nav",
+              "frist": "2027-04-12",
+              "dialogId": "01938a10-0000-7000-8000-00000000c002",
+              "bruker": [
+                {
+                  "opplysning": "Eiendeler og gjeld",
+                  "kilde": "Digitalt dødsbo"
+                }
+              ]
+            },
+            {
+              "id": "faste-avtaler",
+              "tittel": "Si opp faste avtaler",
+              "beskrivelse": "Vi har funnet 4 faste trekk på kontoene de siste tre månedene.",
+              "status": "under-arbeid",
+              "handling": {
+                "tittel": "Se trekkene",
+                "type": "lenke",
+                "mal": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": "oppgjor",
+          "tittel": "Oppgjør av dødsboet",
+          "steg": [
+            {
+              "id": "formuesfullmakt",
+              "tittel": "Formuesfullmakt",
+              "beskrivelse": "Utstedt av Lykke tingrett 22. oktober 2026",
+              "status": "utfort",
+              "ansvarlig": "Lykke tingrett",
+              "dialogId": "01938a10-0000-7000-8000-00000000c003"
+            },
+            {
+              "id": "proklama",
+              "tittel": "Proklama – varsel til kreditorer",
+              "beskrivelse": "Valgfritt. Kreditorene får seks uker på å melde seg.",
+              "status": "ikke-startet",
+              "ansvarlig": "Lykke tingrett",
+              "handling": {
+                "tittel": "Bestill proklama",
+                "type": "lenke",
+                "mal": "#"
+              }
+            },
+            {
+              "id": "testament",
+              "tittel": "Testament",
+              "beskrivelse": "Tingretten har ikke registrert noe testament",
+              "status": "ikke-aktuelt",
+              "ansvarlig": "Lykke tingrett"
+            },
+            {
+              "id": "skifteform",
+              "tittel": "Velg skifteform",
+              "beskrivelse": "2 av 3 arvinger har signert for privat skifte.",
+              "status": "til-signering",
+              "ansvarlig": "Lykke tingrett",
+              "frist": "2026-12-11",
+              "dialogId": "01938a10-0000-7000-8000-00000000c001",
+              "handling": {
+                "tittel": "Påminn Ali",
+                "type": "lenke",
+                "mal": "#"
+              }
+            },
+            {
+              "id": "skifteattest",
+              "tittel": "Skifteattest",
+              "beskrivelse": "Kommer fra tingretten normalt 1–2 uker etter at alle har signert",
+              "status": "senere",
+              "ansvarlig": "Lykke tingrett"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "opplysninger": [
+    {
+      "id": "bankkontoer",
+      "domene": "dodsbo.bankkontoer",
+      "tittel": "Bankkontoer",
+      "hovedverdi": "3 kontoer i 2 banker",
+      "beskrivelse": "Saldo og transaksjoner tre måneder før dødsfallet",
+      "lenketekst": "Se kontoene",
+      "kilde": {
+        "virksomhet": "Bankene",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "kontoer": [
+          {
+            "bank": "Lykke Sparebank",
+            "kontotype": "Brukskonto"
+          },
+          {
+            "bank": "Lykke Sparebank",
+            "kontotype": "Sparekonto"
+          },
+          {
+            "bank": "Nordbank",
+            "kontotype": "Brukskonto"
+          }
+        ],
+        "transaksjonerFra": "2026-07-12"
+      }
+    },
+    {
+      "id": "gjeld",
+      "domene": "dodsbo.gjeld",
+      "tittel": "Gjeld",
+      "hovedverdi": "Boliglån og ett kredittkort",
+      "beskrivelse": "Kreditorer som melder seg etter proklama kommer i tillegg",
+      "lenketekst": "Se gjelden",
+      "kilde": {
+        "virksomhet": "Bankene og Skatteetaten",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "poster": [
+          {
+            "type": "boliglan",
+            "kreditor": "Lykke Sparebank"
+          },
+          {
+            "type": "kredittkort",
+            "kreditor": "Nordbank"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eiendom",
+      "domene": "dodsbo.eiendom",
+      "tittel": "Eiendom",
+      "hovedverdi": "1 bolig i Lykke",
+      "beskrivelse": "Eid alene, med pant til boliglånet",
+      "lenketekst": "Se eiendommen",
+      "kilde": {
+        "virksomhet": "Kartverket",
+        "system": "grunnboken",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "eiendommer": [
+          {
+            "kommune": "Lykke",
+            "eierandel": "1/1",
+            "heftelser": [
+              "Pant til Lykke Sparebank"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "kjoretoy",
+      "domene": "dodsbo.kjoretoy",
+      "tittel": "Kjøretøy",
+      "hovedverdi": "1 personbil",
+      "beskrivelse": "Forsikringen løper til den sies opp eller overføres",
+      "lenketekst": "Se kjøretøyet",
+      "kilde": {
+        "virksomhet": "Statens vegvesen",
+        "system": "motorvognregisteret",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "kjoretoy": [
+          {
+            "type": "personbil"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pensjon",
+      "domene": "dodsbo.pensjon-forsikring",
+      "tittel": "Pensjon og forsikring",
+      "hovedverdi": "2 avtaler",
+      "beskrivelse": "En livsforsikring kan ha begunstiget utenfor dødsboet",
+      "lenketekst": "Se avtalene",
+      "kilde": {
+        "virksomhet": "Norsk Pensjon og forsikringsselskapene",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "avtaler": [
+          {
+            "type": "pensjon",
+            "selskap": "Lykke Pensjon"
+          },
+          {
+            "type": "livsforsikring",
+            "selskap": "Lykke Forsikring",
+            "begunstigetUtenforBoet": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "skatt",
+      "domene": "dodsbo.skatt",
+      "tittel": "Skatt",
+      "hovedverdi": "Skattemelding for 2026",
+      "beskrivelse": "Dødsboet må levere skattemelding våren 2027",
+      "lenketekst": "Les mer",
+      "kilde": {
+        "virksomhet": "Skatteetaten",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "inntektsar": 2026,
+        "skattemeldingLeveres": "våren 2027"
+      }
+    },
+    {
+      "id": "aksjer",
+      "domene": "dodsbo.aksjer",
+      "tittel": "Aksjer",
+      "hovedverdi": "20 % av Lykke Bistro AS",
+      "beskrivelse": "Må fordeles i skiftet og meldes som eierskifte",
+      "lenketekst": "Se selskapet",
+      "kilde": {
+        "virksomhet": "Skatteetaten",
+        "system": "aksjonærregisteret",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "poster": [
+          {
+            "selskap": "Lykke Bistro AS",
+            "aktorId": "urn:altinn:organization:identifier-no:lykke-bistro",
+            "andelProsent": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "testament",
+      "domene": "dodsbo.testament",
+      "tittel": "Testament og ektepakt",
+      "hovedverdi": "Ingen registrert",
+      "beskrivelse": "Arven fordeles etter arveloven",
+      "lenketekst": "Slik fordeles arven",
+      "kilde": {
+        "virksomhet": "Lykke tingrett og Brønnøysundregistrene",
+        "hentet": "2026-10-23T07:00:00+02:00"
+      },
+      "livssituasjon": "dodsfall-og-arv",
+      "data": {
+        "testament": false,
+        "ektepakt": false
+      }
+    }
+  ],
+  "tjenesteforslag": [
+    {
+      "tjenesteId": "gravferdsstonad",
+      "tittel": "Gravferdsstønad",
+      "ansvarlig": "Nav",
+      "livssituasjon": "dodsfall-og-arv"
+    },
+    {
+      "tjenesteId": "tinglyse-arv",
+      "tittel": "Tinglyse arv av bolig",
+      "ansvarlig": "Kartverket",
+      "begrunnelse": "Fordi dødsboet eier en bolig",
+      "livssituasjon": "dodsfall-og-arv"
+    },
+    {
+      "tjenesteId": "eierskifte-kjoretoy",
+      "tittel": "Eierskifte av kjøretøy",
+      "ansvarlig": "Statens vegvesen",
+      "begrunnelse": "Fordi dødsboet eier en bil",
+      "livssituasjon": "dodsfall-og-arv"
+    }
+  ],
+  "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000c001",
+      "livssituasjon": "dodsfall-og-arv",
+      "steg": "skifteform"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000c002",
+      "livssituasjon": "dodsfall-og-arv",
+      "steg": "gravferdsstonad"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000c003",
+      "livssituasjon": "dodsfall-og-arv",
+      "steg": "formuesfullmakt"
+    }
+  ]
+}

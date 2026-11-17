@@ -1,0 +1,16 @@
+{
+  "name": "oversikt-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kontrakt, domeneskjemaer og mockdata for «Min oversikt»-dashbordene.",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "editor": "node scripts/editor-server.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.18.0",
+    "ajv-formats": "3.0.1",
+    "yaml": "2.9.1"
+  }
+}

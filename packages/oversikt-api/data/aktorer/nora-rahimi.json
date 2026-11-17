@@ -1,0 +1,13 @@
+{
+  "aktor": {
+    "id": "urn:altinn:person:identifier-no:nora-rahimi",
+    "type": "person",
+    "navn": "Nora Rahimi",
+    "initialer": "NR",
+    "beskrivelse": "Skatt, helse og arbeid"
+  },
+  "livssituasjoner": [],
+  "opplysninger": [],
+  "tjenesteforslag": [],
+  "dialoger": []
+}

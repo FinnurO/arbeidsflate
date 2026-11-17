@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="nb" data-color-scheme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mockdata for Min oversikt</title>
+    <link rel="stylesheet" href="https://altinncdn.no/fonts/inter/v4.1/inter.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@digdir/designsystemet-css@1.23.0/dist/src/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/digdir/varde@main/design-tokens-build/digdir.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-size="sm" data-color="neutral">
+    <div class="oppsett">
+      <nav class="sidefelt" aria-label="Datafiler">
+        <h1 class="ds-heading" data-size="xs">Mockdata for Min oversikt</h1>
+        <p class="ds-paragraph sidefelt-ingress" data-size="sm">Filene i <code>packages/oversikt-api/data</code>.</p>
+        <div id="filliste" class="filliste"></div>
+        <form id="ny-aktor" class="ny-aktor" novalidate>
+          <div class="ds-field">
+            <label class="ds-label" for="ny-aktor-slug" data-weight="medium">Ny aktørfil</label>
+            <p data-field="description">Små bokstaver, tall og bindestrek, f.eks. <code>amir</code>.</p>
+            <input class="ds-input" id="ny-aktor-slug" type="text" autocomplete="off" spellcheck="false" pattern="[a-z0-9][a-z0-9-]*" />
+          </div>
+          <button class="ds-button" data-variant="secondary" type="submit">Opprett aktør</button>
+        </form>
+      </nav>
+
+      <main class="hoved" id="hoved">
+        <div id="tom" class="tom">
+          <h2 class="ds-heading" data-size="sm">Velg en fil</h2>
+          <p class="ds-paragraph">Velg en fil til venstre for å redigere den. Endringene valideres mot skjemaene før de lagres.</p>
+        </div>
+
+        <section id="redigering" hidden>
+          <header class="verktoylinje">
+            <div class="verktoylinje-tittel">
+              <h2 class="ds-heading" data-size="sm" id="fil-tittel">Velg en fil</h2>
+              <p class="ds-paragraph fil-meta" data-size="sm"><code id="fil-sti"></code> <span class="ds-tag" data-color="neutral" id="fil-skjema"></span> <span class="ds-tag" data-color="warning" id="fil-ulagret" hidden>Ikke lagret</span></p>
+            </div>
+            <div class="verktoylinje-knapper">
+              <button class="ds-button" data-variant="tertiary" data-color="danger" type="button" id="slett" hidden>Slett aktørfil</button>
+              <button class="ds-button" data-variant="secondary" type="button" id="angre">Forkast endringer</button>
+              <button class="ds-button" type="button" id="lagre">Lagre</button>
+            </div>
+          </header>
+
+          <div id="melding" class="melding"></div>
+
+          <div class="ds-tabs" data-size="sm">
+            <div role="tablist" aria-label="Visning">
+              <button role="tab" type="button" id="fane-skjema" aria-selected="true" aria-controls="panel-skjema">Skjema</button>
+              <button role="tab" type="button" id="fane-raa" aria-selected="false" aria-controls="panel-raa">Rå JSON</button>
+            </div>
+            <div role="tabpanel" id="panel-skjema" aria-labelledby="fane-skjema">
+              <div class="skjemaverktoy">
+                <button class="ds-button" data-variant="tertiary" data-size="sm" type="button" id="apne-alle">Åpne alle</button>
+                <button class="ds-button" data-variant="tertiary" data-size="sm" type="button" id="lukk-alle">Lukk alle</button>
+              </div>
+              <div id="skjema"></div>
+            </div>
+            <div role="tabpanel" id="panel-raa" aria-labelledby="fane-raa" hidden>
+              <div class="ds-field">
+                <label class="ds-label" for="raa">Filinnhold som JSON</label>
+                <p data-field="description">Endringer her tas med når du går tilbake til skjemaet eller lagrer.</p>
+                <textarea class="ds-input raa" id="raa" spellcheck="false" rows="30"></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

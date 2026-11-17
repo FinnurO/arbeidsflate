@@ -8,6 +8,7 @@ import {
   ExternalLinkIcon,
   FileCheckmarkIcon,
   HeartIcon,
+  HouseIcon,
   InboxFillIcon,
   MagnifyingGlassIcon,
   MenuGridIcon,
@@ -125,6 +126,18 @@ export function buildInboxMenu({
   ];
 
   const inboxItems: MenuItemProps[] = [
+    {
+      id: 'oversikt',
+      'data-testid': 'sidebar-oversikt',
+      groupId: 'global',
+      size: 'lg',
+      icon: HouseIcon,
+      title: t('sidebar.oversikt'),
+      selected: isRouteSelected(pathname, PageRoutes.oversikt),
+      as: createMenuItemComponent({
+        to: PageRoutes.oversikt + pruneSearchQueryParams(currentSearchQuery),
+      }),
+    },
     {
       id: '1',
       'data-testid': 'sidebar-inbox',

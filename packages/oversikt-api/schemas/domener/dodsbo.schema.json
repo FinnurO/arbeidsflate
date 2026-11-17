@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/domener/dodsbo.schema.json",
+  "title": "Dødsbo",
+  "description": "Eiendeler og gjeld i et dødsbo, som i Digitalt dødsbo. Hver $defs-oppføring er én opplysningstype (dodsbo.<navn>).",
+  "$defs": {
+    "bankkontoer": {
+      "title": "Bankkontoer",
+      "type": "object",
+      "required": ["kontoer"],
+      "properties": {
+        "kontoer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["bank", "kontotype"],
+            "properties": {
+              "bank": { "type": "string" },
+              "kontotype": { "type": "string" },
+              "saldo": { "type": "number" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "transaksjonerFra": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "gjeld": {
+      "title": "Gjeld",
+      "type": "object",
+      "required": ["poster"],
+      "properties": {
+        "poster": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "kreditor"],
+            "properties": {
+              "type": { "type": "string", "enum": ["boliglan", "kredittkort", "forbrukslan", "annen"] },
+              "kreditor": { "type": "string" },
+              "belop": { "type": "number" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "proklamaFrist": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "eiendom": {
+      "title": "Eiendom",
+      "type": "object",
+      "required": ["eiendommer"],
+      "properties": {
+        "eiendommer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kommune", "eierandel"],
+            "properties": {
+              "adresse": { "type": "string" },
+              "kommune": { "type": "string" },
+              "eierandel": { "type": "string", "description": "F.eks. «1/1»." },
+              "heftelser": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "kjoretoy": {
+      "title": "Kjøretøy",
+      "type": "object",
+      "required": ["kjoretoy"],
+      "properties": {
+        "kjoretoy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string" },
+              "merke": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "pensjon-forsikring": {
+      "title": "Pensjon og forsikring",
+      "type": "object",
+      "required": ["avtaler"],
+      "properties": {
+        "avtaler": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "selskap"],
+            "properties": {
+              "type": { "type": "string", "enum": ["pensjon", "livsforsikring", "annen"] },
+              "selskap": { "type": "string" },
+              "begunstigetUtenforBoet": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "skatt": {
+      "title": "Skatt",
+      "type": "object",
+      "required": ["inntektsar"],
+      "properties": {
+        "inntektsar": { "type": "integer" },
+        "skattemeldingLeveres": { "type": "string", "description": "F.eks. «våren 2027»." }
+      },
+      "additionalProperties": false
+    },
+    "aksjer": {
+      "title": "Aksjer",
+      "type": "object",
+      "required": ["poster"],
+      "properties": {
+        "poster": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["selskap", "andelProsent"],
+            "properties": {
+              "selskap": { "type": "string" },
+              "aktorId": { "type": "string" },
+              "andelProsent": { "type": "number", "minimum": 0, "maximum": 100 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "testament": {
+      "title": "Testament og ektepakt",
+      "type": "object",
+      "required": ["testament", "ektepakt"],
+      "properties": {
+        "testament": { "type": "boolean" },
+        "ektepakt": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

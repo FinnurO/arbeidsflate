@@ -1,0 +1,343 @@
+:root {
+  --sidefelt-bredde: 18rem;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--ds-color-neutral-background-tinted);
+}
+
+code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85em;
+}
+
+.oppsett {
+  display: grid;
+  grid-template-columns: var(--sidefelt-bredde) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+/* Sidefelt */
+
+.sidefelt {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: var(--ds-size-5) var(--ds-size-4);
+  background: var(--ds-color-neutral-background-default);
+  border-inline-end: 1px solid var(--ds-color-neutral-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-size-4);
+}
+
+.sidefelt-ingress {
+  margin: 0;
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.filliste {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-size-4);
+}
+
+.filgruppe h2 {
+  margin: 0 0 var(--ds-size-1);
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.filgruppe ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.filvalg {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--ds-size-2);
+  padding: var(--ds-size-1) var(--ds-size-2);
+  border-radius: var(--ds-border-radius-md);
+  color: var(--ds-color-neutral-text-default);
+  text-decoration: none;
+}
+
+.filvalg:hover {
+  background: var(--ds-color-neutral-surface-hover);
+}
+
+.filvalg[aria-current="page"] {
+  background: var(--ds-color-accent-surface-tinted);
+  color: var(--ds-color-accent-text-default);
+  font-weight: 500;
+}
+
+.filvalg-under {
+  flex-basis: 100%;
+  font-size: 0.8em;
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.tom-liste {
+  color: var(--ds-color-neutral-text-subtle);
+  font-size: 0.9em;
+  padding-inline: var(--ds-size-2);
+  margin: 0;
+}
+
+.ny-aktor {
+  margin-top: auto;
+  padding-top: var(--ds-size-4);
+  border-top: 1px solid var(--ds-color-neutral-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-size-2);
+}
+
+/* Hovedfelt */
+
+.hoved {
+  padding: 0 var(--ds-size-6) var(--ds-size-12);
+  min-width: 0;
+}
+
+.tom {
+  padding-top: var(--ds-size-10);
+  max-width: 40rem;
+}
+
+.verktoylinje {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--ds-size-3);
+  padding: var(--ds-size-4) 0 var(--ds-size-3);
+  background: var(--ds-color-neutral-background-tinted);
+  border-bottom: 1px solid var(--ds-color-neutral-border-subtle);
+  margin-bottom: var(--ds-size-4);
+}
+
+.verktoylinje h2 {
+  margin: 0;
+}
+
+.fil-meta {
+  margin: var(--ds-size-1) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-size-2);
+  align-items: center;
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.verktoylinje-knapper {
+  display: flex;
+  gap: var(--ds-size-2);
+}
+
+.melding:not(:empty) {
+  margin-bottom: var(--ds-size-4);
+}
+
+.feilliste {
+  margin: var(--ds-size-2) 0 0;
+  padding-inline-start: var(--ds-size-5);
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.feilliste a {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85em;
+}
+
+.ds-tabs [role="tabpanel"] {
+  padding-top: var(--ds-size-4);
+}
+
+.skjemaverktoy {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-size-2);
+  margin-bottom: var(--ds-size-2);
+}
+
+.raa {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85rem;
+  min-height: 70vh;
+  width: 100%;
+  box-sizing: border-box;
+  white-space: pre;
+}
+
+/* Skjemaet */
+
+.rot,
+.objekt,
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-size-4);
+}
+
+.liste {
+  gap: var(--ds-size-2);
+}
+
+.felt {
+  max-width: 44rem;
+}
+
+.felt textarea.ds-input {
+  resize: vertical;
+}
+
+.json-felt {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.nokkel {
+  margin-inline-start: var(--ds-size-2);
+  font-weight: 400;
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.pakrevd {
+  color: var(--ds-color-danger-text-default);
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.85em;
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.null-valg {
+  margin-top: var(--ds-size-1);
+}
+
+.seksjon {
+  background: var(--ds-color-neutral-background-default);
+}
+
+.seksjon .seksjon {
+  background: var(--ds-color-neutral-background-default);
+}
+
+.seksjon > summary {
+  padding-block: var(--ds-size-2);
+}
+
+.seksjon-hode {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-size-2);
+  width: 100%;
+}
+
+.seksjon-tittel {
+  font-weight: 500;
+}
+
+.seksjon-merker {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--ds-size-1);
+}
+
+.seksjon-merker .ds-tag + .ds-tag {
+  margin-inline-start: var(--ds-size-1);
+}
+
+.seksjon-knapper {
+  margin-inline-start: auto;
+  display: inline-flex;
+  gap: var(--ds-size-1);
+}
+
+.seksjon-innhold {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-size-4);
+}
+
+.seksjon-beskrivelse {
+  margin: 0;
+  color: var(--ds-color-neutral-text-subtle);
+}
+
+.gruppe {
+  border: 1px solid var(--ds-color-neutral-border-subtle);
+  border-radius: var(--ds-border-radius-md);
+  padding: var(--ds-size-3) var(--ds-size-4) var(--ds-size-4);
+  margin: 0;
+  max-width: 52rem;
+  min-width: 0;
+}
+
+.gruppe > legend {
+  padding-inline: var(--ds-size-1);
+}
+
+.gruppe-knapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.valgfritt-objekt {
+  display: flex;
+  align-items: center;
+}
+
+.avkrysning {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-size-1) var(--ds-size-5);
+}
+
+.listerad {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ds-size-2);
+}
+
+.listerad > .felt {
+  flex: 1;
+}
+
+.listerad-knapper {
+  display: flex;
+  gap: var(--ds-size-1);
+}
+
+.liste-bunn {
+  display: flex;
+}
+
+@media (max-width: 52rem) {
+  .oppsett {
+    grid-template-columns: 1fr;
+  }
+
+  .sidefelt {
+    position: static;
+    height: auto;
+  }
+
+  .hoved {
+    padding-inline: var(--ds-size-4);
+  }
+}

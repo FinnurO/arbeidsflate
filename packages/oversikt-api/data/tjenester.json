@@ -1,0 +1,172 @@
+[
+  {
+    "id": "skoleskyss",
+    "tittel": "Skoleskyss",
+    "beskrivelse": "Elever i grunnskolen har rett til gratis skyss når skoleveien er lang, farlig eller særlig vanskelig.",
+    "ansvarlig": "Lykke fylkeskommune, sammen med Lykke kommune",
+    "livshendelser": [
+      "barn-og-skole"
+    ],
+    "krav": [
+      {
+        "tittel": "Lang skolevei",
+        "beskrivelse": "Elever på 2.–10. trinn som har mer enn 4 km til skolen. For 1. trinn er grensen 2 km."
+      },
+      {
+        "tittel": "Farlig eller særlig vanskelig skolevei",
+        "beskrivelse": "Kommunen vurderer skoleveien, uansett avstand."
+      },
+      {
+        "tittel": "Funksjonsnedsettelse, skade eller sykdom",
+        "beskrivelse": "Krever dokumentasjon fra lege eller annen fagperson."
+      }
+    ],
+    "resultat": "Et vedtak om skyss. Hvis eleven har rett, følger et skysskort som gjelder hele skoleåret.",
+    "relaterte": [
+      {
+        "tjenesteId": "skoleplass",
+        "tittel": "Skoleplass i grunnskolen",
+        "relasjon": "må være klar først"
+      },
+      {
+        "tittel": "Bytte skole",
+        "relasjon": "kan endre retten"
+      },
+      {
+        "tittel": "Flytte",
+        "relasjon": "ny adresse gir ny vurdering"
+      }
+    ],
+    "kontaktpunkt": "Skyssekontoret, Lykke fylkeskommune",
+    "katalogdekning": [
+      {
+        "visning": "Navn og beskrivelse",
+        "felt": "dct:title, dct:description",
+        "dekning": "ja"
+      },
+      {
+        "visning": "Ansvarlig virksomhet",
+        "felt": "cv:hasCompetentAuthority",
+        "dekning": "ja"
+      },
+      {
+        "visning": "Regelverk",
+        "felt": "cpsv:follows, cv:hasLegalResource",
+        "dekning": "sjelden"
+      },
+      {
+        "visning": "Hvem har rett til skyss",
+        "felt": "cv:holdsRequirement",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Hva du får",
+        "felt": "cpsvno:hasOutputType",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Henger sammen med",
+        "felt": "cv:relatedService, dct:requires",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Livssituasjonen",
+        "felt": "cv:isGroupedBy → cv:LifeEvent",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Kontaktinformasjon",
+        "felt": "cv:contactPoint",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Dette vet vi allerede",
+        "felt": "Kommer fra kildene med hjemmel",
+        "dekning": "utenfor-katalogen"
+      },
+      {
+        "visning": "Status for eleven",
+        "felt": "Kommer fra saksbehandlingen",
+        "dekning": "utenfor-katalogen"
+      }
+    ]
+  },
+  {
+    "id": "pp-tjenesten",
+    "tittel": "Kontakt PP-tjenesten",
+    "beskrivelse": "Pedagogisk-psykologisk tjeneste hjelper skolen og foresatte når et barn trenger tilrettelegging.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "barn-og-skole"
+    ]
+  },
+  {
+    "id": "skolehelsetjenesten",
+    "tittel": "Skolehelsetjenesten",
+    "beskrivelse": "Helsesykepleier på skolen. Elever over 12 år kan snakke med helsesykepleier uten at foresatte får vite innholdet.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "barn-og-skole"
+    ]
+  },
+  {
+    "id": "endre-styrer-stedfortreder",
+    "tittel": "Endre styrer eller stedfortreder",
+    "beskrivelse": "Melding til kommunen om ny styrer eller stedfortreder for en skjenkebevilling.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "starte-og-drive-bedrift"
+    ],
+    "krav": [
+      {
+        "tittel": "Bestått kunnskapsprøven etter alkoholloven"
+      }
+    ]
+  },
+  {
+    "id": "endring-aksjeeiere",
+    "tittel": "Melde endring i aksjeeiere",
+    "beskrivelse": "Endringer i aksjeeiere rapporteres i aksjonærregisteroppgaven.",
+    "ansvarlig": "Skatteetaten",
+    "livshendelser": [
+      "starte-og-drive-bedrift",
+      "dodsfall-og-arv"
+    ]
+  },
+  {
+    "id": "kunnskapsproven",
+    "tittel": "Kunnskapsprøven etter alkoholloven",
+    "beskrivelse": "Styrer og stedfortreder må ha bestått kunnskapsprøven.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "starte-og-drive-bedrift"
+    ]
+  },
+  {
+    "id": "gravferdsstonad",
+    "tittel": "Gravferdsstønad",
+    "beskrivelse": "Stønad til dekning av utgifter til gravferd.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "dodsfall-og-arv"
+    ]
+  },
+  {
+    "id": "tinglyse-arv",
+    "tittel": "Tinglyse arv av bolig",
+    "beskrivelse": "Registrere at boligen er overtatt av arvingene.",
+    "ansvarlig": "Kartverket",
+    "livshendelser": [
+      "dodsfall-og-arv"
+    ]
+  },
+  {
+    "id": "eierskifte-kjoretoy",
+    "tittel": "Eierskifte av kjøretøy",
+    "beskrivelse": "Overføre kjøretøyet til ny eier.",
+    "ansvarlig": "Statens vegvesen",
+    "livshendelser": [
+      "dodsfall-og-arv"
+    ]
+  }
+]

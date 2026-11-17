@@ -17,6 +17,7 @@ import { graphql, HttpResponse, http } from 'msw';
 import { filterDialogs, STORY_MARKDOWN_URL, toDialogById, toSearchDialog } from './data/base/helper.ts';
 import type { ForwardingMock, MockDialog } from './data/base/mockDialog.ts';
 import { getMockedData } from './data.ts';
+import { oversiktHandlers } from './oversikt/handlers.ts';
 
 const data = await getMockedData(window.location.href);
 export type InMemoryStore = {
@@ -1019,4 +1020,5 @@ export const handlers = [
   mockVerifyAddress,
   featuresMock,
   alertBannerMock,
+  ...oversiktHandlers,
 ];

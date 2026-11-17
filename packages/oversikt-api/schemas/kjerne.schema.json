@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/kjerne.schema.json",
+  "title": "Oversikt-API – kjernemodell",
+  "description": "Domeneuavhengige typer som alle dashbord leser. Domenespesifikke opplysninger ligger i Opplysning.data og beskrives av egne skjemaer under schemas/domener.",
+  "$defs": {
+    "AktorId": {
+      "type": "string",
+      "description": "Party-URN som i Altinn/Dialogporten, f.eks. urn:altinn:person:identifier-no:12345678901 eller urn:altinn:organization:identifier-no:999999999.",
+      "pattern": "^urn:altinn:(person|organization):"
+    },
+    "Rolle": {
+      "type": "string",
+      "description": "Hvilken rolle den innloggede har overfor aktøren. Bestemmer hva som er synlig.",
+      "enum": ["selv", "foresatt", "daglig-leder", "styreleder", "regnskapsforer", "arving"]
+    },
+    "Kilde": {
+      "type": "object",
+      "description": "Hvor en opplysning kommer fra og når den ble hentet.",
+      "required": ["virksomhet"],
+      "properties": {
+        "virksomhet": {
+          "type": "string",
+          "description": "Virksomheten som eier opplysningen, f.eks. «Lykke kommune»."
+        },
+        "orgnr": { "type": "string", "pattern": "^[0-9]{9}$" },
+        "system": { "type": "string", "description": "Register eller fagsystem, f.eks. «aksjonærregisteret»." },
+        "hentet": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "Hjemmel": {
+      "type": "object",
+      "description": "Hvorfor den innloggede får se aktøren.",
+      "required": ["beskrivelse", "kilde"],
+      "properties": {
+        "beskrivelse": { "type": "string", "description": "F.eks. «Du har foreldreansvar»." },
+        "kilde": { "$ref": "#/$defs/Kilde" }
+      },
+      "additionalProperties": false
+    },
+    "Aktor": {
+      "type": "object",
+      "required": ["id", "type", "navn"],
+      "properties": {
+        "id": { "$ref": "#/$defs/AktorId" },
+        "type": { "type": "string", "enum": ["person", "organisasjon", "dodsbo"] },
+        "navn": { "type": "string" },
+        "initialer": { "type": "string", "maxLength": 3 },
+        "beskrivelse": { "type": "string", "description": "Kort undertekst, f.eks. «7. trinn ved Lykke barneskole»." },
+        "fodselsdato": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "Tilgang": {
+      "type": "object",
+      "description": "En aktør den innloggede kan se oversikten for.",
+      "required": ["aktor", "rolle", "hjemmel"],
+      "properties": {
+        "aktor": { "$ref": "#/$defs/Aktor" },
+        "rolle": { "$ref": "#/$defs/Rolle" },
+        "rolletekst": { "type": "string", "description": "F.eks. «Du er foresatt»." },
+        "hjemmel": { "$ref": "#/$defs/Hjemmel" },
+        "antallKreverHandling": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "SynligFor": {
+      "type": "array",
+      "description": "Rollene som får se elementet. Mangler feltet, ser alle roller det.",
+      "items": { "$ref": "#/$defs/Rolle" },
+      "uniqueItems": true
+    },
+    "Status": {
+      "type": "string",
+      "description": "Status for et steg. Steg som er knyttet til en dialog, bruker dialogens status i Dialogporten i stedet.",
+      "enum": [
+        "ordnet-automatisk",
+        "krever-handling",
+        "til-signering",
+        "til-behandling",
+        "under-arbeid",
+        "utkast",
+        "venter",
+        "utfort",
+        "ikke-startet",
+        "ikke-aktuelt",
+        "senere"
+      ]
+    },
+    "Handling": {
+      "type": "object",
+      "required": ["tittel", "type", "mal"],
+      "properties": {
+        "tittel": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["dialog", "tjeneste", "aktor", "lenke"],
+          "description": "Hva mal peker på: en dialog i Dialogporten, en tjeneste, en annen aktørs oversikt eller en ekstern lenke."
+        },
+        "mal": { "type": "string" },
+        "primar": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    },
+    "Opplysningsbruk": {
+      "type": "object",
+      "description": "En opplysning som et steg gjenbruker, slik at brukeren ser hva som er gjenbrukt.",
+      "required": ["opplysning", "kilde"],
+      "properties": {
+        "opplysning": { "type": "string" },
+        "kilde": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Steg": {
+      "type": "object",
+      "required": ["id", "tittel", "status"],
+      "properties": {
+        "id": { "type": "string" },
+        "tittel": { "type": "string" },
+        "beskrivelse": { "type": "string" },
+        "status": { "$ref": "#/$defs/Status" },
+        "ansvarlig": { "type": "string" },
+        "frist": { "type": "string", "format": "date" },
+        "fristtekst": {
+          "type": "string",
+          "description": "Brukes når fristen ikke er en dato, f.eks. «Bør gjøres snarest»."
+        },
+        "bruker": { "type": "array", "items": { "$ref": "#/$defs/Opplysningsbruk" } },
+        "dialogId": { "type": "string", "description": "Dialog i Dialogporten som steget gjennomføres i." },
+        "tjenesteId": { "type": "string" },
+        "handling": { "$ref": "#/$defs/Handling" },
+        "synligFor": { "$ref": "#/$defs/SynligFor" }
+      },
+      "additionalProperties": false
+    },
+    "Fase": {
+      "type": "object",
+      "required": ["id", "tittel", "steg"],
+      "properties": {
+        "id": { "type": "string" },
+        "tittel": { "type": "string" },
+        "beskrivelse": { "type": "string" },
+        "steg": { "type": "array", "items": { "$ref": "#/$defs/Steg" } }
+      },
+      "additionalProperties": false
+    },
+    "Livssituasjon": {
+      "type": "object",
+      "required": ["id", "type", "tittel", "faser"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "description": "Livshendelse, helst fra vokabularet https://data.norge.no/vocabulary/life-event-type.",
+          "examples": ["barn-og-skole", "starte-og-drive-bedrift", "dodsfall-og-arv"]
+        },
+        "tittel": { "type": "string" },
+        "aktivFase": { "type": "string", "description": "Id til fasen som vises først." },
+        "faser": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Fase" } }
+      },
+      "additionalProperties": false
+    },
+    "Merknad": {
+      "type": "object",
+      "required": ["tekst", "alvorlighet"],
+      "properties": {
+        "tekst": { "type": "string" },
+        "alvorlighet": { "type": "string", "enum": ["info", "advarsel"] }
+      },
+      "additionalProperties": false
+    },
+    "Opplysning": {
+      "type": "object",
+      "description": "En opplysning hentet fra en kilde. Visningsfeltene er nok til å tegne et kort; domene og data gir detaljene, beskrevet av domeneskjemaet.",
+      "required": ["id", "domene", "tittel", "hovedverdi", "kilde", "data"],
+      "properties": {
+        "id": { "type": "string" },
+        "domene": {
+          "type": "string",
+          "description": "Opplysningstype på formen <domene>.<type>, f.eks. skole.fravaer. Slås opp i /domener for å finne skjemaet til data.",
+          "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$"
+        },
+        "tittel": { "type": "string" },
+        "hovedverdi": { "type": "string" },
+        "beskrivelse": { "type": "string" },
+        "lenketekst": { "type": "string" },
+        "merknad": { "$ref": "#/$defs/Merknad" },
+        "kilde": { "$ref": "#/$defs/Kilde" },
+        "livssituasjon": { "type": "string", "description": "Id til livssituasjonen opplysningen hører til." },
+        "synligFor": { "$ref": "#/$defs/SynligFor" },
+        "data": { "type": "object", "description": "Validerer mot skjemaet til domene." }
+      },
+      "additionalProperties": false
+    },
+    "Tjenesteforslag": {
+      "type": "object",
+      "required": ["tjenesteId", "tittel", "ansvarlig"],
+      "properties": {
+        "tjenesteId": { "type": "string" },
+        "tittel": { "type": "string" },
+        "ansvarlig": { "type": "string" },
+        "begrunnelse": {
+          "type": "string",
+          "description": "Hvorfor tjenesten foreslås, f.eks. «Fordi Amir begynner på ungdomsskolen»."
+        },
+        "livssituasjon": { "type": "string" },
+        "synligFor": { "$ref": "#/$defs/SynligFor" }
+      },
+      "additionalProperties": false
+    },
+    "Dialogreferanse": {
+      "type": "object",
+      "description": "Peker til en dialog i Dialogporten. Tittel, status og frist hentes derfra.",
+      "required": ["dialogId"],
+      "properties": {
+        "dialogId": { "type": "string" },
+        "livssituasjon": { "type": "string" },
+        "steg": { "type": "string" },
+        "synligFor": { "$ref": "#/$defs/SynligFor" }
+      },
+      "additionalProperties": false
+    },
+    "Sammenheng": {
+      "type": "object",
+      "description": "En kobling mellom to aktører eller livssituasjoner som den innloggede bør vite om.",
+      "required": ["id", "fra", "til", "tittel", "beskrivelse"],
+      "properties": {
+        "id": { "type": "string" },
+        "fra": { "$ref": "#/$defs/AktorId" },
+        "til": { "$ref": "#/$defs/AktorId" },
+        "tittel": { "type": "string" },
+        "beskrivelse": { "type": "string" },
+        "kilder": { "type": "array", "items": { "$ref": "#/$defs/Kilde" } },
+        "handlinger": { "type": "array", "items": { "$ref": "#/$defs/Handling" } },
+        "krevesSamtykke": {
+          "type": "boolean",
+          "description": "Sann når handlingen deler opplysninger og krever at brukeren sier ja."
+        }
+      },
+      "additionalProperties": false
+    },
+    "Katalogfelt": {
+      "type": "object",
+      "required": ["visning", "felt", "dekning"],
+      "properties": {
+        "visning": { "type": "string", "description": "Det siden viser, f.eks. «Hvem har rett til skyss»." },
+        "felt": { "type": "string", "description": "Felt i CPSV-AP-NO." },
+        "dekning": { "type": "string", "enum": ["ja", "sjelden", "nei", "utenfor-katalogen"] }
+      },
+      "additionalProperties": false
+    },
+    "Tjeneste": {
+      "type": "object",
+      "description": "Utdrag av en offentlig tjeneste etter CPSV-AP-NO, slik den brukes i dashbordet.",
+      "required": ["id", "tittel", "beskrivelse", "ansvarlig"],
+      "properties": {
+        "id": { "type": "string" },
+        "katalogUri": { "type": "string", "format": "uri" },
+        "tittel": { "type": "string" },
+        "beskrivelse": { "type": "string" },
+        "ansvarlig": { "type": "string" },
+        "livshendelser": { "type": "array", "items": { "type": "string" } },
+        "krav": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tittel"],
+            "properties": { "tittel": { "type": "string" }, "beskrivelse": { "type": "string" } },
+            "additionalProperties": false
+          }
+        },
+        "resultat": { "type": "string" },
+        "relaterte": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tittel", "relasjon"],
+            "properties": {
+              "tjenesteId": { "type": "string" },
+              "tittel": { "type": "string" },
+              "relasjon": { "type": "string", "description": "F.eks. «må være klar først»." }
+            },
+            "additionalProperties": false
+          }
+        },
+        "kontaktpunkt": { "type": "string" },
+        "katalogdekning": { "type": "array", "items": { "$ref": "#/$defs/Katalogfelt" } }
+      },
+      "additionalProperties": false
+    },
+    "Domenetype": {
+      "type": "object",
+      "required": ["id", "domene", "tittel", "skjema"],
+      "properties": {
+        "id": { "type": "string", "description": "F.eks. skole.fravaer." },
+        "domene": { "type": "string" },
+        "tittel": { "type": "string" },
+        "skjema": { "type": "string", "description": "URL til JSON Schema for Opplysning.data." }
+      },
+      "additionalProperties": false
+    },
+    "Oversikt": {
+      "type": "object",
+      "description": "Alt et dashbord trenger for én aktør, filtrert etter den innloggedes rolle.",
+      "required": ["tilgang", "livssituasjoner", "opplysninger", "tjenesteforslag", "dialoger", "sammenhenger"],
+      "properties": {
+        "tilgang": { "$ref": "#/$defs/Tilgang" },
+        "livssituasjoner": { "type": "array", "items": { "$ref": "#/$defs/Livssituasjon" } },
+        "opplysninger": { "type": "array", "items": { "$ref": "#/$defs/Opplysning" } },
+        "tjenesteforslag": { "type": "array", "items": { "$ref": "#/$defs/Tjenesteforslag" } },
+        "dialoger": { "type": "array", "items": { "$ref": "#/$defs/Dialogreferanse" } },
+        "sammenhenger": { "type": "array", "items": { "$ref": "#/$defs/Sammenheng" } }
+      },
+      "additionalProperties": false
+    },
+    "Feil": {
+      "type": "object",
+      "required": ["melding"],
+      "properties": { "melding": { "type": "string" } }
+    }
+  }
+}

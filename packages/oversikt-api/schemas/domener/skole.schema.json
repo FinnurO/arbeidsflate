@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/domener/skole.schema.json",
+  "title": "Skole",
+  "description": "Opplysninger om en elev i grunnskolen. Hver $defs-oppføring er én opplysningstype (skole.<navn>).",
+  "$defs": {
+    "fravaer": {
+      "title": "Fravær",
+      "type": "object",
+      "required": ["skolear", "dager", "timer"],
+      "properties": {
+        "skolear": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{4}$" },
+        "dager": { "type": "integer", "minimum": 0 },
+        "timer": { "type": "integer", "minimum": 0 },
+        "meldtAvForesatte": { "type": "integer", "minimum": 0, "description": "Antall dager meldt av foresatte." },
+        "registreringer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dato", "omfang"],
+            "properties": {
+              "dato": { "type": "string", "format": "date" },
+              "omfang": { "type": "string", "enum": ["dag", "time"] },
+              "antall": { "type": "integer", "minimum": 1 },
+              "meldtAvForesatte": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "vurdering": {
+      "title": "Vurderinger",
+      "type": "object",
+      "required": ["periode", "fag"],
+      "properties": {
+        "periode": { "type": "string", "description": "F.eks. «Halvårsvurdering våren 2026»." },
+        "fag": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["fag"],
+            "properties": {
+              "fag": { "type": "string" },
+              "kommentar": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "nyeTilbakemeldinger": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "provresultat": {
+      "title": "Prøver og kartlegginger",
+      "type": "object",
+      "required": ["prover"],
+      "properties": {
+        "prover": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "omrade", "trinn"],
+            "properties": {
+              "type": { "type": "string", "enum": ["nasjonal-prove", "kartlegging"] },
+              "omrade": { "type": "string", "enum": ["lesing", "regning", "engelsk"] },
+              "trinn": { "type": "integer", "minimum": 1, "maximum": 10 },
+              "skolear": { "type": "string" },
+              "mestringsniva": { "type": "integer", "minimum": 1, "maximum": 5 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "tilrettelegging": {
+      "title": "Tilrettelegging",
+      "type": "object",
+      "required": ["sakkyndigVurdering", "vedtak"],
+      "properties": {
+        "sakkyndigVurdering": { "type": "boolean" },
+        "vedtak": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "fra"],
+            "properties": {
+              "type": { "type": "string" },
+              "fra": { "type": "string", "format": "date" },
+              "til": { "type": "string", "format": "date" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "helsesamtale": {
+      "title": "Samtale med skolehelsetjenesten",
+      "type": "object",
+      "required": ["tidspunkt", "sted"],
+      "properties": {
+        "tidspunkt": { "type": "string", "format": "date-time" },
+        "sted": { "type": "string" },
+        "taushetsplikt": { "type": "boolean", "description": "Sann når foresatte ikke skal se avtalen." }
+      },
+      "additionalProperties": false
+    },
+    "skoleplass": {
+      "title": "Skoleplass",
+      "type": "object",
+      "required": ["skole", "fra"],
+      "properties": {
+        "skole": { "type": "string" },
+        "fra": { "type": "string", "format": "date" },
+        "grunnlag": { "type": "string", "description": "F.eks. «Skolekrets etter adresse i Folkeregisteret»." }
+      },
+      "additionalProperties": false
+    }
+  }
+}

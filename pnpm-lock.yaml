@@ -623,6 +623,18 @@ importers:
         specifier: 'catalog:'
         version: 4.6.7
 
+  packages/oversikt-api:
+    devDependencies:
+      ajv:
+        specifier: 8.18.0
+        version: 8.18.0
+      ajv-formats:
+        specifier: 3.0.1
+        version: 3.0.1(ajv@8.18.0)
+      yaml:
+        specifier: 2.9.1
+        version: 2.9.1
+
 packages:
 
   '@adobe/css-tools@4.4.4':

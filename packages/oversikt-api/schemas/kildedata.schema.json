@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/kildedata.schema.json",
+  "title": "Kildedata for mocken",
+  "description": "Formatet til filene i data/. Mocken setter sammen API-svarene fra disse og filtrerer etter den innloggedes rolle. Filene redigeres i redigeringsappen.",
+  "$defs": {
+    "Bruker": {
+      "type": "object",
+      "description": "En innlogget bruker i mocken. playwrightId velger brukeren i Arbeidsflate: ?mock=true&playwrightId=<playwrightId>.",
+      "required": ["id", "aktorId", "playwrightId"],
+      "properties": {
+        "id": { "type": "string" },
+        "aktorId": { "$ref": "kjerne.schema.json#/$defs/AktorId" },
+        "playwrightId": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+      },
+      "additionalProperties": false
+    },
+    "Brukere": { "type": "array", "items": { "$ref": "#/$defs/Bruker" } },
+    "Tilgangkilde": {
+      "type": "object",
+      "required": ["bruker", "aktor", "rolle", "hjemmel"],
+      "properties": {
+        "bruker": { "$ref": "kjerne.schema.json#/$defs/AktorId" },
+        "aktor": { "$ref": "kjerne.schema.json#/$defs/AktorId" },
+        "rolle": { "$ref": "kjerne.schema.json#/$defs/Rolle" },
+        "rolletekst": { "type": "string" },
+        "hjemmel": { "$ref": "kjerne.schema.json#/$defs/Hjemmel" }
+      },
+      "additionalProperties": false
+    },
+    "Tilganger": { "type": "array", "items": { "$ref": "#/$defs/Tilgangkilde" } },
+    "Aktorkilde": {
+      "type": "object",
+      "description": "Alt om én aktør, før filtrering.",
+      "required": ["aktor", "livssituasjoner", "opplysninger", "tjenesteforslag", "dialoger"],
+      "properties": {
+        "aktor": { "$ref": "kjerne.schema.json#/$defs/Aktor" },
+        "livssituasjoner": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Livssituasjon" } },
+        "opplysninger": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Opplysning" } },
+        "tjenesteforslag": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Tjenesteforslag" } },
+        "dialoger": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Dialogreferanse" } }
+      },
+      "additionalProperties": false
+    },
+    "Sammenhengkilde": {
+      "type": "object",
+      "required": ["bruker", "sammenheng"],
+      "properties": {
+        "bruker": {
+          "$ref": "kjerne.schema.json#/$defs/AktorId",
+          "description": "Den innloggede som skal se sammenhengen."
+        },
+        "sammenheng": { "$ref": "kjerne.schema.json#/$defs/Sammenheng" }
+      },
+      "additionalProperties": false
+    },
+    "Sammenhenger": { "type": "array", "items": { "$ref": "#/$defs/Sammenhengkilde" } },
+    "Tjenester": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Tjeneste" } },
+    "Dialog": {
+      "type": "object",
+      "description": "Forenklet dialog i Dialogporten. Mocken i Arbeidsflate gjør den om til en full dialog.",
+      "required": ["id", "party", "tittel", "sammendrag", "avsender", "status", "opprettet"],
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "party": { "$ref": "kjerne.schema.json#/$defs/AktorId" },
+        "tittel": { "type": "string" },
+        "sammendrag": { "type": "string" },
+        "avsender": { "type": "string" },
+        "tjeneste": { "type": "string", "description": "Ressurs-id uten urn:altinn:resource:-prefiks." },
+        "status": {
+          "type": "string",
+          "enum": ["NotApplicable", "InProgress", "Draft", "Awaiting", "RequiresAttention", "Completed"],
+          "description": "DialogStatus i Dialogporten."
+        },
+        "utvidetStatus": { "type": "string" },
+        "frist": { "type": "string", "format": "date-time" },
+        "opprettet": { "type": "string", "format": "date-time" },
+        "lest": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    },
+    "Dialoger": { "type": "array", "items": { "$ref": "#/$defs/Dialog" } }
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "aktor": {
+    "id": "urn:altinn:person:identifier-no:amir-rahimi",
+    "type": "person",
+    "navn": "Amir Rahimi",
+    "initialer": "AR",
+    "beskrivelse": "7. trinn ved Lykke barneskole",
+    "fodselsdato": "2014-03-02"
+  },
+  "livssituasjoner": [
+    {
+      "id": "barn-og-skole",
+      "type": "barn-og-skole",
+      "tittel": "Barn og skole",
+      "aktivFase": "skolehverdag",
+      "faser": [
+        {
+          "id": "skolehverdag",
+          "tittel": "Skolehverdag",
+          "steg": [
+            {
+              "id": "leirskole",
+              "tittel": "Samtykke til leirskole på 7. trinn",
+              "status": "krever-handling",
+              "ansvarlig": "Lykke barneskole",
+              "frist": "2026-11-27",
+              "dialogId": "01938a10-0000-7000-8000-00000000a001",
+              "synligFor": [
+                "foresatt"
+              ]
+            },
+            {
+              "id": "utviklingssamtale",
+              "tittel": "Velg tid for utviklingssamtale",
+              "status": "krever-handling",
+              "ansvarlig": "Kontaktlærer",
+              "frist": "2026-11-24",
+              "dialogId": "01938a10-0000-7000-8000-00000000a002",
+              "synligFor": [
+                "foresatt"
+              ]
+            },
+            {
+              "id": "fagtekst",
+              "tittel": "Lever fagtekst i norsk",
+              "status": "under-arbeid",
+              "ansvarlig": "Lykke barneskole",
+              "frist": "2026-11-26",
+              "dialogId": "01938a10-0000-7000-8000-00000000a004",
+              "synligFor": [
+                "selv"
+              ]
+            },
+            {
+              "id": "kontaktopplysninger",
+              "tittel": "Sjekk kontaktopplysningene skolen har om deg",
+              "beskrivelse": "Hentet fra Folkeregisteret og Kontakt- og reservasjonsregisteret – du trenger bare å bekrefte.",
+              "status": "under-arbeid",
+              "ansvarlig": "Lykke barneskole",
+              "bruker": [
+                {
+                  "opplysning": "Adresse og foreldreansvar",
+                  "kilde": "Folkeregisteret"
+                },
+                {
+                  "opplysning": "E-post og mobil",
+                  "kilde": "Kontakt- og reservasjonsregisteret"
+                }
+              ],
+              "synligFor": [
+                "foresatt"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "overgang",
+          "tittel": "Overgang til ungdomsskolen",
+          "beskrivelse": "Dette skjer det neste året. Mye ordnes automatisk med opplysninger det offentlige allerede har.",
+          "steg": [
+            {
+              "id": "skoleplass",
+              "tittel": "Skoleplass på Lykke ungdomsskole",
+              "beskrivelse": "Du trenger ikke søke.",
+              "status": "ordnet-automatisk",
+              "ansvarlig": "Lykke kommune",
+              "bruker": [
+                {
+                  "opplysning": "Adresse",
+                  "kilde": "Folkeregisteret"
+                },
+                {
+                  "opplysning": "Skolekrets",
+                  "kilde": "Lykke kommune"
+                }
+              ],
+              "handling": {
+                "tittel": "Se vedtak",
+                "type": "lenke",
+                "mal": "#"
+              }
+            },
+            {
+              "id": "fremmedsprak",
+              "tittel": "Velg fremmedspråk eller fordypning",
+              "beskrivelse": "Amir og foresatte velger sammen.",
+              "status": "krever-handling",
+              "ansvarlig": "Lykke ungdomsskole",
+              "frist": "2027-03-01",
+              "handling": {
+                "tittel": "Start oppgave",
+                "type": "lenke",
+                "mal": "#",
+                "primar": true
+              }
+            },
+            {
+              "id": "skoleskyss",
+              "tittel": "Skoleskyss",
+              "beskrivelse": "Retten vurderes når skoleplassen er klar.",
+              "status": "til-behandling",
+              "ansvarlig": "Lykke fylkeskommune",
+              "tjenesteId": "skoleskyss",
+              "bruker": [
+                {
+                  "opplysning": "Adresse",
+                  "kilde": "Folkeregisteret"
+                },
+                {
+                  "opplysning": "Ny skole",
+                  "kilde": "Lykke kommune"
+                },
+                {
+                  "opplysning": "Gangavstand",
+                  "kilde": "Lykke fylkeskommune"
+                }
+              ],
+              "handling": {
+                "tittel": "Om tjenesten",
+                "type": "tjeneste",
+                "mal": "skoleskyss"
+              }
+            },
+            {
+              "id": "overforing",
+              "tittel": "Overføring av informasjon til ny skole",
+              "beskrivelse": "Barneskolen kan dele vurderinger og kartlegginger med ungdomsskolen hvis dere samtykker.",
+              "status": "til-signering",
+              "ansvarlig": "Lykke barneskole",
+              "handling": {
+                "tittel": "Ta stilling",
+                "type": "lenke",
+                "mal": "#"
+              },
+              "synligFor": [
+                "foresatt"
+              ]
+            },
+            {
+              "id": "bli-kjent",
+              "tittel": "Bli kjent-dag på ungdomsskolen",
+              "beskrivelse": "Invitasjon kommer fra Lykke ungdomsskole i mai 2027.",
+              "status": "senere",
+              "ansvarlig": "Lykke ungdomsskole"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "opplysninger": [
+    {
+      "id": "fravaer",
+      "domene": "skole.fravaer",
+      "tittel": "Fravær",
+      "hovedverdi": "3 dager og 4 timer",
+      "beskrivelse": "Dette skoleåret, 2 dager er meldt av foresatte",
+      "lenketekst": "Se dagene",
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "skolens administrative system",
+        "hentet": "2026-11-17T07:00:00+01:00"
+      },
+      "livssituasjon": "barn-og-skole",
+      "data": {
+        "skolear": "2026-2027",
+        "dager": 3,
+        "timer": 4,
+        "meldtAvForesatte": 2
+      }
+    },
+    {
+      "id": "vurdering",
+      "domene": "skole.vurdering",
+      "tittel": "Vurderinger",
+      "hovedverdi": "Halvårsvurdering våren 2026",
+      "beskrivelse": "Skriftlig vurdering i 9 fag og 2 nye tilbakemeldinger i høst",
+      "lenketekst": "Les vurderingene",
+      "kilde": {
+        "virksomhet": "Lykke barneskole",
+        "system": "skolens læringsplattform",
+        "hentet": "2026-11-16T18:40:00+01:00"
+      },
+      "livssituasjon": "barn-og-skole",
+      "data": {
+        "periode": "Halvårsvurdering våren 2026",
+        "fag": [
+          {
+            "fag": "Norsk"
+          },
+          {
+            "fag": "Matematikk"
+          },
+          {
+            "fag": "Engelsk"
+          }
+        ],
+        "nyeTilbakemeldinger": 2
+      }
+    },
+    {
+      "id": "prover",
+      "domene": "skole.provresultat",
+      "tittel": "Prøver og kartlegginger",
+      "hovedverdi": "Nasjonale prøver 5. trinn",
+      "beskrivelse": "Lesing, regning og engelsk, og to kartlegginger i lesing fra 6. trinn",
+      "lenketekst": "Se resultater over tid",
+      "kilde": {
+        "virksomhet": "Utdanningsdirektoratet",
+        "system": "prøveadministrasjonssystemet",
+        "hentet": "2026-11-12T06:00:00+01:00"
+      },
+      "livssituasjon": "barn-og-skole",
+      "data": {
+        "prover": [
+          {
+            "type": "nasjonal-prove",
+            "omrade": "lesing",
+            "trinn": 5,
+            "skolear": "2024-2025",
+            "mestringsniva": 2
+          },
+          {
+            "type": "nasjonal-prove",
+            "omrade": "regning",
+            "trinn": 5,
+            "skolear": "2024-2025",
+            "mestringsniva": 2
+          },
+          {
+            "type": "nasjonal-prove",
+            "omrade": "engelsk",
+            "trinn": 5,
+            "skolear": "2024-2025",
+            "mestringsniva": 3
+          },
+          {
+            "type": "kartlegging",
+            "omrade": "lesing",
+            "trinn": 6,
+            "skolear": "2025-2026"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tilrettelegging",
+      "domene": "skole.tilrettelegging",
+      "tittel": "Tilrettelegging",
+      "hovedverdi": "Ingen vedtak",
+      "beskrivelse": "Ingen sakkyndig vurdering eller vedtak om spesialundervisning",
+      "lenketekst": "Hva er PP-tjenesten?",
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "PP-tjenesten",
+        "hentet": "2026-11-17T07:00:00+01:00"
+      },
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "foresatt"
+      ],
+      "data": {
+        "sakkyndigVurdering": false,
+        "vedtak": []
+      }
+    },
+    {
+      "id": "helsesamtale",
+      "domene": "skole.helsesamtale",
+      "tittel": "Samtale med helsesykepleier",
+      "hovedverdi": "Tirsdag 24. november kl. 11.30",
+      "beskrivelse": "På helserommet. Foreldrene dine kan ikke se dette.",
+      "lenketekst": "Endre tid",
+      "merknad": {
+        "tekst": "Når du er over 12 år, kan du snakke med helsesykepleier uten at foreldrene dine får vite hva dere snakker om.",
+        "alvorlighet": "info"
+      },
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "skolehelsetjenesten",
+        "hentet": "2026-11-17T07:00:00+01:00"
+      },
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "selv"
+      ],
+      "data": {
+        "tidspunkt": "2026-11-24T11:30:00+01:00",
+        "sted": "Helserommet, Lykke barneskole",
+        "taushetsplikt": true
+      }
+    },
+    {
+      "id": "skoleplass",
+      "domene": "skole.skoleplass",
+      "tittel": "Skoleplass neste år",
+      "hovedverdi": "Lykke ungdomsskole",
+      "beskrivelse": "Fra høsten 2027. Før 1. mars velges fremmedspråk.",
+      "lenketekst": "Les om språkfagene",
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "hentet": "2026-11-01T07:00:00+01:00"
+      },
+      "livssituasjon": "barn-og-skole",
+      "data": {
+        "skole": "Lykke ungdomsskole",
+        "fra": "2027-08-17",
+        "grunnlag": "Skolekrets etter adresse i Folkeregisteret"
+      }
+    }
+  ],
+  "tjenesteforslag": [
+    {
+      "tjenesteId": "skoleskyss",
+      "tittel": "Skoleskyss",
+      "ansvarlig": "Lykke fylkeskommune",
+      "begrunnelse": "Fordi Amir begynner på ungdomsskolen",
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "foresatt"
+      ]
+    },
+    {
+      "tjenesteId": "pp-tjenesten",
+      "tittel": "Kontakt PP-tjenesten",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Tilbud til alle med barn i grunnskolen",
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "foresatt"
+      ]
+    },
+    {
+      "tjenesteId": "skolehelsetjenesten",
+      "tittel": "Skolehelsetjenesten",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Du kan snakke med helsesykepleier uten at foreldrene dine vet om det",
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "selv"
+      ]
+    },
+    {
+      "tjenesteId": "skolehelsetjenesten",
+      "tittel": "Skolehelsetjenesten",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Fordi Amir går på 7. trinn",
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "foresatt"
+      ]
+    }
+  ],
+  "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a001",
+      "livssituasjon": "barn-og-skole",
+      "steg": "leirskole",
+      "synligFor": [
+        "foresatt"
+      ]
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a002",
+      "livssituasjon": "barn-og-skole",
+      "steg": "utviklingssamtale",
+      "synligFor": [
+        "foresatt"
+      ]
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a003",
+      "livssituasjon": "barn-og-skole"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a004",
+      "livssituasjon": "barn-og-skole",
+      "steg": "fagtekst",
+      "synligFor": [
+        "selv"
+      ]
+    }
+  ]
+}

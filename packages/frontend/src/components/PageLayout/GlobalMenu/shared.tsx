@@ -12,9 +12,14 @@ export const isRouteSelected = (currentRoute: string, targetRoute: PageRoutes, f
   }
 
   /* default to inbox if no fromView and currentRoute is not a top level route, e.g. viewing a dialog entered the url */
+  if (targetRoute === PageRoutes.oversikt) {
+    return currentRoute.startsWith(PageRoutes.oversikt);
+  }
+
   if (
     !fromView &&
     !Object.values(PageRoutes).includes(currentRoute as PageRoutes) &&
+    !currentRoute.startsWith(PageRoutes.oversikt) &&
     targetRoute === PageRoutes.inbox
   ) {
     return true;

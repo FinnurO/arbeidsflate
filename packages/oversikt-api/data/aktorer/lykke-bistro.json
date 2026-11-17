@@ -1,0 +1,268 @@
+{
+  "aktor": {
+    "id": "urn:altinn:organization:identifier-no:lykke-bistro",
+    "type": "organisasjon",
+    "navn": "Lykke Bistro AS",
+    "initialer": "LB",
+    "beskrivelse": "Restaurant i Lykke sentrum"
+  },
+  "livssituasjoner": [
+    {
+      "id": "starte-og-drive-bedrift",
+      "type": "starte-og-drive-bedrift",
+      "tittel": "Starte og drive bedrift",
+      "aktivFase": "drive",
+      "faser": [
+        {
+          "id": "starte",
+          "tittel": "Starte",
+          "beskrivelse": "Alt er ferdig. Restauranten åpnet 1. mars 2025.",
+          "steg": [
+            {
+              "id": "etablere",
+              "tittel": "Etablere selskap",
+              "status": "utfort",
+              "ansvarlig": "Brønnøysundregistrene"
+            },
+            {
+              "id": "roller",
+              "tittel": "Fordele roller",
+              "beskrivelse": "Daglig leder, styreleder, styrer og stedfortreder",
+              "status": "utfort"
+            },
+            {
+              "id": "servering",
+              "tittel": "Serveringsbevilling",
+              "status": "utfort",
+              "ansvarlig": "Lykke kommune",
+              "bruker": [
+                {
+                  "opplysning": "Etablererprøven",
+                  "kilde": "Lykke kommune"
+                }
+              ]
+            },
+            {
+              "id": "skjenking",
+              "tittel": "Skjenkebevilling",
+              "beskrivelse": "Kunnskapsprøven ble delt med Jonas Berg og Reza Rahimi.",
+              "status": "utfort",
+              "ansvarlig": "Lykke kommune",
+              "handling": {
+                "tittel": "Se vedtak",
+                "type": "lenke",
+                "mal": "#"
+              }
+            },
+            {
+              "id": "mva-registrering",
+              "tittel": "Registrere i Merverdiavgiftsregisteret",
+              "status": "utfort",
+              "ansvarlig": "Skatteetaten"
+            }
+          ]
+        },
+        {
+          "id": "drive",
+          "tittel": "Drive",
+          "steg": [
+            {
+              "id": "stedfortreder",
+              "tittel": "Meld ny stedfortreder for skjenkebevillingen",
+              "beskrivelse": "Jonas Berg har bestått kunnskapsprøven og kan bli stedfortreder.",
+              "status": "krever-handling",
+              "ansvarlig": "Lykke kommune",
+              "fristtekst": "Bør gjøres snarest",
+              "dialogId": "01938a10-0000-7000-8000-00000000b001",
+              "bruker": [
+                {
+                  "opplysning": "Bestått kunnskapsprøve for Jonas Berg",
+                  "kilde": "Lykke kommune"
+                }
+              ]
+            },
+            {
+              "id": "a-melding",
+              "tittel": "Lever a-melding for november",
+              "beskrivelse": "Sendes fra lønnssystemet.",
+              "status": "krever-handling",
+              "ansvarlig": "Skatteetaten",
+              "frist": "2026-12-05",
+              "dialogId": "01938a10-0000-7000-8000-00000000b002",
+              "handling": {
+                "tittel": "Del med regnskapsfører",
+                "type": "lenke",
+                "mal": "#"
+              }
+            },
+            {
+              "id": "mva-melding",
+              "tittel": "Mva-melding for september og oktober",
+              "beskrivelse": "Regnskapsfører har startet.",
+              "status": "utkast",
+              "ansvarlig": "Skatteetaten",
+              "frist": "2026-12-10",
+              "dialogId": "01938a10-0000-7000-8000-00000000b003"
+            },
+            {
+              "id": "omsetningsoppgave",
+              "tittel": "Omsetningsoppgave for alkohol for 2026",
+              "beskrivelse": "Kommer i januar 2027.",
+              "status": "senere",
+              "ansvarlig": "Lykke kommune"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "opplysninger": [
+    {
+      "id": "eiere",
+      "domene": "virksomhet.eiere",
+      "tittel": "Eiere",
+      "hovedverdi": "3 aksjonærer",
+      "beskrivelse": "Nora Rahimi 40 %, Jonas Berg 40 %, dødsboet etter Reza Rahimi 20 %",
+      "merknad": {
+        "tekst": "Endres ved skiftet",
+        "alvorlighet": "advarsel"
+      },
+      "kilde": {
+        "virksomhet": "Skatteetaten",
+        "system": "aksjonærregisteret",
+        "hentet": "2026-11-17T07:00:00+01:00"
+      },
+      "livssituasjon": "starte-og-drive-bedrift",
+      "data": {
+        "per": "2025-12-31",
+        "eiere": [
+          {
+            "navn": "Nora Rahimi",
+            "aktorId": "urn:altinn:person:identifier-no:nora-rahimi",
+            "andelProsent": 40
+          },
+          {
+            "navn": "Jonas Berg",
+            "andelProsent": 40
+          },
+          {
+            "navn": "Dødsboet etter Reza Rahimi",
+            "aktorId": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+            "andelProsent": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "bevillinger",
+      "domene": "virksomhet.bevillinger",
+      "tittel": "Bevillinger",
+      "hovedverdi": "Mangler stedfortreder",
+      "beskrivelse": "Serveringsbevilling gyldig. Skjenkebevilling gyldig til 30.09.2028, styrer Nora Rahimi.",
+      "merknad": {
+        "tekst": "Reza Rahimi var stedfortreder og døde 12. oktober.",
+        "alvorlighet": "advarsel"
+      },
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "bevillingsregisteret",
+        "hentet": "2026-11-17T07:00:00+01:00"
+      },
+      "livssituasjon": "starte-og-drive-bedrift",
+      "data": {
+        "bevillinger": [
+          {
+            "type": "servering"
+          },
+          {
+            "type": "skjenking",
+            "gyldigTil": "2028-09-30",
+            "styrer": "Nora Rahimi",
+            "stedfortreder": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "ansatte",
+      "domene": "virksomhet.ansatte",
+      "tittel": "Ansatte",
+      "hovedverdi": "6 ansatte",
+      "beskrivelse": "Som rapportert i a-meldingen for oktober",
+      "kilde": {
+        "virksomhet": "Skatteetaten",
+        "system": "a-ordningen",
+        "hentet": "2026-11-06T07:00:00+01:00"
+      },
+      "livssituasjon": "starte-og-drive-bedrift",
+      "data": {
+        "antall": 6,
+        "periode": "2026-10"
+      }
+    },
+    {
+      "id": "roller",
+      "domene": "virksomhet.roller",
+      "tittel": "Roller",
+      "hovedverdi": "Nora Rahimi er daglig leder",
+      "beskrivelse": "Jonas Berg er styreleder",
+      "kilde": {
+        "virksomhet": "Brønnøysundregistrene",
+        "system": "Enhetsregisteret",
+        "hentet": "2026-11-17T07:00:00+01:00"
+      },
+      "livssituasjon": "starte-og-drive-bedrift",
+      "data": {
+        "roller": [
+          {
+            "rolle": "daglig-leder",
+            "navn": "Nora Rahimi"
+          },
+          {
+            "rolle": "styreleder",
+            "navn": "Jonas Berg"
+          }
+        ]
+      }
+    }
+  ],
+  "tjenesteforslag": [
+    {
+      "tjenesteId": "endre-styrer-stedfortreder",
+      "tittel": "Endre styrer eller stedfortreder",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Fordi bevillingen mangler stedfortreder",
+      "livssituasjon": "starte-og-drive-bedrift"
+    },
+    {
+      "tjenesteId": "endring-aksjeeiere",
+      "tittel": "Melde endring i aksjeeiere",
+      "ansvarlig": "Skatteetaten",
+      "begrunnelse": "Fordi en aksjeeier er død",
+      "livssituasjon": "starte-og-drive-bedrift"
+    },
+    {
+      "tjenesteId": "kunnskapsproven",
+      "tittel": "Kunnskapsprøven etter alkoholloven",
+      "ansvarlig": "Lykke kommune",
+      "livssituasjon": "starte-og-drive-bedrift"
+    }
+  ],
+  "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000b001",
+      "livssituasjon": "starte-og-drive-bedrift",
+      "steg": "stedfortreder"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000b002",
+      "livssituasjon": "starte-og-drive-bedrift",
+      "steg": "a-melding"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000b003",
+      "livssituasjon": "starte-og-drive-bedrift",
+      "steg": "mva-melding"
+    }
+  ]
+}

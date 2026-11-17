@@ -1,0 +1,111 @@
+[
+  {
+    "id": "01938a10-0000-7000-8000-00000000a001",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Samtykke til leirskole på 7. trinn",
+    "sammendrag": "Begge foresatte må svare innen fristen.",
+    "avsender": "Lykke barneskole",
+    "tjeneste": "lykke-skole-samtykke",
+    "status": "RequiresAttention",
+    "frist": "2026-11-27T23:59:00+01:00",
+    "opprettet": "2026-11-10T08:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000a002",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Velg tid for utviklingssamtale",
+    "sammendrag": "Jonas Berg har ikke svart ennå.",
+    "avsender": "Lykke barneskole",
+    "tjeneste": "lykke-skole-samtale",
+    "status": "RequiresAttention",
+    "frist": "2026-11-24T23:59:00+01:00",
+    "opprettet": "2026-11-12T08:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000a003",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Ukebrev uke 47",
+    "sammendrag": "Husk gymtøy torsdag og ekstra matpakke til turdagen.",
+    "avsender": "Lykke barneskole",
+    "tjeneste": "lykke-skole-melding",
+    "status": "NotApplicable",
+    "opprettet": "2026-11-16T07:30:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000a004",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Lever fagtekst i norsk",
+    "sammendrag": "Frist torsdag 26. november.",
+    "avsender": "Lykke barneskole",
+    "tjeneste": "lykke-skole-oppgave",
+    "status": "InProgress",
+    "frist": "2026-11-26T15:00:00+01:00",
+    "opprettet": "2026-11-13T09:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000b001",
+    "party": "urn:altinn:organization:identifier-no:lykke-bistro",
+    "tittel": "Meld ny stedfortreder for skjenkebevillingen",
+    "sammendrag": "Reza Rahimi var registrert som stedfortreder. Jonas Berg har bestått kunnskapsprøven.",
+    "avsender": "Lykke kommune",
+    "tjeneste": "lykke-skjenkebevilling-endring",
+    "status": "RequiresAttention",
+    "utvidetStatus": "Bør gjøres snarest",
+    "opprettet": "2026-10-23T10:00:00+02:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000b002",
+    "party": "urn:altinn:organization:identifier-no:lykke-bistro",
+    "tittel": "A-melding for november",
+    "sammendrag": "Sendes fra lønnssystemet.",
+    "avsender": "Skatteetaten",
+    "tjeneste": "a-melding",
+    "status": "RequiresAttention",
+    "frist": "2026-12-05T23:59:00+01:00",
+    "opprettet": "2026-11-01T00:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000b003",
+    "party": "urn:altinn:organization:identifier-no:lykke-bistro",
+    "tittel": "Mva-melding for september og oktober",
+    "sammendrag": "Regnskapsfører har startet.",
+    "avsender": "Skatteetaten",
+    "tjeneste": "mva-melding",
+    "status": "Draft",
+    "frist": "2026-12-10T23:59:00+01:00",
+    "opprettet": "2026-11-02T00:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000c001",
+    "party": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+    "tittel": "Velg skifteform",
+    "sammendrag": "2 av 3 arvinger har signert for privat skifte.",
+    "avsender": "Lykke tingrett",
+    "tjeneste": "skifteform",
+    "status": "RequiresAttention",
+    "utvidetStatus": "Til signering",
+    "frist": "2026-12-11T23:59:00+01:00",
+    "opprettet": "2026-10-22T09:00:00+02:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000c002",
+    "party": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+    "tittel": "Søk om gravferdsstønad",
+    "sammendrag": "Opplysninger om dødsboet fylles ut for deg.",
+    "avsender": "Nav",
+    "tjeneste": "gravferdsstonad",
+    "status": "RequiresAttention",
+    "frist": "2027-04-12T23:59:00+02:00",
+    "opprettet": "2026-10-13T08:00:00+02:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000c003",
+    "party": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+    "tittel": "Formuesfullmakt er utstedt",
+    "sammendrag": "Du kan nå se eiendeler og gjeld i dødsboet.",
+    "avsender": "Lykke tingrett",
+    "tjeneste": "formuesfullmakt",
+    "status": "Completed",
+    "opprettet": "2026-10-22T09:00:00+02:00"
+  }
+]

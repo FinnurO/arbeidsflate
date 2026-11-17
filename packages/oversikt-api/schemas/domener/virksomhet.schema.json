@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/domener/virksomhet.schema.json",
+  "title": "Virksomhet",
+  "description": "Opplysninger om en virksomhet. Hver $defs-oppføring er én opplysningstype (virksomhet.<navn>).",
+  "$defs": {
+    "roller": {
+      "title": "Roller",
+      "type": "object",
+      "required": ["roller"],
+      "properties": {
+        "roller": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rolle", "navn"],
+            "properties": {
+              "rolle": {
+                "type": "string",
+                "enum": ["daglig-leder", "styreleder", "styremedlem", "regnskapsforer", "revisor"]
+              },
+              "navn": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "eiere": {
+      "title": "Eiere",
+      "type": "object",
+      "required": ["per", "eiere"],
+      "properties": {
+        "per": { "type": "string", "format": "date" },
+        "eiere": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["navn", "andelProsent"],
+            "properties": {
+              "navn": { "type": "string" },
+              "aktorId": { "type": "string" },
+              "andelProsent": { "type": "number", "minimum": 0, "maximum": 100 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "bevillinger": {
+      "title": "Bevillinger",
+      "type": "object",
+      "required": ["bevillinger"],
+      "properties": {
+        "bevillinger": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string", "enum": ["servering", "skjenking", "salg-av-alkohol"] },
+              "gyldigTil": { "type": "string", "format": "date" },
+              "styrer": { "type": "string" },
+              "stedfortreder": {
+                "type": ["string", "null"],
+                "description": "null betyr at bevillingen mangler stedfortreder."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ansatte": {
+      "title": "Ansatte",
+      "type": "object",
+      "required": ["antall", "periode"],
+      "properties": {
+        "antall": { "type": "integer", "minimum": 0 },
+        "periode": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}$",
+          "description": "A-meldingsperioden tallet gjelder, ÅÅÅÅ-MM."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

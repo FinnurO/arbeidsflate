@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: Oversikt-API
+  version: 0.1.0
+  summary: Felles API for «Min oversikt»-dashbord på tvers av livssituasjoner.
+  description: |
+    Ett API som alle dashbordene leser, uansett livssituasjon. Kjernen er domeneuavhengig:
+    aktører, livssituasjoner med faser og steg, opplysninger med kilde, tjenesteforslag og
+    sammenhenger. Domenespesifikke opplysninger ligger i `Opplysning.data` og beskrives av
+    egne JSON Schema-filer som slås opp via `GET /domener`.
+
+    Oppgaver og meldinger er dialoger i Dialogporten. Dette API-et peker bare til dem med
+    `Dialogreferanse` og knytter dem til livssituasjon og steg.
+
+    Alt filtreres etter den innloggedes rolle overfor aktøren (`Rolle`), slik at for eksempel
+    en foresatt og barnet selv ser ulike utsnitt av samme data.
+
+    Status: konsept. Eksempeldata for familien Rahimi Berg ligger i `data/`.
+servers:
+  - url: /api/oversikt/v1
+    description: Samme opphav som Arbeidsflate (mock via MSW i utvikling)
+tags:
+  - name: Aktører
+  - name: Oversikt
+  - name: Tjenester
+  - name: Domener
+paths:
+  /aktorer:
+    get:
+      tags: [Aktører]
+      operationId: hentTilganger
+      summary: Aktørene den innloggede kan se oversikten for
+      description: Den innloggede selv kommer alltid først, med rollen `selv`.
+      responses:
+        '200':
+          description: Tilganger
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './schemas/kjerne.schema.json#/$defs/Tilgang'
+        '401':
+          $ref: '#/components/responses/IkkeInnlogget'
+  /aktorer/{aktorId}/oversikt:
+    get:
+      tags: [Oversikt]
+      operationId: hentOversikt
+      summary: Alt et dashbord trenger for én aktør
+      parameters:
+        - $ref: '#/components/parameters/AktorId'
+      responses:
+        '200':
+          description: Oversikten, filtrert etter den innloggedes rolle
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/kjerne.schema.json#/$defs/Oversikt'
+        '401':
+          $ref: '#/components/responses/IkkeInnlogget'
+        '403':
+          description: Den innloggede har ingen tilgang til aktøren
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/kjerne.schema.json#/$defs/Feil'
+        '404':
+          $ref: '#/components/responses/IkkeFunnet'
+  /sammenhenger:
+    get:
+      tags: [Oversikt]
+      operationId: hentSammenhenger
+      summary: Sammenhenger på tvers av aktørene den innloggede ser
+      responses:
+        '200':
+          description: Sammenhenger
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './schemas/kjerne.schema.json#/$defs/Sammenheng'
+        '401':
+          $ref: '#/components/responses/IkkeInnlogget'
+  /tjenester/{tjenesteId}:
+    get:
+      tags: [Tjenester]
+      operationId: hentTjeneste
+      summary: Én tjeneste, med markering av hvilke felt som finnes i tjenestekatalogen
+      parameters:
+        - name: tjenesteId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tjenesten
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/kjerne.schema.json#/$defs/Tjeneste'
+        '404':
+          $ref: '#/components/responses/IkkeFunnet'
+  /domener:
+    get:
+      tags: [Domener]
+      operationId: hentDomenetyper
+      summary: Register over opplysningstyper og skjemaene til `Opplysning.data`
+      responses:
+        '200':
+          description: Domenetyper
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './schemas/kjerne.schema.json#/$defs/Domenetype'
+components:
+  parameters:
+    AktorId:
+      name: aktorId
+      in: path
+      required: true
+      description: Party-URN, URL-kodet.
+      schema:
+        $ref: './schemas/kjerne.schema.json#/$defs/AktorId'
+  responses:
+    IkkeInnlogget:
+      description: Ikke innlogget
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/kjerne.schema.json#/$defs/Feil'
+    IkkeFunnet:
+      description: Finnes ikke
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/kjerne.schema.json#/$defs/Feil'

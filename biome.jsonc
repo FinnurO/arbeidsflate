@@ -77,6 +77,15 @@
           "correctness": { "noUnusedVariables": "off", "noUnusedImports": "off" }
         }
       }
+    },
+    {
+      // Kommandolinjeverktøy for Oversikt-API skriver til konsollen med vilje.
+      "includes": ["packages/oversikt-api/scripts/**"],
+      "linter": {
+        "rules": {
+          "suspicious": { "noConsole": "off" }
+        }
+      }
     }
   ],
   "files": {
@@ -90,6 +99,8 @@
       "!**/build",
       "!**/test-results",
       "!**/mockServiceWorker.js",
+      // Mockdata for Min oversikt skrives av redigeringsappen i packages/oversikt-api.
+      "!packages/oversikt-api/data",
       "!**/*.svg",
       "!package.json"
     ]

@@ -1,0 +1,77 @@
+[
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
+      "id": "stedfortreder",
+      "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+      "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+      "tittel": "Restauranten mangler stedfortreder for skjenkebevillingen",
+      "beskrivelse": "Reza Rahimi var registrert som stedfortreder. Lykke kommune må få melding om ny stedfortreder, ellers kan bevillingen stå i fare.",
+      "kilder": [
+        {
+          "virksomhet": "Lykke kommune",
+          "system": "bevillingsregisteret"
+        },
+        {
+          "virksomhet": "Skatteetaten",
+          "system": "Folkeregisteret"
+        }
+      ],
+      "handlinger": [
+        {
+          "tittel": "Meld ny stedfortreder",
+          "type": "dialog",
+          "mal": "01938a10-0000-7000-8000-00000000b001",
+          "primar": true
+        }
+      ]
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
+      "id": "aksjer",
+      "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+      "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+      "tittel": "Dødsboet eier 20 % av aksjene i restauranten",
+      "beskrivelse": "Aksjene må fordeles mellom arvingene i skiftet, og eierskiftet må registreres for selskapet.",
+      "kilder": [
+        {
+          "virksomhet": "Skatteetaten",
+          "system": "aksjonærregisteret"
+        }
+      ],
+      "handlinger": [
+        {
+          "tittel": "Se i dødsboet",
+          "type": "aktor",
+          "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+        }
+      ]
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
+      "id": "skolen",
+      "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+      "til": "urn:altinn:person:identifier-no:amir-rahimi",
+      "tittel": "Amir har mistet bestefaren sin",
+      "beskrivelse": "Skolen kan følge Amir ekstra opp hvis de vet om det. Ingenting deles med skolen uten at du sier ja.",
+      "krevesSamtykke": true,
+      "handlinger": [
+        {
+          "tittel": "Gi beskjed til kontaktlæreren",
+          "type": "lenke",
+          "mal": "#",
+          "primar": true
+        },
+        {
+          "tittel": "Gå til Amirs oversikt",
+          "type": "aktor",
+          "mal": "urn:altinn:person:identifier-no:amir-rahimi"
+        }
+      ]
+    }
+  }
+]
