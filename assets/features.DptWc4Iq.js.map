@@ -1,0 +1,1 @@
+{"version":3,"file":"features.DptWc4Iq.js","names":[],"sources":["../../src/mocks/data/stories/telemetry/features.ts"],"sourcesContent":["import { features as baseFeatures } from '../../base/features.ts';\n\nexport const features = {\n  ...baseFeatures,\n  'global.enableCookieBanner': true,\n};\n"],"mappings":"2CAEA,IAAa,EAAW,CACtB,GAAG,EACH,4BAA6B,EAC/B"}

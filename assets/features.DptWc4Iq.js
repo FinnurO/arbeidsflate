@@ -1,0 +1,1 @@
+import{t as e}from"./features.CSrxNn35.js";var t={...e,"global.enableCookieBanner":!0};export{t as features};

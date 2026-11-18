@@ -1,0 +1,1 @@
+import{t as e}from"./parties.BrCBJfd5.js";var t=e(1e5,300);export{t as parties};

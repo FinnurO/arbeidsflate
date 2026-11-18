@@ -1,0 +1,1 @@
+var e={updatedAt:`1727691732707`,language:`en`};export{e as profile};

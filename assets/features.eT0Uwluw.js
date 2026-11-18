@@ -1,0 +1,1 @@
+var e={"dialogporten.disableFlipNamesPatch":!1,"inbox.enableAlertBanner":!1,"dialogporten.disableSubscriptions":!1,"profile.enableSetUserName":!0};export{e as features};

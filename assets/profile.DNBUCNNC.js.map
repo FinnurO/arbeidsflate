@@ -1,0 +1,1 @@
+{"version":3,"file":"profile.DNBUCNNC.js","names":[],"sources":["../../src/mocks/data/stories/rahimi-berg/profile.ts"],"sourcesContent":["import { brukerFor, lagProfil } from '../../../oversikt/arbeidsflateData.ts';\n\nexport const profile = lagProfil(brukerFor('rahimi-berg'));\n"],"mappings":"qDAEA,IAAa,EAAU,EAAU,EAAU,aAAa,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"profile.OmNcPxq-.js","names":[],"sources":["../../src/mocks/data/stories/english-1/profile.ts"],"sourcesContent":["import type { Profile } from 'bff-types-generated';\n\nexport const profile: Profile = {\n  updatedAt: '1727691732707',\n  language: 'en',\n};\n"],"mappings":"AAEA,IAAa,EAAmB,CAC9B,UAAW,gBACX,SAAU,IACZ"}

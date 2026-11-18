@@ -1,0 +1,1 @@
+{"version":3,"file":"profile.fni_wswk.js","names":[],"sources":["../../src/mocks/data/stories/rahimi-berg-amir/profile.ts"],"sourcesContent":["import { brukerFor, lagProfil } from '../../../oversikt/arbeidsflateData.ts';\n\nexport const profile = lagProfil(brukerFor('rahimi-berg-amir'));\n"],"mappings":"qDAEA,IAAa,EAAU,EAAU,EAAU,kBAAkB,CAAC"}

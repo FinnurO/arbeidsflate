@@ -1,0 +1,1 @@
+{"version":3,"file":"dialogs.C2YDHuSu.js","names":[],"sources":["../../src/mocks/data/stories/rahimi-berg/dialogs.ts"],"sourcesContent":["import { brukerFor, lagDialoger } from '../../../oversikt/arbeidsflateData.ts';\n\nexport const dialogs = lagDialoger(brukerFor('rahimi-berg'));\n"],"mappings":"qDAEA,IAAa,EAAU,EAAY,EAAU,aAAa,CAAC"}

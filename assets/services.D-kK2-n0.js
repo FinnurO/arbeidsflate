@@ -1,0 +1,1 @@
+import{t as e}from"./services.nBcKBCvJ.js";var t=`urn:altinn:resource:mock-service-journey`,n=[{id:`mock-service-journey`,title:`Mock service journey`,org:`digdir`},...e];export{n,t};

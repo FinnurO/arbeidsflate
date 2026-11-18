@@ -1,0 +1,1 @@
+var e=[{party:`urn:altinn:username:selfidentified`,partyType:`SelfIdentified`,subParties:[],name:`SELFTEST OIDC`,isCurrentEndUser:!0,isDeleted:!1,partyUuid:`urn:altinn:person:uuid:test-testesen`,hasOnlyAccessToSubParties:!1,partyId:1,dateOfBirth:null}];export{e as parties};

@@ -1,0 +1,1 @@
+var e={"dialogDetails.enableNotificationLogs":!0,"dialogDetails.enableLabelAssignmentLogs":!0,"dialogDetails.enableActivityLogFilter":!1};export{e as features};

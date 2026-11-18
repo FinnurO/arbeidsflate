@@ -1,0 +1,1 @@
+var e=[{party:`urn:altinn:person:identifier-no:1`,partyType:`Person`,subParties:[],name:`ENGLISHMAN IN NEW YORK`,isCurrentEndUser:!0,isDeleted:!1,hasOnlyAccessToSubParties:!1,partyUuid:`urn:altinn:person:identifier-no:1337`,partyId:1,dateOfBirth:null}];export{e as parties};

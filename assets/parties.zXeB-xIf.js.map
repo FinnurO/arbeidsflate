@@ -1,0 +1,1 @@
+{"version":3,"file":"parties.zXeB-xIf.js","names":[],"sources":["../../src/mocks/data/stories/rahimi-berg/parties.ts"],"sourcesContent":["import { brukerFor, lagParties } from '../../../oversikt/arbeidsflateData.ts';\n\nexport const parties = lagParties(brukerFor('rahimi-berg'));\n"],"mappings":"qDAEA,IAAa,EAAU,EAAW,EAAU,aAAa,CAAC"}
