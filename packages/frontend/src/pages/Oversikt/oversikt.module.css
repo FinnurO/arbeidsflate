@@ -21,3 +21,27 @@
 .tabell {
   width: 100%;
 }
+
+/* Hovedinnhold og sidekolonne, som på lerretet. Én kolonne på smale skjermer. */
+.kolonner {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 64rem) {
+  .kolonner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.forklaring summary {
+  cursor: pointer;
+  color: var(--ds-color-accent-text-default, inherit);
+  text-decoration: underline;
+}
+
+.forklaring[open] summary {
+  margin-bottom: 0.5rem;
+}

@@ -158,6 +158,10 @@
         },
         "tittel": { "type": "string" },
         "aktivFase": { "type": "string", "description": "Id til fasen som vises først." },
+        "forklaring": {
+          "type": "string",
+          "description": "Svar på «Hvorfor ser jeg dette?»: hva som utløste livssituasjonen og hvilke virksomheter stegene kommer fra."
+        },
         "faser": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Fase" } }
       },
       "additionalProperties": false
@@ -185,12 +189,103 @@
         "tittel": { "type": "string" },
         "hovedverdi": { "type": "string" },
         "beskrivelse": { "type": "string" },
-        "lenketekst": { "type": "string" },
+        "handling": { "$ref": "#/$defs/Handling", "description": "Lenken nederst på kortet, f.eks. «Se dagene»." },
+        "rolletekster": {
+          "type": "object",
+          "description": "Tekst tilpasset en rolle, f.eks. enklere tekst når barnet selv ser kortet. Tjenesten bytter inn teksten for den innloggedes rolle og fjerner feltet i svaret.",
+          "propertyNames": { "$ref": "#/$defs/Rolle" },
+          "additionalProperties": { "$ref": "#/$defs/Rolletekst" }
+        },
         "merknad": { "$ref": "#/$defs/Merknad" },
         "kilde": { "$ref": "#/$defs/Kilde" },
         "livssituasjon": { "type": "string", "description": "Id til livssituasjonen opplysningen hører til." },
         "synligFor": { "$ref": "#/$defs/SynligFor" },
         "data": { "type": "object", "description": "Validerer mot skjemaet til domene." }
+      },
+      "additionalProperties": false
+    },
+    "Rolletekst": {
+      "type": "object",
+      "properties": {
+        "tittel": { "type": "string" },
+        "hovedverdi": { "type": "string" },
+        "beskrivelse": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Involvert": {
+      "type": "object",
+      "description": "En annen part i saken, f.eks. en medarving som må signere eller noen som også ser oversikten.",
+      "required": ["gruppe", "navn"],
+      "properties": {
+        "gruppe": { "type": "string", "description": "Overskriften partene vises under, f.eks. «Arvinger»." },
+        "navn": { "type": "string" },
+        "initialer": { "type": "string", "maxLength": 3 },
+        "type": { "type": "string", "enum": ["person", "organisasjon"], "default": "person" },
+        "beskrivelse": { "type": "string", "description": "F.eks. «søster» eller «bare skatt og mva»." },
+        "erDeg": { "type": "boolean", "description": "Sann når parten er den innloggede." },
+        "tilstand": {
+          "type": "object",
+          "required": ["tekst", "type"],
+          "properties": {
+            "tekst": { "type": "string" },
+            "type": { "type": "string", "enum": ["ferdig", "venter", "info"] }
+          },
+          "additionalProperties": false
+        },
+        "synligFor": { "$ref": "#/$defs/SynligFor" }
+      },
+      "additionalProperties": false
+    },
+    "Kildestatus": {
+      "type": "object",
+      "description": "En kilde som ikke svarte da oversikten ble satt sammen.",
+      "required": ["kilde", "melding"],
+      "properties": {
+        "kilde": { "$ref": "#/$defs/Kilde" },
+        "melding": {
+          "type": "string",
+          "description": "Hva som mangler, f.eks. «Timeplan og ukebrev vises ikke akkurat nå»."
+        },
+        "handling": { "$ref": "#/$defs/Handling" },
+        "synligFor": { "$ref": "#/$defs/SynligFor" }
+      },
+      "additionalProperties": false
+    },
+    "Hjelp": {
+      "type": "object",
+      "description": "Hvor man kan få hjelp eller noen å snakke med.",
+      "required": ["tittel", "handlinger"],
+      "properties": {
+        "tittel": { "type": "string" },
+        "handlinger": { "type": "array", "items": { "$ref": "#/$defs/Handling" } },
+        "synligFor": { "$ref": "#/$defs/SynligFor" }
+      },
+      "additionalProperties": false
+    },
+    "Kjentopplysning": {
+      "type": "object",
+      "description": "En opplysning det offentlige allerede har og som brukes i tjenesten.",
+      "required": ["opplysning", "verdi", "kilde"],
+      "properties": {
+        "opplysning": { "type": "string" },
+        "verdi": { "type": "string" },
+        "kilde": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Tjenestevurdering": {
+      "type": "object",
+      "description": "En tjeneste sett for én aktør: om den gjelder, hva som allerede er kjent og hva aktøren må gjøre.",
+      "required": ["aktor", "tjeneste", "status", "sammendrag"],
+      "properties": {
+        "aktor": { "$ref": "#/$defs/Aktor" },
+        "tjeneste": { "$ref": "#/$defs/Tjeneste" },
+        "status": { "$ref": "#/$defs/Status" },
+        "sammendrag": { "type": "string", "description": "F.eks. «Du trenger ikke søke»." },
+        "kjenteOpplysninger": { "type": "array", "items": { "$ref": "#/$defs/Kjentopplysning" } },
+        "merknad": { "$ref": "#/$defs/Merknad" },
+        "handlinger": { "type": "array", "items": { "$ref": "#/$defs/Handling" } }
       },
       "additionalProperties": false
     },
@@ -311,7 +406,15 @@
         "opplysninger": { "type": "array", "items": { "$ref": "#/$defs/Opplysning" } },
         "tjenesteforslag": { "type": "array", "items": { "$ref": "#/$defs/Tjenesteforslag" } },
         "dialoger": { "type": "array", "items": { "$ref": "#/$defs/Dialogreferanse" } },
-        "sammenhenger": { "type": "array", "items": { "$ref": "#/$defs/Sammenheng" } }
+        "sammenhenger": { "type": "array", "items": { "$ref": "#/$defs/Sammenheng" } },
+        "involverte": { "type": "array", "items": { "$ref": "#/$defs/Involvert" } },
+        "kildestatus": { "type": "array", "items": { "$ref": "#/$defs/Kildestatus" } },
+        "hjelp": { "type": "array", "items": { "$ref": "#/$defs/Hjelp" } },
+        "lagresTil": {
+          "type": "string",
+          "format": "date",
+          "description": "Når opplysningene slettes, f.eks. 12 måneder etter dødsfallet for et dødsbo."
+        }
       },
       "additionalProperties": false
     },

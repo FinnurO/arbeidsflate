@@ -1,7 +1,19 @@
 // Setter sammen API-svarene fra kildedataene og filtrerer etter den innloggedes rolle.
 // Brukes av MSW-mocken i Arbeidsflate og av scripts/validate.mjs.
 
-import type { AktorId, Domenetype, Kildedata, Oversikt, Rolle, Sammenheng, Tilgang, Tjeneste } from './typer.ts';
+import type {
+  AktorId,
+  Aktorkilde,
+  Domenetype,
+  Kildedata,
+  Opplysning,
+  Oversikt,
+  Rolle,
+  Sammenheng,
+  Tilgang,
+  Tjeneste,
+  Tjenestevurdering,
+} from './typer.ts';
 
 const KREVER_HANDLING = new Set(['krever-handling', 'til-signering']);
 
@@ -42,21 +54,39 @@ export const hentTilganger = (kildedata: Kildedata, bruker: AktorId): Tilgang[] 
 export const hentSammenhenger = (kildedata: Kildedata, bruker: AktorId): Sammenheng[] =>
   kildedata.sammenhenger.filter((kilde) => kilde.bruker === bruker).map((kilde) => kilde.sammenheng);
 
-export type OversiktSvar = { status: 200; oversikt: Oversikt } | { status: 403 | 404; melding: string };
+type Feilsvar = { status: 403 | 404; melding: string };
+export type OversiktSvar = { status: 200; oversikt: Oversikt } | Feilsvar;
+export type TjenestevurderingSvar = { status: 200; vurdering: Tjenestevurdering } | Feilsvar;
 
-/** GET /aktorer/{aktorId}/oversikt */
-export const hentOversikt = (kildedata: Kildedata, bruker: AktorId, aktorId: AktorId): OversiktSvar => {
-  if (!kildedata.aktorer.some((aktor) => aktor.aktor.id === aktorId)) {
-    return { status: 404, melding: 'Fant ikke aktøren' };
-  }
-  const tilgang = lagTilgang(kildedata, bruker, aktorId);
-  if (!tilgang) {
-    return { status: 403, melding: 'Du har ikke tilgang til denne aktøren' };
-  }
+const tilgangOgKilde = (
+  kildedata: Kildedata,
+  bruker: AktorId,
+  aktorId: AktorId,
+): { tilgang: Tilgang; kilde: Aktorkilde } | Feilsvar => {
   const kilde = kildedata.aktorer.find((aktor) => aktor.aktor.id === aktorId);
   if (!kilde) {
     return { status: 404, melding: 'Fant ikke aktøren' };
   }
+  const tilgang = lagTilgang(kildedata, bruker, aktorId);
+  return tilgang ? { tilgang, kilde } : { status: 403, melding: 'Du har ikke tilgang til denne aktøren' };
+};
+
+/** Bytter inn teksten for rollen og fjerner rolletekstene fra svaret. */
+const tilpassTekst = ({ rolletekster, ...opplysning }: Opplysning, rolle: Rolle): Opplysning => ({
+  ...opplysning,
+  ...rolletekster?.[rolle],
+});
+
+const synlige = <T extends { synligFor?: Rolle[] }>(elementer: T[] | undefined, rolle: Rolle) =>
+  elementer?.filter((element) => erSynlig(element, rolle));
+
+/** GET /aktorer/{aktorId}/oversikt */
+export const hentOversikt = (kildedata: Kildedata, bruker: AktorId, aktorId: AktorId): OversiktSvar => {
+  const funnet = tilgangOgKilde(kildedata, bruker, aktorId);
+  if ('status' in funnet) {
+    return funnet;
+  }
+  const { tilgang, kilde } = funnet;
   const { rolle } = tilgang;
   return {
     status: 200,
@@ -69,14 +99,43 @@ export const hentOversikt = (kildedata: Kildedata, bruker: AktorId, aktorId: Akt
           steg: fase.steg.filter((steg) => erSynlig(steg, rolle)),
         })),
       })),
-      opplysninger: kilde.opplysninger.filter((opplysning) => erSynlig(opplysning, rolle)),
+      opplysninger: kilde.opplysninger
+        .filter((opplysning) => erSynlig(opplysning, rolle))
+        .map((opplysning) => tilpassTekst(opplysning, rolle)),
       tjenesteforslag: kilde.tjenesteforslag.filter((forslag) => erSynlig(forslag, rolle)),
       dialoger: kilde.dialoger.filter((dialog) => erSynlig(dialog, rolle)),
       sammenhenger: hentSammenhenger(kildedata, bruker).filter(
         (sammenheng) => sammenheng.fra === aktorId || sammenheng.til === aktorId,
       ),
+      involverte: synlige(kilde.involverte, rolle),
+      kildestatus: synlige(kilde.kildestatus, rolle),
+      hjelp: synlige(kilde.hjelp, rolle),
+      lagresTil: kilde.lagresTil,
     },
   };
+};
+
+/** GET /aktorer/{aktorId}/tjenester/{tjenesteId} */
+export const hentTjenestevurdering = (
+  kildedata: Kildedata,
+  bruker: AktorId,
+  aktorId: AktorId,
+  tjenesteId: string,
+): TjenestevurderingSvar => {
+  const funnet = tilgangOgKilde(kildedata, bruker, aktorId);
+  if ('status' in funnet) {
+    return funnet;
+  }
+  const { tilgang, kilde } = funnet;
+  const vurdering = kilde.tjenestevurderinger?.find(
+    (kandidat) => kandidat.tjenesteId === tjenesteId && erSynlig(kandidat, tilgang.rolle),
+  );
+  const tjeneste = hentTjeneste(kildedata, tjenesteId);
+  if (!vurdering || !tjeneste) {
+    return { status: 404, melding: 'Tjenesten er ikke vurdert for denne aktøren' };
+  }
+  const { tjenesteId: _, synligFor: __, ...resten } = vurdering;
+  return { status: 200, vurdering: { ...resten, aktor: kilde.aktor, tjeneste } };
 };
 
 /** GET /tjenester/{tjenesteId} */

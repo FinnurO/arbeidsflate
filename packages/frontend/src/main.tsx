@@ -31,14 +31,32 @@ installDomMutationGuard({
   },
 });
 
+// Static mock build (vite build --mode pages, e.g. GitHub Pages): there is no BFF, so mocking is always on.
+// The mock handlers and several components read `mock`/`playwrightId` from the URL, so make sure they are there.
+const isStaticMock = import.meta.env.VITE_STATIC_MOCK === 'true';
+if (isStaticMock) {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('mock') !== 'true' || !params.get('playwrightId')) {
+    params.set('mock', 'true');
+    if (!params.get('playwrightId')) {
+      params.set('playwrightId', import.meta.env.VITE_STATIC_MOCK_PLAYWRIGHT_ID ?? '');
+    }
+    window.history.replaceState(
+      window.history.state,
+      '',
+      `${window.location.pathname}?${params}${window.location.hash}`,
+    );
+  }
+}
+
 const urlParams = new URLSearchParams(window.location.search);
 const isEnableMocking = urlParams.get('mock') === 'true';
 
 async function enableMocking() {
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV || isStaticMock) {
     if (isEnableMocking) {
       const { worker } = await import('./mocks/browser');
-      return worker.start();
+      return worker.start({ serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` } });
     }
   }
 }
@@ -73,7 +91,7 @@ if (element) {
       <React.StrictMode>
         <LoggerContextProvider>
           <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
               <FeatureFlagProvider initialFlags={isEnableMocking ? undefined : initialFlags}>
                 <AuthProvider>
                   <RootProvider>

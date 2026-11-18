@@ -17,7 +17,7 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import type { Opplysning, Oversikt, Steg } from '../../../../oversikt-api/src/typer.ts';
+import type { Involvert, Opplysning, Oversikt, Steg } from '../../../../oversikt-api/src/typer.ts';
 import { useDialogerForAktorer, useOversikt, useTilganger } from '../../api/oversikt.ts';
 import { usePageTitle } from '../../hooks/usePageTitle.ts';
 import {
@@ -25,13 +25,15 @@ import {
   dialogSti,
   dialogstatusTilStatus,
   formaterDato,
-  handlingSti,
+  grupperEtter,
   medMock,
   statusBadge,
+  storForbokstav,
   synlighetstekst,
   tekst,
   tjenesteSti,
 } from './felles.ts';
+import { HandlingKnapp } from './HandlingKnapp.tsx';
 import styles from './oversikt.module.css';
 
 /**
@@ -62,6 +64,8 @@ export const AktorOversikt = () => {
   return <Dashbord oversikt={oversikt} />;
 };
 
+const tilstandsfarge = { ferdig: 'success', venter: 'warning', info: 'neutral' } as const;
+
 const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
   const { t } = useTranslation();
   const { search } = useLocation();
@@ -80,6 +84,12 @@ const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
   const erSelv = rolle === 'selv';
   const fornavn = aktor.navn.split(' ')[0];
   const harPrivat = opplysninger.some((o) => o.synligFor?.length === 1 && o.synligFor[0] === rolle);
+  const grupper = grupperEtter(oversikt.involverte ?? [], (involvert: Involvert) => involvert.gruppe);
+  // Hvem som har opplysninger om aktøren, avledet av kildene på opplysningene.
+  const kilder = grupperEtter(
+    opplysninger.map((opplysning) => opplysning.kilde),
+    (kilde) => kilde.virksomhet,
+  );
 
   const stegItem = (steg: Steg) => {
     const fraDialog = dialog(steg.dialogId);
@@ -92,21 +102,27 @@ const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
       steg.bruker?.length
         ? `${t('oversikt.bruker')}: ${steg.bruker.map((b) => `${b.opplysning} (${b.kilde})`).join(', ')}`
         : undefined,
+      visSynlighet ? synlighetstekst(steg.synligFor, rolle, t) : undefined,
     ]
       .filter(Boolean)
       .join(' · ');
-    const sti = steg.dialogId ? dialogSti(steg.dialogId) : steg.handling ? handlingSti(steg.handling) : undefined;
+    const sti = steg.dialogId
+      ? dialogSti(steg.dialogId)
+      : steg.tjenesteId
+        ? tjenesteSti(steg.tjenesteId, aktor.id)
+        : undefined;
     return (
       <ListItem
         key={steg.id}
         id={steg.id}
         title={steg.tittel}
-        description={visSynlighet ? `${beskrivelse} · ${synlighetstekst(steg.synligFor, rolle, t)}` : beskrivelse}
+        description={beskrivelse}
         badge={statusBadge(status, t)}
         as={sti ? 'button' : undefined}
         interactive={Boolean(sti)}
-        linkIcon={Boolean(sti)}
+        linkIcon={Boolean(sti) && !steg.handling}
         onClick={sti ? () => ga(sti) : undefined}
+        controls={steg.handling ? <HandlingKnapp handling={steg.handling} aktorId={aktor.id} /> : undefined}
       />
     );
   };
@@ -149,137 +165,224 @@ const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
         <Alert variant="info" heading={t('oversikt.privat.tittel')} message={t('oversikt.privat.tekst')} />
       )}
 
+      {(oversikt.kildestatus ?? []).map((status) => (
+        <Alert
+          key={`${status.kilde.virksomhet}-${status.kilde.system}`}
+          variant="warning"
+          heading={t('oversikt.kildestatus.tittel', {
+            kilde: storForbokstav(status.kilde.system ?? status.kilde.virksomhet),
+          })}
+          message={status.melding}
+        >
+          {status.handling && <HandlingKnapp handling={status.handling} aktorId={aktor.id} />}
+        </Alert>
+      ))}
+
       {sammenhenger.map((sammenheng) => (
         <Alert key={sammenheng.id} variant="info" heading={sammenheng.tittel} message={sammenheng.beskrivelse}>
           <ButtonGroup wrap size="sm">
             {(sammenheng.handlinger ?? [])
               .filter((handling) => !(handling.type === 'aktor' && handling.mal === aktor.id))
-              .map((handling) => {
-                const sti = handlingSti(handling);
-                return (
-                  <Button
-                    key={handling.tittel}
-                    variant={handling.primar ? 'solid' : 'outline'}
-                    disabled={!sti}
-                    onClick={sti ? () => ga(sti) : undefined}
-                  >
-                    {handling.tittel}
-                  </Button>
-                );
-              })}
+              .map((handling) => (
+                <HandlingKnapp key={handling.tittel} handling={handling} aktorId={aktor.id} />
+              ))}
           </ButtonGroup>
         </Alert>
       ))}
 
-      {livssituasjoner.map((livssituasjon) => {
-        const aktiv = faser[livssituasjon.id] ?? livssituasjon.aktivFase ?? livssituasjon.faser[0].id;
-        const fase = livssituasjon.faser.find((kandidat) => kandidat.id === aktiv) ?? livssituasjon.faser[0];
-        return (
-          <Section key={livssituasjon.id} spacing={4}>
-            <Flex justify="between" align="center" spacing="sm" className={styles.wrap}>
+      <div className={styles.kolonner}>
+        <Flex direction="col" spacing={6}>
+          {livssituasjoner.map((livssituasjon) => {
+            const aktiv = faser[livssituasjon.id] ?? livssituasjon.aktivFase ?? livssituasjon.faser[0].id;
+            const fase = livssituasjon.faser.find((kandidat) => kandidat.id === aktiv) ?? livssituasjon.faser[0];
+            return (
+              <Section key={livssituasjon.id} spacing={4}>
+                <Flex justify="between" align="center" spacing="sm" className={styles.wrap}>
+                  <Heading as="h2" size="lg">
+                    {livssituasjon.tittel}
+                  </Heading>
+                  {livssituasjon.faser.length > 1 && (
+                    <ButtonGroup size="sm">
+                      {livssituasjon.faser.map((kandidat) => (
+                        <Button
+                          key={kandidat.id}
+                          variant={kandidat.id === fase.id ? 'solid' : 'tinted'}
+                          aria-pressed={kandidat.id === fase.id}
+                          onClick={() => setFaser((forrige) => ({ ...forrige, [livssituasjon.id]: kandidat.id }))}
+                        >
+                          {kandidat.tittel}
+                        </Button>
+                      ))}
+                    </ButtonGroup>
+                  )}
+                </Flex>
+                {fase.beskrivelse && <Typography variant="subtle">{fase.beskrivelse}</Typography>}
+                <List>{fase.steg.map(stegItem)}</List>
+                {livssituasjon.forklaring && (
+                  <details className={styles.forklaring}>
+                    <summary>{t('oversikt.hvorfor')}</summary>
+                    <Typography size="sm">{livssituasjon.forklaring}</Typography>
+                  </details>
+                )}
+              </Section>
+            );
+          })}
+
+          {opplysninger.length > 0 && (
+            <Section spacing={4}>
               <Heading as="h2" size="lg">
-                {livssituasjon.tittel}
+                {t('oversikt.opplysninger')}
               </Heading>
-              {livssituasjon.faser.length > 1 && (
-                <ButtonGroup size="sm">
-                  {livssituasjon.faser.map((kandidat) => (
-                    <Button
-                      key={kandidat.id}
-                      variant={kandidat.id === fase.id ? 'solid' : 'tinted'}
-                      aria-pressed={kandidat.id === fase.id}
-                      onClick={() => setFaser((forrige) => ({ ...forrige, [livssituasjon.id]: kandidat.id }))}
-                    >
-                      {kandidat.tittel}
-                    </Button>
-                  ))}
-                </ButtonGroup>
+              {oversikt.lagresTil && (
+                <Typography variant="subtle" size="sm">
+                  {t('oversikt.slettes', { dato: formaterDato(oversikt.lagresTil) })}
+                </Typography>
               )}
-            </Flex>
-            {fase.beskrivelse && <Typography variant="subtle">{fase.beskrivelse}</Typography>}
-            <List>{fase.steg.map(stegItem)}</List>
-          </Section>
-        );
-      })}
+              <Grid cols={2} spacing="md">
+                {opplysninger.map((opplysning) => (
+                  <OpplysningKort
+                    key={opplysning.id}
+                    opplysning={opplysning}
+                    aktorId={aktor.id}
+                    synlighet={visSynlighet ? synlighetstekst(opplysning.synligFor, rolle, t) : undefined}
+                    privat={opplysning.synligFor?.length === 1 && opplysning.synligFor[0] === rolle && erSelv}
+                  />
+                ))}
+              </Grid>
+            </Section>
+          )}
 
-      {opplysninger.length > 0 && (
-        <Section spacing={4}>
-          <Heading as="h2" size="lg">
-            {t('oversikt.opplysninger')}
-          </Heading>
-          <Grid cols={3} spacing="md">
-            {opplysninger.map((opplysning) => (
-              <OpplysningKort
-                key={opplysning.id}
-                opplysning={opplysning}
-                synlighet={visSynlighet ? synlighetstekst(opplysning.synligFor, rolle, t) : undefined}
-                privat={opplysning.synligFor?.length === 1 && opplysning.synligFor[0] === rolle && erSelv}
-              />
-            ))}
-          </Grid>
-        </Section>
-      )}
+          {meldinger.length > 0 && (
+            <Section spacing={4}>
+              <Heading as="h2" size="lg">
+                {t('oversikt.meldinger')}
+              </Heading>
+              <List>
+                {meldinger.map((referanse) => {
+                  const funnet = dialog(referanse.dialogId);
+                  return (
+                    <ListItem
+                      key={referanse.dialogId}
+                      id={referanse.dialogId}
+                      title={tekst(funnet?.content?.title) || referanse.dialogId}
+                      description={[
+                        tekst(funnet?.content?.senderName),
+                        tekst(funnet?.content?.summary),
+                        visSynlighet ? synlighetstekst(referanse.synligFor, rolle, t) : undefined,
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')}
+                      as="button"
+                      interactive
+                      linkIcon
+                      onClick={() => ga(dialogSti(referanse.dialogId))}
+                    />
+                  );
+                })}
+              </List>
+            </Section>
+          )}
+        </Flex>
 
-      {meldinger.length > 0 && (
-        <Section spacing={4}>
-          <Heading as="h2" size="lg">
-            {t('oversikt.meldinger')}
-          </Heading>
-          <List>
-            {meldinger.map((referanse) => {
-              const funnet = dialog(referanse.dialogId);
-              return (
-                <ListItem
-                  key={referanse.dialogId}
-                  id={referanse.dialogId}
-                  title={tekst(funnet?.content?.title) || referanse.dialogId}
-                  description={[tekst(funnet?.content?.senderName), tekst(funnet?.content?.summary)]
-                    .filter(Boolean)
-                    .join(' · ')}
-                  as="button"
-                  interactive
-                  linkIcon
-                  onClick={() => ga(dialogSti(referanse.dialogId))}
-                />
-              );
-            })}
-          </List>
-        </Section>
-      )}
+        <Flex as="aside" direction="col" spacing={6}>
+          {tjenesteforslag.length > 0 && (
+            <Section spacing={3}>
+              <Heading as="h2" size="md">
+                {t('oversikt.tjenester')}
+              </Heading>
+              <Typography variant="subtle" size="xs">
+                {t('oversikt.tjenester.kilde')}
+              </Typography>
+              <List>
+                {tjenesteforslag.map((forslag) => (
+                  <ListItem
+                    key={forslag.tjenesteId}
+                    id={forslag.tjenesteId}
+                    title={forslag.tittel}
+                    description={[forslag.ansvarlig, forslag.begrunnelse].filter(Boolean).join(' · ')}
+                    as="button"
+                    interactive
+                    linkIcon
+                    onClick={() => ga(tjenesteSti(forslag.tjenesteId, aktor.id))}
+                  />
+                ))}
+              </List>
+            </Section>
+          )}
 
-      {tjenesteforslag.length > 0 && (
-        <Section spacing={4}>
-          <Heading as="h2" size="lg">
-            {t('oversikt.tjenester')}
-          </Heading>
-          <Typography variant="subtle" size="sm">
-            {t('oversikt.tjenester.kilde')}
-          </Typography>
-          <List>
-            {tjenesteforslag.map((forslag) => (
-              <ListItem
-                key={forslag.tjenesteId}
-                id={forslag.tjenesteId}
-                title={forslag.tittel}
-                description={[forslag.ansvarlig, forslag.begrunnelse].filter(Boolean).join(' · ')}
-                as="button"
-                interactive
-                linkIcon
-                onClick={() => ga(tjenesteSti(forslag.tjenesteId))}
-              />
-            ))}
-          </List>
-        </Section>
-      )}
+          {[...grupper].map(([gruppe, involverte]) => (
+            <Section key={gruppe} spacing={3}>
+              <Heading as="h2" size="md">
+                {gruppe}
+              </Heading>
+              <List>
+                {involverte.map((involvert) => (
+                  <ListItem
+                    key={involvert.navn}
+                    id={`involvert-${involvert.navn}`}
+                    icon={{ name: involvert.navn, type: involvert.type === 'organisasjon' ? 'company' : 'person' }}
+                    title={involvert.erDeg ? `${involvert.navn} (${t('oversikt.deg')})` : involvert.navn}
+                    description={involvert.beskrivelse}
+                    badge={
+                      involvert.tilstand
+                        ? {
+                            label: involvert.tilstand.tekst,
+                            color: tilstandsfarge[involvert.tilstand.type],
+                            variant: 'tinted',
+                            size: 'sm',
+                          }
+                        : undefined
+                    }
+                  />
+                ))}
+              </List>
+            </Section>
+          ))}
+
+          {kilder.size > 0 && (
+            <Section spacing={3}>
+              <Heading as="h2" size="md">
+                {t('oversikt.hvem_har_opplysninger', { navn: erSelv ? t('oversikt.deg') : fornavn })}
+              </Heading>
+              <List>
+                {[...kilder].map(([virksomhet, fraVirksomhet]) => (
+                  <ListItem
+                    key={virksomhet}
+                    id={`kilde-${virksomhet}`}
+                    title={virksomhet}
+                    description={[...new Set(fraVirksomhet.map((kilde) => kilde.system).filter(Boolean))].join(', ')}
+                  />
+                ))}
+              </List>
+            </Section>
+          )}
+
+          {(oversikt.hjelp ?? []).map((hjelp) => (
+            <Section key={hjelp.tittel} spacing={3}>
+              <Heading as="h2" size="md">
+                {hjelp.tittel}
+              </Heading>
+              <Flex direction="col" spacing="xs" align="start">
+                {hjelp.handlinger.map((handling) => (
+                  <HandlingKnapp key={handling.tittel} handling={handling} aktorId={aktor.id} variant="ghost" />
+                ))}
+              </Flex>
+            </Section>
+          ))}
+        </Flex>
+      </div>
     </PageBase>
   );
 };
 
 const OpplysningKort = ({
   opplysning,
+  aktorId,
   synlighet,
   privat,
 }: {
   opplysning: Opplysning;
+  aktorId: string;
   synlighet?: string;
   privat: boolean;
 }) => {
@@ -287,7 +390,7 @@ const OpplysningKort = ({
   const { kilde } = opplysning;
   return (
     <DashboardCard title={opplysning.tittel} theme={privat ? 'tinted' : 'default'}>
-      <Flex direction="col" spacing="xs">
+      <Flex direction="col" spacing="xs" align="start">
         <Typography size="lg">
           <strong>{opplysning.hovedverdi}</strong>
         </Typography>
@@ -306,6 +409,7 @@ const OpplysningKort = ({
         )}
         {privat && <Badge label={t('oversikt.synlighet.bare_deg')} color="success" variant="tinted" size="sm" />}
         {synlighet && !privat && <Badge label={synlighet} color="neutral" variant="outline" size="sm" />}
+        {opplysning.handling && <HandlingKnapp handling={opplysning.handling} aktorId={aktorId} variant="ghost" />}
         <Typography variant="subtle" size="xs" className={styles.kilde}>
           {t('oversikt.kilde')}: {[kilde.virksomhet, kilde.system].filter(Boolean).join(', ')}
           {kilde.hentet ? ` · ${t('oversikt.hentet')} ${formaterDato(kilde.hentet)}` : ''}

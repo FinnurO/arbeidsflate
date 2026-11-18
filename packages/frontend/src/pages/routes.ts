@@ -12,6 +12,7 @@ export enum PageRoutes {
   oversikt = '/oversikt',
   oversiktAktor = '/oversikt/aktor/:aktorId',
   oversiktTjeneste = '/oversikt/tjenester/:tjenesteId',
+  oversiktAktorTjeneste = '/oversikt/aktor/:aktorId/tjenester/:tjenesteId',
   redirect = '/redirect',
   error = '/error',
 }

@@ -14,10 +14,12 @@ import {
 } from '@altinn/altinn-components';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import type { Katalogfelt } from '../../../../oversikt-api/src/typer.ts';
-import { useTjeneste } from '../../api/oversikt.ts';
+import { useTjeneste, useTjenestevurdering } from '../../api/oversikt.ts';
 import { usePageTitle } from '../../hooks/usePageTitle.ts';
+import { aktorSti, medMock, statusBadge } from './felles.ts';
+import { HandlingKnapp } from './HandlingKnapp.tsx';
 import styles from './oversikt.module.css';
 
 const dekningsfarge: Record<Katalogfelt['dekning'], 'success' | 'warning' | 'danger' | 'neutral'> = {
@@ -30,8 +32,13 @@ const dekningsfarge: Record<Katalogfelt['dekning'], 'success' | 'warning' | 'dan
 /** En tjeneste slik innbyggeren ser den, og hvilke av feltene som finnes i tjenestekatalogen i dag. */
 export const TjenesteSide = () => {
   const { t } = useTranslation();
-  const { tjenesteId = '' } = useParams();
-  const { data: tjeneste, isLoading, isError } = useTjeneste(decodeURIComponent(tjenesteId));
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const params = useParams();
+  const tjenesteId = decodeURIComponent(params.tjenesteId ?? '');
+  const aktorId = params.aktorId ? decodeURIComponent(params.aktorId) : undefined;
+  const { data: tjeneste, isLoading, isError } = useTjeneste(tjenesteId);
+  const { data: vurdering } = useTjenestevurdering(aktorId, tjenesteId);
   const [visKatalog, setVisKatalog] = useState(false);
   usePageTitle({ baseTitle: tjeneste?.tittel ?? t('oversikt.tjenester') });
 
@@ -52,6 +59,13 @@ export const TjenesteSide = () => {
 
   return (
     <PageBase>
+      {aktorId && (
+        <Flex>
+          <Button variant="ghost" size="sm" onClick={() => navigate(medMock(aktorSti(aktorId), search))}>
+            {t('oversikt.tilbake', { navn: vurdering?.aktor.navn ?? t('oversikt.tittel') })}
+          </Button>
+        </Flex>
+      )}
       <DashboardHeader title={tjeneste.tittel} description={tjeneste.beskrivelse}>
         <Typography variant="subtle" size="sm">
           {t('oversikt.ansvarlig')}: {tjeneste.ansvarlig}
@@ -83,6 +97,7 @@ export const TjenesteSide = () => {
             {t('oversikt.tjeneste.katalog_tittel')}
           </Heading>
           <Typography>{t('oversikt.tjeneste.katalog_ingress')}</Typography>
+          <Alert variant="info" heading={t('oversikt.tjeneste.katalog_status')} />
           <table className={`ds-table ${styles.tabell}`} data-border="true">
             <thead>
               <tr>
@@ -111,6 +126,54 @@ export const TjenesteSide = () => {
         </Section>
       ) : (
         <Flex direction="col" spacing={6}>
+          {vurdering && (
+            <Section spacing={4}>
+              <Flex justify="between" align="center" spacing="sm" className={styles.wrap}>
+                <Heading as="h2" size="lg">
+                  {t('oversikt.tjeneste.gjelder', { navn: vurdering.aktor.navn.split(' ')[0] })}
+                </Heading>
+                <Badge {...statusBadge(vurdering.status, t)} />
+              </Flex>
+              <Typography>{vurdering.sammendrag}</Typography>
+              {vurdering.kjenteOpplysninger?.length ? (
+                <>
+                  <Heading as="h3" size="sm">
+                    {t('oversikt.tjeneste.kjent')}
+                  </Heading>
+                  <table className={`ds-table ${styles.tabell}`} data-border="true">
+                    <thead>
+                      <tr>
+                        <th>{t('oversikt.tjeneste.opplysning')}</th>
+                        <th>{t('oversikt.tjeneste.verdi')}</th>
+                        <th>{t('oversikt.kilde')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {vurdering.kjenteOpplysninger.map((kjent) => (
+                        <tr key={kjent.opplysning}>
+                          <td>{kjent.opplysning}</td>
+                          <td>{kjent.verdi}</td>
+                          <td>{kjent.kilde}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              ) : null}
+              {vurdering.merknad && (
+                <Alert
+                  variant={vurdering.merknad.alvorlighet === 'advarsel' ? 'warning' : 'info'}
+                  heading={vurdering.merknad.tekst}
+                >
+                  <ButtonGroup wrap size="sm">
+                    {(vurdering.handlinger ?? []).map((handling) => (
+                      <HandlingKnapp key={handling.tittel} handling={handling} aktorId={aktorId} />
+                    ))}
+                  </ButtonGroup>
+                </Alert>
+              )}
+            </Section>
+          )}
           {tjeneste.krav?.length ? (
             <Section spacing={4}>
               <Heading as="h2" size="lg">

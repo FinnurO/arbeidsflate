@@ -86,6 +86,7 @@ export interface Livssituasjon {
   type: string;
   tittel: string;
   aktivFase?: string;
+  forklaring?: string;
   faser: Fase[];
 }
 
@@ -100,12 +101,59 @@ export interface Opplysning {
   tittel: string;
   hovedverdi: string;
   beskrivelse?: string;
-  lenketekst?: string;
+  handling?: Handling;
+  rolletekster?: Partial<Record<Rolle, Rolletekst>>;
   merknad?: Merknad;
   kilde: Kilde;
   livssituasjon?: string;
   synligFor?: Rolle[];
   data: Record<string, unknown>;
+}
+
+export interface Rolletekst {
+  tittel?: string;
+  hovedverdi?: string;
+  beskrivelse?: string;
+}
+
+export interface Involvert {
+  gruppe: string;
+  navn: string;
+  initialer?: string;
+  type?: 'person' | 'organisasjon';
+  beskrivelse?: string;
+  erDeg?: boolean;
+  tilstand?: { tekst: string; type: 'ferdig' | 'venter' | 'info' };
+  synligFor?: Rolle[];
+}
+
+export interface Kildestatus {
+  kilde: Kilde;
+  melding: string;
+  handling?: Handling;
+  synligFor?: Rolle[];
+}
+
+export interface Hjelp {
+  tittel: string;
+  handlinger: Handling[];
+  synligFor?: Rolle[];
+}
+
+export interface Kjentopplysning {
+  opplysning: string;
+  verdi: string;
+  kilde: string;
+}
+
+export interface Tjenestevurdering {
+  aktor: Aktor;
+  tjeneste: Tjeneste;
+  status: Status;
+  sammendrag: string;
+  kjenteOpplysninger?: Kjentopplysning[];
+  merknad?: Merknad;
+  handlinger?: Handling[];
 }
 
 export interface Tjenesteforslag {
@@ -169,6 +217,10 @@ export interface Oversikt {
   tjenesteforslag: Tjenesteforslag[];
   dialoger: Dialogreferanse[];
   sammenhenger: Sammenheng[];
+  involverte?: Involvert[];
+  kildestatus?: Kildestatus[];
+  hjelp?: Hjelp[];
+  lagresTil?: string;
 }
 
 // Kildedata for mocken (schemas/kildedata.schema.json)
@@ -193,6 +245,21 @@ export interface Aktorkilde {
   opplysninger: Opplysning[];
   tjenesteforslag: Tjenesteforslag[];
   dialoger: Dialogreferanse[];
+  involverte?: Involvert[];
+  kildestatus?: Kildestatus[];
+  hjelp?: Hjelp[];
+  lagresTil?: string;
+  tjenestevurderinger?: Tjenestevurderingkilde[];
+}
+
+export interface Tjenestevurderingkilde {
+  tjenesteId: string;
+  status: Status;
+  sammendrag: string;
+  kjenteOpplysninger?: Kjentopplysning[];
+  merknad?: Merknad;
+  handlinger?: Handling[];
+  synligFor?: Rolle[];
 }
 
 export interface Sammenhengkilde {

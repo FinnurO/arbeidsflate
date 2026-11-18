@@ -622,5 +622,18 @@
   "oversikt.dekning.ja": "Ja",
   "oversikt.dekning.sjelden": "Sjelden",
   "oversikt.dekning.nei": "Nei",
-  "oversikt.dekning.utenfor-katalogen": "Utenfor katalogen"
+  "oversikt.dekning.utenfor-katalogen": "Utenfor katalogen",
+  "oversikt.ikke_koblet": "Ikke koblet til noe i konseptet",
+  "oversikt.kildestatus.tittel": "{kilde} svarer ikke",
+  "oversikt.hvorfor": "Hvorfor ser jeg dette?",
+  "oversikt.slettes": "Opplysningene slettes {dato}.",
+  "oversikt.deg": "deg",
+  "oversikt.hvem_har_opplysninger": "Hvem har opplysninger om {navn}",
+  "oversikt.siste_meldinger": "Siste meldinger",
+  "oversikt.tilbake": "Tilbake til {navn}",
+  "oversikt.tjeneste.gjelder": "Gjelder dette {navn}?",
+  "oversikt.tjeneste.kjent": "Dette vet vi allerede",
+  "oversikt.tjeneste.opplysning": "Opplysning",
+  "oversikt.tjeneste.verdi": "Verdi",
+  "oversikt.tjeneste.katalog_status": "En spørring mot Felles datakatalog 30. oktober 2026 ga 1 462 offentlige tjenester og ingen livshendelser. Nesten alle er høstet fra Altinn ressursregister, og krav, resultat og relasjoner mellom tjenester er ikke fylt ut."
 }

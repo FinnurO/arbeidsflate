@@ -100,7 +100,16 @@ export const PageLayout: React.FC = () => {
       },
     ];
 
-    if (isProfile) {
+    if (location.pathname.startsWith(PageRoutes.oversikt)) {
+      steps.push({
+        label: t('sidebar.oversikt'),
+        as: (props) => (
+          <Link {...props} to={PageRoutes.oversikt + location.search}>
+            {t('sidebar.oversikt')}
+          </Link>
+        ),
+      });
+    } else if (isProfile) {
       steps.push({
         label: t('sidebar.profile'),
         as: (props) => (

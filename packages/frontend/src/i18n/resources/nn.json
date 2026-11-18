@@ -622,5 +622,18 @@
   "oversikt.dekning.ja": "Ja",
   "oversikt.dekning.sjelden": "Sjeldan",
   "oversikt.dekning.nei": "Nei",
-  "oversikt.dekning.utenfor-katalogen": "Utanfor katalogen"
+  "oversikt.dekning.utenfor-katalogen": "Utanfor katalogen",
+  "oversikt.ikke_koblet": "Ikkje kopla til noko i konseptet",
+  "oversikt.kildestatus.tittel": "{kilde} svarar ikkje",
+  "oversikt.hvorfor": "Kvifor ser eg dette?",
+  "oversikt.slettes": "Opplysningane blir sletta {dato}.",
+  "oversikt.deg": "deg",
+  "oversikt.hvem_har_opplysninger": "Kven har opplysningar om {navn}",
+  "oversikt.siste_meldinger": "Siste meldingar",
+  "oversikt.tilbake": "Tilbake til {navn}",
+  "oversikt.tjeneste.gjelder": "Gjeld dette {navn}?",
+  "oversikt.tjeneste.kjent": "Dette veit vi allereie",
+  "oversikt.tjeneste.opplysning": "Opplysning",
+  "oversikt.tjeneste.verdi": "Verdi",
+  "oversikt.tjeneste.katalog_status": "Ei spørjing mot Felles datakatalog 30. oktober 2026 gav 1 462 offentlege tenester og ingen livshendingar. Nesten alle er hausta frå Altinn ressursregister, og krav, resultat og relasjonar mellom tenester er ikkje fylte ut."
 }

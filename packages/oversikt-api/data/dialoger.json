@@ -107,5 +107,36 @@
     "tjeneste": "formuesfullmakt",
     "status": "Completed",
     "opprettet": "2026-10-22T09:00:00+02:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000a005",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Turdag til Lykkevannet",
+    "sammendrag": "Fredag 27. november. Ta med ekstra matpakke.",
+    "avsender": "Lykke barneskole",
+    "tjeneste": "lykke-skole-melding",
+    "status": "NotApplicable",
+    "opprettet": "2026-11-15T12:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000a006",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Tilbud om vaksine på 7. trinn",
+    "sammendrag": "Svar innen 4. desember om Amir skal ha vaksinen.",
+    "avsender": "Skolehelsetjenesten, Lykke kommune",
+    "tjeneste": "skolehelsetjenesten-vaksine",
+    "status": "NotApplicable",
+    "opprettet": "2026-11-11T09:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000a007",
+    "party": "urn:altinn:person:identifier-no:amir-rahimi",
+    "tittel": "Skolerute 2027–2028 er vedtatt",
+    "sammendrag": "Ferier og fridager for neste skoleår.",
+    "avsender": "Lykke kommune",
+    "tjeneste": "lykke-oppvekst-melding",
+    "status": "Completed",
+    "opprettet": "2026-10-14T10:00:00+02:00",
+    "lest": true
   }
 ]

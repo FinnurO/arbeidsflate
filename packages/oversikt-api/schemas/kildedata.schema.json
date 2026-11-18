@@ -38,7 +38,30 @@
         "livssituasjoner": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Livssituasjon" } },
         "opplysninger": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Opplysning" } },
         "tjenesteforslag": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Tjenesteforslag" } },
-        "dialoger": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Dialogreferanse" } }
+        "dialoger": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Dialogreferanse" } },
+        "involverte": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Involvert" } },
+        "kildestatus": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Kildestatus" } },
+        "hjelp": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Hjelp" } },
+        "lagresTil": { "type": "string", "format": "date" },
+        "tjenestevurderinger": { "type": "array", "items": { "$ref": "#/$defs/Tjenestevurderingkilde" } }
+      },
+      "additionalProperties": false
+    },
+    "Tjenestevurderingkilde": {
+      "type": "object",
+      "description": "En tjeneste vurdert for aktøren. Mocken setter inn tjenesten fra tjenester.json.",
+      "required": ["tjenesteId", "status", "sammendrag"],
+      "properties": {
+        "tjenesteId": { "type": "string" },
+        "status": { "$ref": "kjerne.schema.json#/$defs/Status" },
+        "sammendrag": { "type": "string" },
+        "kjenteOpplysninger": {
+          "type": "array",
+          "items": { "$ref": "kjerne.schema.json#/$defs/Kjentopplysning" }
+        },
+        "merknad": { "$ref": "kjerne.schema.json#/$defs/Merknad" },
+        "handlinger": { "type": "array", "items": { "$ref": "kjerne.schema.json#/$defs/Handling" } },
+        "synligFor": { "$ref": "kjerne.schema.json#/$defs/SynligFor" }
       },
       "additionalProperties": false
     },

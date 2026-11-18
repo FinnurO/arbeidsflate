@@ -27,7 +27,13 @@
               "dialogId": "01938a10-0000-7000-8000-00000000a001",
               "synligFor": [
                 "foresatt"
-              ]
+              ],
+              "handling": {
+                "tittel": "Svar",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000a001",
+                "primar": true
+              }
             },
             {
               "id": "utviklingssamtale",
@@ -38,7 +44,12 @@
               "dialogId": "01938a10-0000-7000-8000-00000000a002",
               "synligFor": [
                 "foresatt"
-              ]
+              ],
+              "handling": {
+                "tittel": "Velg tid",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000a002"
+              }
             },
             {
               "id": "fagtekst",
@@ -49,7 +60,12 @@
               "dialogId": "01938a10-0000-7000-8000-00000000a004",
               "synligFor": [
                 "selv"
-              ]
+              ],
+              "handling": {
+                "tittel": "Åpne oppgaven",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000a004"
+              }
             },
             {
               "id": "kontaktopplysninger",
@@ -69,7 +85,12 @@
               ],
               "synligFor": [
                 "foresatt"
-              ]
+              ],
+              "handling": {
+                "tittel": "Se over",
+                "type": "lenke",
+                "mal": "#"
+              }
             }
           ]
         },
@@ -165,7 +186,8 @@
             }
           ]
         }
-      ]
+      ],
+      "forklaring": "Amir går på 7. trinn, og Lykke kommune har registrert at han skal over til Lykke ungdomsskole. Stegene kommer fra livssituasjonen «Overgang til ungdomsskolen», som knytter sammen tjenester fra kommunen, skolen og fylkeskommunen."
     }
   ],
   "opplysninger": [
@@ -175,7 +197,6 @@
       "tittel": "Fravær",
       "hovedverdi": "3 dager og 4 timer",
       "beskrivelse": "Dette skoleåret, 2 dager er meldt av foresatte",
-      "lenketekst": "Se dagene",
       "kilde": {
         "virksomhet": "Lykke kommune",
         "system": "skolens administrative system",
@@ -187,6 +208,16 @@
         "dager": 3,
         "timer": 4,
         "meldtAvForesatte": 2
+      },
+      "handling": {
+        "tittel": "Se dagene",
+        "type": "lenke",
+        "mal": "#"
+      },
+      "rolletekster": {
+        "selv": {
+          "beskrivelse": "Dette skoleåret"
+        }
       }
     },
     {
@@ -195,7 +226,6 @@
       "tittel": "Vurderinger",
       "hovedverdi": "Halvårsvurdering våren 2026",
       "beskrivelse": "Skriftlig vurdering i 9 fag og 2 nye tilbakemeldinger i høst",
-      "lenketekst": "Les vurderingene",
       "kilde": {
         "virksomhet": "Lykke barneskole",
         "system": "skolens læringsplattform",
@@ -216,6 +246,18 @@
           }
         ],
         "nyeTilbakemeldinger": 2
+      },
+      "handling": {
+        "tittel": "Les vurderingene",
+        "type": "lenke",
+        "mal": "#"
+      },
+      "rolletekster": {
+        "selv": {
+          "tittel": "Tilbakemeldinger fra lærerne",
+          "hovedverdi": "2 nye i høst",
+          "beskrivelse": "I matematikk og engelsk"
+        }
       }
     },
     {
@@ -224,7 +266,6 @@
       "tittel": "Prøver og kartlegginger",
       "hovedverdi": "Nasjonale prøver 5. trinn",
       "beskrivelse": "Lesing, regning og engelsk, og to kartlegginger i lesing fra 6. trinn",
-      "lenketekst": "Se resultater over tid",
       "kilde": {
         "virksomhet": "Utdanningsdirektoratet",
         "system": "prøveadministrasjonssystemet",
@@ -261,6 +302,18 @@
             "skolear": "2025-2026"
           }
         ]
+      },
+      "handling": {
+        "tittel": "Se utviklingen over tid",
+        "type": "lenke",
+        "mal": "#"
+      },
+      "rolletekster": {
+        "selv": {
+          "tittel": "Lesing",
+          "hovedverdi": "Du har lest mer og raskere siden 5. trinn",
+          "beskrivelse": "Fra nasjonale prøver og kartlegginger"
+        }
       }
     },
     {
@@ -269,7 +322,6 @@
       "tittel": "Tilrettelegging",
       "hovedverdi": "Ingen vedtak",
       "beskrivelse": "Ingen sakkyndig vurdering eller vedtak om spesialundervisning",
-      "lenketekst": "Hva er PP-tjenesten?",
       "kilde": {
         "virksomhet": "Lykke kommune",
         "system": "PP-tjenesten",
@@ -282,6 +334,11 @@
       "data": {
         "sakkyndigVurdering": false,
         "vedtak": []
+      },
+      "handling": {
+        "tittel": "Hva er PP-tjenesten?",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -290,7 +347,6 @@
       "tittel": "Samtale med helsesykepleier",
       "hovedverdi": "Tirsdag 24. november kl. 11.30",
       "beskrivelse": "På helserommet. Foreldrene dine kan ikke se dette.",
-      "lenketekst": "Endre tid",
       "merknad": {
         "tekst": "Når du er over 12 år, kan du snakke med helsesykepleier uten at foreldrene dine får vite hva dere snakker om.",
         "alvorlighet": "info"
@@ -308,6 +364,11 @@
         "tidspunkt": "2026-11-24T11:30:00+01:00",
         "sted": "Helserommet, Lykke barneskole",
         "taushetsplikt": true
+      },
+      "handling": {
+        "tittel": "Endre tid",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -316,7 +377,6 @@
       "tittel": "Skoleplass neste år",
       "hovedverdi": "Lykke ungdomsskole",
       "beskrivelse": "Fra høsten 2027. Før 1. mars velges fremmedspråk.",
-      "lenketekst": "Les om språkfagene",
       "kilde": {
         "virksomhet": "Lykke kommune",
         "hentet": "2026-11-01T07:00:00+01:00"
@@ -326,6 +386,18 @@
         "skole": "Lykke ungdomsskole",
         "fra": "2027-08-17",
         "grunnlag": "Skolekrets etter adresse i Folkeregisteret"
+      },
+      "handling": {
+        "tittel": "Les om språkfagene",
+        "type": "lenke",
+        "mal": "#"
+      },
+      "rolletekster": {
+        "selv": {
+          "tittel": "Neste år: ungdomsskolen",
+          "hovedverdi": "Du har fått plass på Lykke ungdomsskole",
+          "beskrivelse": "Før 1. mars velger du fremmedspråk sammen med foreldrene dine."
+        }
       }
     }
   ],
@@ -398,6 +470,106 @@
       "steg": "fagtekst",
       "synligFor": [
         "selv"
+      ]
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a005",
+      "livssituasjon": "barn-og-skole"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a006",
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "foresatt"
+      ]
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000a007",
+      "livssituasjon": "barn-og-skole",
+      "synligFor": [
+        "foresatt"
+      ]
+    }
+  ],
+  "kildestatus": [
+    {
+      "kilde": {
+        "virksomhet": "Lykke barneskole",
+        "system": "skolens læringsplattform"
+      },
+      "melding": "Timeplan og ukebrev fra skolens læringsplattform vises ikke akkurat nå. Prøv igjen senere.",
+      "handling": {
+        "tittel": "Gå direkte til læringsplattformen",
+        "type": "lenke",
+        "mal": "#"
+      }
+    }
+  ],
+  "hjelp": [
+    {
+      "tittel": "Trenger du noen å snakke med?",
+      "handlinger": [
+        {
+          "tittel": "Kontaktlæreren din",
+          "type": "lenke",
+          "mal": "#"
+        },
+        {
+          "tittel": "Helsesykepleier på skolen",
+          "type": "tjeneste",
+          "mal": "skolehelsetjenesten"
+        },
+        {
+          "tittel": "Ung.no – spør anonymt",
+          "type": "lenke",
+          "mal": "https://www.ung.no/oss"
+        }
+      ],
+      "synligFor": [
+        "selv"
+      ]
+    }
+  ],
+  "tjenestevurderinger": [
+    {
+      "tjenesteId": "skoleskyss",
+      "status": "til-behandling",
+      "sammendrag": "Du trenger ikke søke. Når Amir har fått skoleplass på Lykke ungdomsskole, vurderer kommunen om han har rett til skyss. Du får svar her og i meldingene dine.",
+      "kjenteOpplysninger": [
+        {
+          "opplysning": "Adresse",
+          "verdi": "Lykkeveien 12, Lykke",
+          "kilde": "Folkeregisteret"
+        },
+        {
+          "opplysning": "Skole fra høsten 2027",
+          "verdi": "Lykke ungdomsskole",
+          "kilde": "Lykke kommune"
+        },
+        {
+          "opplysning": "Gangavstand til skolen",
+          "verdi": "3,6 km",
+          "kilde": "Beregnet av fylkeskommunen"
+        },
+        {
+          "opplysning": "Behov på grunn av helse",
+          "verdi": "Ikke registrert",
+          "kilde": "Kommer bare fra deg"
+        }
+      ],
+      "merknad": {
+        "tekst": "Med 3,6 km har Amir trolig ikke rett til skyss på grunn av avstand. Hvis skoleveien er farlig, eller Amir trenger skyss på grunn av helse, kan du si fra.",
+        "alvorlighet": "advarsel"
+      },
+      "handlinger": [
+        {
+          "tittel": "Si fra om skoleveien eller helse",
+          "type": "lenke",
+          "mal": "#"
+        }
+      ],
+      "synligFor": [
+        "foresatt"
       ]
     }
   ]

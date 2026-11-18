@@ -18,8 +18,7 @@ const findDataById = async <T>(
   type: 'profile' | 'parties' | 'dialogs' | 'features' | 'searches' | 'services',
   defaultData: T,
 ): Promise<T> => {
-  const urlParams = new URLSearchParams(url);
-  const playwrightId = urlParams.get('playwrightId');
+  const playwrightId = new URL(url).searchParams.get('playwrightId');
   try {
     const data = await import(`./data/stories/${playwrightId}/${type}.ts`);
     return data[type];

@@ -28,6 +28,12 @@ innholdet kommer fra én domeneuavhengig kontrakt. Status: konsept med mockdata.
   hvilke roller som ser elementet. Mangler feltet, ser alle med tilgang det. Slik ser Amir helsesamtalen, mens
   foresatte ikke gjør det.
 - **Aktør-id er party-URN** som i Altinn, så aktørvelgeren i Arbeidsflate og oversikten henger sammen.
+- **Tekst kan tilpasses rollen.** `Opplysning.rolletekster` gir for eksempel enklere tekst når barnet selv ser
+  kortet. Tjenesten bytter inn teksten og fjerner feltet i svaret.
+- **Det personlige ligger i aktørens oversikt, ikke i katalogen.** `GET /aktorer/{id}/tjenester/{tjenesteId}`
+  gir tjenesten vurdert for aktøren: status, hva som allerede er kjent (med kilde) og hva som må gjøres.
+- **Oversikten sier også hva den ikke vet.** `kildestatus` viser kilder som ikke svarte, `lagresTil` når
+  opplysningene slettes, og `involverte` andre parter (for eksempel medarvinger som må signere).
 
 ## Kjøre
 
@@ -41,6 +47,17 @@ Fra rotmappen i repoet (pnpm via `corepack pnpm` hvis pnpm ikke er på PATH):
 
 Arbeidsflate-mocken leser `data/` direkte (`packages/frontend/src/mocks/oversikt`), også profil, parties og
 dialoger for de to mockhistoriene. Endringer i redigeringsappen vises etter at siden lastes på nytt.
+
+## GitHub Pages
+
+`pnpm --filter frontend build:pages` lager et statisk mock-bygg (`vite build --mode pages`,
+`packages/frontend/vite/pagesStaticMock.ts`): MSW er alltid på, appen ligger under `/<repo>/`, Nora er valgt
+når adressen ikke sier noe annet, og `404.html` gjør at direkte lenker til undersider virker. Vanlige bygg
+påvirkes ikke.
+
+Publisering skjer med arbeidsflyten `.github/workflows/pages-oversikt.yml`, som bare kjøres manuelt. Slå først på
+GitHub Pages i repoinnstillingene med kilde «GitHub Actions». Demoen blir da offentlig tilgjengelig, med de
+oppdiktede dataene i `data/`. Bytt bruker med `?playwrightId=rahimi-berg-amir`.
 
 ## Kjente hull
 

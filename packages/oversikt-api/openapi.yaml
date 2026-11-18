@@ -82,6 +82,38 @@ paths:
                   $ref: './schemas/kjerne.schema.json#/$defs/Sammenheng'
         '401':
           $ref: '#/components/responses/IkkeInnlogget'
+  /aktorer/{aktorId}/tjenester/{tjenesteId}:
+    get:
+      tags: [Tjenester]
+      operationId: hentTjenestevurdering
+      summary: En tjeneste vurdert for én aktør
+      description: |
+        Om tjenesten gjelder aktøren, hvilke opplysninger som allerede er kjent og hva som må gjøres.
+        Finnes det ingen vurdering, svarer tjenesten 404, og klienten viser bare katalogteksten.
+      parameters:
+        - $ref: '#/components/parameters/AktorId'
+        - name: tjenesteId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vurderingen, filtrert etter den innloggedes rolle
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/kjerne.schema.json#/$defs/Tjenestevurdering'
+        '401':
+          $ref: '#/components/responses/IkkeInnlogget'
+        '403':
+          description: Den innloggede har ingen tilgang til aktøren
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/kjerne.schema.json#/$defs/Feil'
+        '404':
+          $ref: '#/components/responses/IkkeFunnet'
   /tjenester/{tjenesteId}:
     get:
       tags: [Tjenester]

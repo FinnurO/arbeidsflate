@@ -6,7 +6,14 @@ import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { parse } from 'yaml';
-import { hentOversikt, hentSammenhenger, hentTilganger, hentTjeneste, lagDomenetyper } from '../src/sammenstill.ts';
+import {
+  hentOversikt,
+  hentSammenhenger,
+  hentTilganger,
+  hentTjeneste,
+  hentTjenestevurdering,
+  lagDomenetyper,
+} from '../src/sammenstill.ts';
 
 const rot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const les = (sti) => JSON.parse(readFileSync(join(rot, sti), 'utf8'));
@@ -81,6 +88,11 @@ for (const [i, fil] of aktorfiler.entries()) sjekk(`${KILDE}Aktorkilde`, kildeda
 const aktorIder = new Set(kildedata.aktorer.map((a) => a.aktor.id));
 const dialogIder = new Set(kildedata.dialoger.map((d) => d.id));
 const tjenesteIder = new Set(kildedata.tjenester.map((t) => t.id));
+const sjekkHandling = (handling, hvor) => {
+  const finnes = { dialog: dialogIder, tjeneste: tjenesteIder, aktor: aktorIder }[handling.type];
+  if (finnes && !finnes.has(handling.mal))
+    meld(hvor, `handlingen «${handling.tittel}» peker til ukjent ${handling.type}`);
+};
 kildedata.aktorer.forEach((kilde, i) => {
   const hvor = `data/aktorer/${aktorfiler[i]}`;
   for (const opplysning of kilde.opplysninger) {
@@ -102,6 +114,17 @@ kildedata.aktorer.forEach((kilde, i) => {
   for (const f of kilde.tjenesteforslag) {
     if (!tjenesteIder.has(f.tjenesteId)) meld(hvor, `ukjent tjeneste ${f.tjenesteId}`);
   }
+  for (const v of kilde.tjenestevurderinger ?? []) {
+    if (!tjenesteIder.has(v.tjenesteId)) meld(hvor, `tjenestevurdering: ukjent tjeneste ${v.tjenesteId}`);
+  }
+  const handlinger = [
+    ...steg.map((s) => s.handling),
+    ...kilde.opplysninger.map((o) => o.handling),
+    ...(kilde.tjenestevurderinger ?? []).flatMap((v) => v.handlinger ?? []),
+    ...(kilde.kildestatus ?? []).map((k) => k.handling),
+    ...(kilde.hjelp ?? []).flatMap((h) => h.handlinger),
+  ].filter(Boolean);
+  for (const h of handlinger) sjekkHandling(h, hvor);
 });
 for (const t of kildedata.tilganger) {
   if (!aktorIder.has(t.aktor)) meld('data/tilganger.json', `ukjent aktør ${t.aktor}`);
@@ -110,11 +133,7 @@ for (const { sammenheng } of kildedata.sammenhenger) {
   for (const id of [sammenheng.fra, sammenheng.til]) {
     if (!aktorIder.has(id)) meld('data/sammenhenger.json', `${sammenheng.id}: ukjent aktør ${id}`);
   }
-  for (const h of sammenheng.handlinger ?? []) {
-    if (h.type === 'dialog' && !dialogIder.has(h.mal))
-      meld('data/sammenhenger.json', `${sammenheng.id}: ukjent dialog`);
-    if (h.type === 'aktor' && !aktorIder.has(h.mal)) meld('data/sammenhenger.json', `${sammenheng.id}: ukjent aktør`);
-  }
+  for (const h of sammenheng.handlinger ?? []) sjekkHandling(h, `data/sammenhenger.json ${sammenheng.id}`);
 }
 
 // 4. Alle svar mocken kan gi, mot kjernen.
@@ -128,8 +147,21 @@ for (const bruker of kildedata.brukere) {
   for (const t of tilganger) {
     const svar = hentOversikt(kildedata, bruker.aktorId, t.aktor.id);
     if (svar.status !== 200) meld(`oversikt ${bruker.id} → ${t.aktor.navn}`, svar.melding);
-    else sjekk(`${KJERNE}Oversikt`, svar.oversikt, `GET /aktorer/{id}/oversikt (${bruker.id} → ${t.aktor.navn})`);
+    else {
+      sjekk(`${KJERNE}Oversikt`, svar.oversikt, `GET /aktorer/{id}/oversikt (${bruker.id} → ${t.aktor.navn})`);
+      if (svar.oversikt.opplysninger.some((o) => o.rolletekster)) {
+        meld(`oversikt ${bruker.id} → ${t.aktor.navn}`, 'rolletekster skal ikke være med i svaret');
+      }
+    }
     antallSvar++;
+    const kilde = kildedata.aktorer.find((a) => a.aktor.id === t.aktor.id);
+    for (const v of kilde?.tjenestevurderinger ?? []) {
+      const vurdering = hentTjenestevurdering(kildedata, bruker.aktorId, t.aktor.id, v.tjenesteId);
+      if (vurdering.status === 200) {
+        sjekk(`${KJERNE}Tjenestevurdering`, vurdering.vurdering, `GET /aktorer/{id}/tjenester/${v.tjenesteId}`);
+        antallSvar++;
+      }
+    }
   }
   antallSvar += 2;
 }

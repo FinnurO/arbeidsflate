@@ -1,4 +1,4 @@
-import type { Oversikt, Sammenheng, Tilgang, Tjeneste } from '../../../oversikt-api/src/typer.ts';
+import type { Oversikt, Sammenheng, Tilgang, Tjeneste, Tjenestevurdering } from '../../../oversikt-api/src/typer.ts';
 import { useAuthenticatedQuery } from '../auth/useAuthenticatedQuery.ts';
 import { QUERY_KEYS } from '../constants/queryKeys.ts';
 import { searchDialogs } from './queries.ts';
@@ -38,6 +38,24 @@ export const useTjeneste = (tjenesteId: string | undefined) =>
     queryKey: [QUERY_KEYS.OVERSIKT_TJENESTE, tjenesteId],
     queryFn: () => hent<Tjeneste>(`/tjenester/${encodeURIComponent(tjenesteId ?? '')}`),
     enabled: Boolean(tjenesteId),
+  });
+
+/** Tjenesten vurdert for aktøren, eller null når den ikke er vurdert (404). */
+export const useTjenestevurdering = (aktorId: string | undefined, tjenesteId: string | undefined) =>
+  useAuthenticatedQuery({
+    queryKey: [QUERY_KEYS.OVERSIKT_TJENESTE, aktorId, tjenesteId],
+    queryFn: async (): Promise<Tjenestevurdering | null> => {
+      const sti = `/aktorer/${encodeURIComponent(aktorId ?? '')}/tjenester/${encodeURIComponent(tjenesteId ?? '')}`;
+      const svar = await fetch(`${BASE}${sti}`, { credentials: 'include' });
+      if (svar.status === 404) {
+        return null;
+      }
+      if (!svar.ok) {
+        throw new Error(`Oversikt-API svarte ${svar.status} på ${sti}`);
+      }
+      return svar.json();
+    },
+    enabled: Boolean(aktorId && tjenesteId),
   });
 
 /** Dialogene i Dialogporten for aktørene, slik at oversikten kan vise tittel, status og frist derfra. */

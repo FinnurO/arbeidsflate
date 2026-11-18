@@ -18,6 +18,7 @@ export const getPageRouteTitle = (route: PageRoutes): string => {
     [PageRoutes.oversikt]: '',
     [PageRoutes.oversiktAktor]: '',
     [PageRoutes.oversiktTjeneste]: '',
+    [PageRoutes.oversiktAktorTjeneste]: '',
   };
   if (routeMap[route]) {
     return t('route.titles.' + routeMap[route]);

@@ -19,16 +19,24 @@ export const medMock = (sti: string, search: string) => {
 };
 
 export const aktorSti = (aktorId: string) => `${PageRoutes.oversikt}/aktor/${encodeURIComponent(aktorId)}`;
-export const tjenesteSti = (tjenesteId: string) => `${PageRoutes.oversikt}/tjenester/${encodeURIComponent(tjenesteId)}`;
+/** Tjenestesiden; med aktør vises også vurderingen for aktøren. */
+export const tjenesteSti = (tjenesteId: string, aktorId?: string) =>
+  aktorId
+    ? `${aktorSti(aktorId)}/tjenester/${encodeURIComponent(tjenesteId)}`
+    : `${PageRoutes.oversikt}/tjenester/${encodeURIComponent(tjenesteId)}`;
 export const dialogSti = (dialogId: string) => PageRoutes.inboxItem.replace(':id', dialogId);
 
+/** Ekstern adresse for en lenke-handling, eller undefined for plassholdere («#»). */
+export const eksternAdresse = (handling: Handling) =>
+  handling.type === 'lenke' && /^https?:\/\//.test(handling.mal) ? handling.mal : undefined;
+
 /** Ruten en handling fører til, eller undefined for eksterne lenker og plassholdere. */
-export const handlingSti = (handling: Handling) => {
+export const handlingSti = (handling: Handling, aktorId?: string) => {
   switch (handling.type) {
     case 'aktor':
       return aktorSti(handling.mal);
     case 'tjeneste':
-      return tjenesteSti(handling.mal);
+      return tjenesteSti(handling.mal, aktorId);
     case 'dialog':
       return dialogSti(handling.mal);
     default:
@@ -70,6 +78,17 @@ type Tekstverdi = { value?: { value: string; languageCode?: string | null }[] } 
 
 export const tekst = (verdi: Tekstverdi) =>
   verdi?.value?.find((del) => del.languageCode === 'nb')?.value ?? verdi?.value?.[0]?.value ?? '';
+
+export const storForbokstav = (tekst: string) => tekst.charAt(0).toUpperCase() + tekst.slice(1);
+
+/** Grupperer i rekkefølgen elementene kommer. */
+export const grupperEtter = <T>(elementer: T[], nokkel: (element: T) => string) => {
+  const grupper = new Map<string, T[]>();
+  for (const element of elementer) {
+    grupper.set(nokkel(element), [...(grupper.get(nokkel(element)) ?? []), element]);
+  }
+  return grupper;
+};
 
 export const formaterDato = (dato: string | null | undefined) =>
   dato ? new Date(dato).toLocaleDateString('nb-NO', { day: 'numeric', month: 'long', year: 'numeric' }) : '';

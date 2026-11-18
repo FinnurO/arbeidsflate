@@ -79,7 +79,13 @@
                   "opplysning": "Bestått kunnskapsprøve for Jonas Berg",
                   "kilde": "Lykke kommune"
                 }
-              ]
+              ],
+              "handling": {
+                "tittel": "Start oppgave",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000b001",
+                "primar": true
+              }
             },
             {
               "id": "a-melding",
@@ -102,7 +108,12 @@
               "status": "utkast",
               "ansvarlig": "Skatteetaten",
               "frist": "2026-12-10",
-              "dialogId": "01938a10-0000-7000-8000-00000000b003"
+              "dialogId": "01938a10-0000-7000-8000-00000000b003",
+              "handling": {
+                "tittel": "Se utkastet",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000b003"
+              }
             },
             {
               "id": "omsetningsoppgave",
@@ -263,6 +274,28 @@
       "dialogId": "01938a10-0000-7000-8000-00000000b003",
       "livssituasjon": "starte-og-drive-bedrift",
       "steg": "mva-melding"
+    }
+  ],
+  "involverte": [
+    {
+      "gruppe": "Hvem ser denne oversikten",
+      "navn": "Nora Rahimi",
+      "initialer": "NR",
+      "beskrivelse": "Daglig leder",
+      "erDeg": true
+    },
+    {
+      "gruppe": "Hvem ser denne oversikten",
+      "navn": "Jonas Berg",
+      "initialer": "JB",
+      "beskrivelse": "Styreleder"
+    },
+    {
+      "gruppe": "Hvem ser denne oversikten",
+      "navn": "Regnskapsfører",
+      "initialer": "RF",
+      "type": "organisasjon",
+      "beskrivelse": "Bare skatt og mva"
     }
   ]
 }

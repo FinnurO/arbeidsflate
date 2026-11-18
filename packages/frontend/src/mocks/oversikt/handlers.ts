@@ -5,6 +5,7 @@ import {
   hentSammenhenger,
   hentTilganger,
   hentTjeneste,
+  hentTjenestevurdering,
   lagDomenetyper,
 } from '../../../../oversikt-api/src/sammenstill.ts';
 import { domeneskjemaer, kildedata } from './kildedata.ts';
@@ -34,6 +35,21 @@ export const oversiktHandlers = [
     const svar = hentOversikt(kildedata, bruker.aktorId, decodeURIComponent(String(params.aktorId)));
     return svar.status === 200
       ? HttpResponse.json(svar.oversikt)
+      : HttpResponse.json({ melding: svar.melding }, { status: svar.status });
+  }),
+  http.get(`${BASE}/aktorer/:aktorId/tjenester/:tjenesteId`, ({ params }) => {
+    const bruker = innlogget();
+    if (!bruker) {
+      return ikkeInnlogget();
+    }
+    const svar = hentTjenestevurdering(
+      kildedata,
+      bruker.aktorId,
+      decodeURIComponent(String(params.aktorId)),
+      String(params.tjenesteId),
+    );
+    return svar.status === 200
+      ? HttpResponse.json(svar.vurdering)
       : HttpResponse.json({ melding: svar.melding }, { status: svar.status });
   }),
   http.get(`${BASE}/sammenhenger`, () => {

@@ -37,7 +37,13 @@
                   "opplysning": "Eiendeler og gjeld",
                   "kilde": "Digitalt dødsbo"
                 }
-              ]
+              ],
+              "handling": {
+                "tittel": "Start søknad",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000c002",
+                "primar": true
+              }
             },
             {
               "id": "faste-avtaler",
@@ -116,7 +122,6 @@
       "tittel": "Bankkontoer",
       "hovedverdi": "3 kontoer i 2 banker",
       "beskrivelse": "Saldo og transaksjoner tre måneder før dødsfallet",
-      "lenketekst": "Se kontoene",
       "kilde": {
         "virksomhet": "Bankene",
         "hentet": "2026-10-23T07:00:00+02:00"
@@ -138,6 +143,11 @@
           }
         ],
         "transaksjonerFra": "2026-07-12"
+      },
+      "handling": {
+        "tittel": "Se kontoene",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -146,7 +156,6 @@
       "tittel": "Gjeld",
       "hovedverdi": "Boliglån og ett kredittkort",
       "beskrivelse": "Kreditorer som melder seg etter proklama kommer i tillegg",
-      "lenketekst": "Se gjelden",
       "kilde": {
         "virksomhet": "Bankene og Skatteetaten",
         "hentet": "2026-10-23T07:00:00+02:00"
@@ -163,6 +172,11 @@
             "kreditor": "Nordbank"
           }
         ]
+      },
+      "handling": {
+        "tittel": "Se gjelden",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -171,7 +185,6 @@
       "tittel": "Eiendom",
       "hovedverdi": "1 bolig i Lykke",
       "beskrivelse": "Eid alene, med pant til boliglånet",
-      "lenketekst": "Se eiendommen",
       "kilde": {
         "virksomhet": "Kartverket",
         "system": "grunnboken",
@@ -188,6 +201,11 @@
             ]
           }
         ]
+      },
+      "handling": {
+        "tittel": "Se eiendommen",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -196,7 +214,6 @@
       "tittel": "Kjøretøy",
       "hovedverdi": "1 personbil",
       "beskrivelse": "Forsikringen løper til den sies opp eller overføres",
-      "lenketekst": "Se kjøretøyet",
       "kilde": {
         "virksomhet": "Statens vegvesen",
         "system": "motorvognregisteret",
@@ -209,6 +226,11 @@
             "type": "personbil"
           }
         ]
+      },
+      "handling": {
+        "tittel": "Se kjøretøyet",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -217,7 +239,6 @@
       "tittel": "Pensjon og forsikring",
       "hovedverdi": "2 avtaler",
       "beskrivelse": "En livsforsikring kan ha begunstiget utenfor dødsboet",
-      "lenketekst": "Se avtalene",
       "kilde": {
         "virksomhet": "Norsk Pensjon og forsikringsselskapene",
         "hentet": "2026-10-23T07:00:00+02:00"
@@ -235,6 +256,11 @@
             "begunstigetUtenforBoet": true
           }
         ]
+      },
+      "handling": {
+        "tittel": "Se avtalene",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -243,7 +269,6 @@
       "tittel": "Skatt",
       "hovedverdi": "Skattemelding for 2026",
       "beskrivelse": "Dødsboet må levere skattemelding våren 2027",
-      "lenketekst": "Les mer",
       "kilde": {
         "virksomhet": "Skatteetaten",
         "hentet": "2026-10-23T07:00:00+02:00"
@@ -252,6 +277,11 @@
       "data": {
         "inntektsar": 2026,
         "skattemeldingLeveres": "våren 2027"
+      },
+      "handling": {
+        "tittel": "Les mer",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -260,7 +290,6 @@
       "tittel": "Aksjer",
       "hovedverdi": "20 % av Lykke Bistro AS",
       "beskrivelse": "Må fordeles i skiftet og meldes som eierskifte",
-      "lenketekst": "Se selskapet",
       "kilde": {
         "virksomhet": "Skatteetaten",
         "system": "aksjonærregisteret",
@@ -275,6 +304,11 @@
             "andelProsent": 20
           }
         ]
+      },
+      "handling": {
+        "tittel": "Se selskapet",
+        "type": "lenke",
+        "mal": "#"
       }
     },
     {
@@ -283,7 +317,6 @@
       "tittel": "Testament og ektepakt",
       "hovedverdi": "Ingen registrert",
       "beskrivelse": "Arven fordeles etter arveloven",
-      "lenketekst": "Slik fordeles arven",
       "kilde": {
         "virksomhet": "Lykke tingrett og Brønnøysundregistrene",
         "hentet": "2026-10-23T07:00:00+02:00"
@@ -292,6 +325,11 @@
       "data": {
         "testament": false,
         "ektepakt": false
+      },
+      "handling": {
+        "tittel": "Slik fordeles arven",
+        "type": "lenke",
+        "mal": "#"
       }
     }
   ],
@@ -332,6 +370,39 @@
       "dialogId": "01938a10-0000-7000-8000-00000000c003",
       "livssituasjon": "dodsfall-og-arv",
       "steg": "formuesfullmakt"
+    }
+  ],
+  "lagresTil": "2027-10-12",
+  "involverte": [
+    {
+      "gruppe": "Arvinger",
+      "navn": "Nora Rahimi",
+      "initialer": "NR",
+      "erDeg": true,
+      "tilstand": {
+        "tekst": "Signert",
+        "type": "ferdig"
+      }
+    },
+    {
+      "gruppe": "Arvinger",
+      "navn": "Sara Rahimi",
+      "initialer": "SR",
+      "beskrivelse": "Søster",
+      "tilstand": {
+        "tekst": "Signert",
+        "type": "ferdig"
+      }
+    },
+    {
+      "gruppe": "Arvinger",
+      "navn": "Ali Rahimi",
+      "initialer": "AR",
+      "beskrivelse": "Bror",
+      "tilstand": {
+        "tekst": "Venter",
+        "type": "venter"
+      }
     }
   ]
 }

@@ -1,7 +1,6 @@
 import {
   Alert,
   Badge,
-  Button,
   ButtonGroup,
   DashboardCard,
   DashboardHeader,
@@ -19,7 +18,8 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router';
 import { useDialogerForAktorer, useSammenhenger, useTilganger } from '../../api/oversikt.ts';
 import { usePageTitle } from '../../hooks/usePageTitle.ts';
-import { aktorSti, dialogSti, formaterDato, handlingSti, medMock, statusBadge, tekst } from './felles.ts';
+import { aktorSti, dialogSti, formaterDato, medMock, statusBadge, tekst } from './felles.ts';
+import { HandlingKnapp } from './HandlingKnapp.tsx';
 import styles from './oversikt.module.css';
 
 /** Den innloggedes samlede oversikt: hvem man handler for, sammenhenger og alt som krever handling. */
@@ -58,6 +58,10 @@ export const OversiktHjem = () => {
   const kreverHandling = dialoger
     .filter((dialog) => dialog.status === DialogStatus.RequiresAttention)
     .sort((a, b) => (a.dueAt ?? '9999').localeCompare(b.dueAt ?? '9999'));
+  const sisteMeldinger = dialoger
+    .filter((dialog) => dialog.status !== DialogStatus.RequiresAttention)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, 4);
 
   return (
     <PageBase>
@@ -100,93 +104,113 @@ export const OversiktHjem = () => {
         </Grid>
       </Section>
 
-      {sammenhenger.length > 0 && (
-        <Section spacing={4}>
-          <Heading as="h2" size="lg">
-            {t('oversikt.sammenhenger')}
-          </Heading>
-          {sammenhenger.map((sammenheng) => (
-            <Alert key={sammenheng.id} variant="info" heading={sammenheng.tittel}>
-              <Flex direction="col" spacing="sm" align="start">
-                <Flex spacing="xs" align="center">
-                  <Badge label={navn(sammenheng.fra)} color="neutral" variant="tinted" size="sm" />
-                  <Typography size="sm" aria-hidden>
-                    →
-                  </Typography>
-                  <Badge label={navn(sammenheng.til)} color="company" variant="tinted" size="sm" />
-                </Flex>
-                <Typography size="sm">{sammenheng.beskrivelse}</Typography>
-                <ButtonGroup wrap size="sm">
-                  {(sammenheng.handlinger ?? []).map((handling) => {
-                    const sti = handlingSti(handling);
-                    return (
-                      <Button
-                        key={handling.tittel}
-                        variant={handling.primar ? 'solid' : 'outline'}
-                        disabled={!sti}
-                        onClick={sti ? () => ga(sti) : undefined}
-                      >
-                        {handling.tittel}
-                      </Button>
-                    );
-                  })}
-                </ButtonGroup>
-                {sammenheng.kilder?.length ? (
-                  <Typography variant="subtle" size="xs">
-                    {t('oversikt.kilde')}:{' '}
-                    {sammenheng.kilder.map((k) => [k.virksomhet, k.system].filter(Boolean).join(', ')).join('; ')}
-                  </Typography>
-                ) : null}
-              </Flex>
-            </Alert>
-          ))}
-        </Section>
-      )}
+      <div className={styles.kolonner}>
+        <Flex direction="col" spacing={6}>
+          {sammenhenger.length > 0 && (
+            <Section spacing={4}>
+              <Heading as="h2" size="lg">
+                {t('oversikt.sammenhenger')}
+              </Heading>
+              {sammenhenger.map((sammenheng) => (
+                <Alert key={sammenheng.id} variant="info" heading={sammenheng.tittel}>
+                  <Flex direction="col" spacing="sm" align="start">
+                    <Flex spacing="xs" align="center">
+                      <Badge label={navn(sammenheng.fra)} color="neutral" variant="tinted" size="sm" />
+                      <Typography size="sm" aria-hidden>
+                        →
+                      </Typography>
+                      <Badge label={navn(sammenheng.til)} color="company" variant="tinted" size="sm" />
+                    </Flex>
+                    <Typography size="sm">{sammenheng.beskrivelse}</Typography>
+                    <ButtonGroup wrap size="sm">
+                      {(sammenheng.handlinger ?? []).map((handling) => (
+                        <HandlingKnapp key={handling.tittel} handling={handling} aktorId={sammenheng.til} />
+                      ))}
+                    </ButtonGroup>
+                    {sammenheng.kilder?.length ? (
+                      <Typography variant="subtle" size="xs">
+                        {t('oversikt.kilde')}:{' '}
+                        {sammenheng.kilder.map((k) => [k.virksomhet, k.system].filter(Boolean).join(', ')).join('; ')}
+                      </Typography>
+                    ) : null}
+                  </Flex>
+                </Alert>
+              ))}
+            </Section>
+          )}
 
-      <Section spacing={4}>
-        <Heading as="h2" size="lg">
-          {t('oversikt.krever_handling')}
-        </Heading>
-        <List>
-          {kreverHandling.map((dialog) => (
-            <ListItem
-              key={dialog.id}
-              id={dialog.id}
-              title={tekst(dialog.content?.title)}
-              description={[
-                navn(dialog.party),
-                tekst(dialog.content?.senderName),
-                dialog.dueAt
-                  ? `${t('oversikt.frist')}: ${formaterDato(dialog.dueAt)}`
-                  : tekst(dialog.content?.extendedStatus),
-              ]
-                .filter(Boolean)
-                .join(' · ')}
-              badge={statusBadge('krever-handling', t)}
-              as="button"
-              interactive
-              linkIcon
-              onClick={() => ga(dialogSti(dialog.id))}
-            />
-          ))}
-        </List>
-      </Section>
+          <Section spacing={4}>
+            <Heading as="h2" size="lg">
+              {t('oversikt.krever_handling')}
+            </Heading>
+            <List>
+              {kreverHandling.map((dialog) => (
+                <ListItem
+                  key={dialog.id}
+                  id={dialog.id}
+                  title={tekst(dialog.content?.title)}
+                  description={[
+                    navn(dialog.party),
+                    tekst(dialog.content?.senderName),
+                    dialog.dueAt
+                      ? `${t('oversikt.frist')}: ${formaterDato(dialog.dueAt)}`
+                      : tekst(dialog.content?.extendedStatus),
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
+                  badge={statusBadge('krever-handling', t)}
+                  as="button"
+                  interactive
+                  linkIcon
+                  onClick={() => ga(dialogSti(dialog.id))}
+                />
+              ))}
+            </List>
+          </Section>
+        </Flex>
 
-      <Section spacing={4}>
-        <Heading as="h2" size="md">
-          {t('oversikt.hjemmel')}
-        </Heading>
-        <List>
-          {tilganger.map((tilgang) => (
-            <ListItem
-              key={tilgang.aktor.id}
-              id={`hjemmel-${tilgang.aktor.id}`}
-              title={tilgang.rolle === 'selv' ? t('oversikt.meg_selv') : tilgang.aktor.navn}
-              description={`${tilgang.hjemmel.beskrivelse} · ${[tilgang.hjemmel.kilde.virksomhet, tilgang.hjemmel.kilde.system].filter(Boolean).join(', ')}`}
-            />
-          ))}
-        </List>
-      </Section>
+        <Flex as="aside" direction="col" spacing={6}>
+          {sisteMeldinger.length > 0 && (
+            <Section spacing={3}>
+              <Heading as="h2" size="md">
+                {t('oversikt.siste_meldinger')}
+              </Heading>
+              <List>
+                {sisteMeldinger.map((dialog) => (
+                  <ListItem
+                    key={dialog.id}
+                    id={`melding-${dialog.id}`}
+                    title={tekst(dialog.content?.title)}
+                    description={[tekst(dialog.content?.senderName), navn(dialog.party), formaterDato(dialog.createdAt)]
+                      .filter(Boolean)
+                      .join(' · ')}
+                    as="button"
+                    interactive
+                    linkIcon
+                    onClick={() => ga(dialogSti(dialog.id))}
+                  />
+                ))}
+              </List>
+            </Section>
+          )}
+
+          <Section spacing={3}>
+            <Heading as="h2" size="md">
+              {t('oversikt.hjemmel')}
+            </Heading>
+            <List>
+              {tilganger.map((tilgang) => (
+                <ListItem
+                  key={tilgang.aktor.id}
+                  id={`hjemmel-${tilgang.aktor.id}`}
+                  title={tilgang.rolle === 'selv' ? t('oversikt.meg_selv') : tilgang.aktor.navn}
+                  description={`${tilgang.hjemmel.beskrivelse} · ${[tilgang.hjemmel.kilde.virksomhet, tilgang.hjemmel.kilde.system].filter(Boolean).join(', ')}`}
+                />
+              ))}
+            </List>
+          </Section>
+        </Flex>
+      </div>
     </PageBase>
   );
 };
