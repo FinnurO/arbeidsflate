@@ -3,6 +3,10 @@
 Felles API for «Min oversikt»-dashbordene i Arbeidsflate: ett dashbord for alle livssituasjoner, der
 innholdet kommer fra én domeneuavhengig kontrakt. Status: konsept med mockdata.
 
+- **Guide** med begreper, flyt, eksempler og hvordan man legger til et domene: [`docs/guide.md`](docs/guide.md)
+- **Referanse** med alle felt og eksempelsvar for Nora og Amir: https://finnuro.github.io/arbeidsflate/api/
+  (lages lokalt med `pnpm --filter oversikt-api docs`)
+
 ## Innhold
 
 | Sti | Hva |
@@ -15,6 +19,8 @@ innholdet kommer fra én domeneuavhengig kontrakt. Status: konsept med mockdata.
 | `src/sammenstill.ts` | Setter sammen API-svarene og filtrerer etter den innloggedes rolle |
 | `scripts/validate.mjs` | Validerer kontrakt, data og alle API-svar mocken kan gi |
 | `editor/`, `scripts/editor-server.mjs` | Redigeringsapp for mockdataene |
+| `scripts/bundle.mjs`, `docs/referanse.html` | Samler kontrakten med skjemaer og eksempelsvar til `dist/` for referansen |
+| `docs/guide.md` | Forklaring av API-et |
 
 ## Prinsipper
 

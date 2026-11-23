@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oversikt-API – referanse</title>
+    <link rel="stylesheet" href="https://altinncdn.no/fonts/inter/v4.1/inter.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+      .topp {
+        font-family: Inter, sans-serif;
+        padding: 0.75rem 1.25rem;
+        background: #1e2b3c;
+        color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+        align-items: center;
+      }
+      .topp a {
+        color: #fff;
+      }
+      .topp strong {
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topp">
+      <strong>Oversikt-API</strong>
+      <span>Konsept med eksempeldata</span>
+      <a href="../">Åpne demoen</a>
+      <a href="https://github.com/FinnurO/arbeidsflate/blob/main/packages/oversikt-api/docs/guide.md">Les guiden</a>
+    </div>
+    <redoc spec-url="openapi.json" hide-download-button="false" expand-responses="200" json-sample-expand-level="3"></redoc>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@2.5.4/bundles/redoc.standalone.js"></script>
+  </body>
+</html>

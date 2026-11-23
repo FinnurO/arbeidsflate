@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "validate": "node scripts/validate.mjs",
-    "editor": "node scripts/editor-server.mjs"
+    "editor": "node scripts/editor-server.mjs",
+    "docs": "node scripts/bundle.mjs"
   },
   "devDependencies": {
     "ajv": "8.18.0",
