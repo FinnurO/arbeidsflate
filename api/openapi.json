@@ -1,0 +1,4037 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Oversikt-API",
+    "version": "0.1.0",
+    "summary": "Felles API for «Min oversikt»-dashbord på tvers av livssituasjoner.",
+    "description": "Ett API som alle dashbordene leser, uansett livssituasjon. Kjernen er domeneuavhengig:\naktører, livssituasjoner med faser og steg, opplysninger med kilde, tjenesteforslag og\nsammenhenger. Domenespesifikke opplysninger ligger i `Opplysning.data` og beskrives av\negne JSON Schema-filer som slås opp via `GET /domener`.\n\nOppgaver og meldinger er dialoger i Dialogporten. Dette API-et peker bare til dem med\n`Dialogreferanse` og knytter dem til livssituasjon og steg.\n\nAlt filtreres etter den innloggedes rolle overfor aktøren (`Rolle`), slik at for eksempel\nen foresatt og barnet selv ser ulike utsnitt av samme data.\n\nStatus: konsept. Eksempeldata for familien Rahimi Berg ligger i `data/`.\n"
+  },
+  "servers": [
+    {
+      "url": "/api/oversikt/v1",
+      "description": "Samme opphav som Arbeidsflate (mock via MSW i utvikling)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Aktører"
+    },
+    {
+      "name": "Oversikt"
+    },
+    {
+      "name": "Tjenester"
+    },
+    {
+      "name": "Domener"
+    }
+  ],
+  "paths": {
+    "/aktorer": {
+      "get": {
+        "tags": [
+          "Aktører"
+        ],
+        "operationId": "hentTilganger",
+        "summary": "Aktørene den innloggede kan se oversikten for",
+        "description": "Den innloggede selv kommer alltid først, med rollen `selv`.",
+        "responses": {
+          "200": {
+            "description": "Tilganger",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tilgang"
+                  }
+                },
+                "examples": {
+                  "nora": {
+                    "summary": "Nora: seg selv, Amir, restauranten og dødsboet",
+                    "value": [
+                      {
+                        "aktor": {
+                          "id": "urn:altinn:person:identifier-no:nora-rahimi",
+                          "type": "person",
+                          "navn": "Nora Rahimi",
+                          "initialer": "NR",
+                          "beskrivelse": "Skatt, helse og arbeid"
+                        },
+                        "rolle": "selv",
+                        "rolletekst": "Skatt, helse og arbeid",
+                        "hjemmel": {
+                          "beskrivelse": "Du er logget inn som deg selv",
+                          "kilde": {
+                            "virksomhet": "Digitaliseringsdirektoratet",
+                            "system": "ID-porten"
+                          }
+                        },
+                        "antallKreverHandling": 0
+                      },
+                      {
+                        "aktor": {
+                          "id": "urn:altinn:person:identifier-no:amir-rahimi",
+                          "type": "person",
+                          "navn": "Amir Rahimi",
+                          "initialer": "AR",
+                          "beskrivelse": "7. trinn ved Lykke barneskole",
+                          "fodselsdato": "2014-03-02"
+                        },
+                        "rolle": "foresatt",
+                        "rolletekst": "Barn og skole · Du er foresatt",
+                        "hjemmel": {
+                          "beskrivelse": "Du har foreldreansvar",
+                          "kilde": {
+                            "virksomhet": "Skatteetaten",
+                            "system": "Folkeregisteret"
+                          }
+                        },
+                        "antallKreverHandling": 4
+                      },
+                      {
+                        "aktor": {
+                          "id": "urn:altinn:organization:identifier-no:lykke-bistro",
+                          "type": "organisasjon",
+                          "navn": "Lykke Bistro AS",
+                          "initialer": "LB",
+                          "beskrivelse": "Restaurant i Lykke sentrum"
+                        },
+                        "rolle": "daglig-leder",
+                        "rolletekst": "Starte og drive bedrift · Du er daglig leder",
+                        "hjemmel": {
+                          "beskrivelse": "Du er daglig leder",
+                          "kilde": {
+                            "virksomhet": "Brønnøysundregistrene",
+                            "system": "Enhetsregisteret"
+                          }
+                        },
+                        "antallKreverHandling": 2
+                      },
+                      {
+                        "aktor": {
+                          "id": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "type": "dodsbo",
+                          "navn": "Dødsboet etter Reza Rahimi",
+                          "initialer": "RR",
+                          "beskrivelse": "Faren din og Amirs bestefar · Døde 12. oktober 2026"
+                        },
+                        "rolle": "arving",
+                        "rolletekst": "Dødsfall og arv · Du er arving",
+                        "hjemmel": {
+                          "beskrivelse": "Du har formuesfullmakt",
+                          "kilde": {
+                            "virksomhet": "Lykke tingrett",
+                            "hentet": "2026-10-22T09:00:00+02:00"
+                          }
+                        },
+                        "antallKreverHandling": 2
+                      }
+                    ]
+                  },
+                  "amir": {
+                    "summary": "Amir: bare seg selv",
+                    "value": [
+                      {
+                        "aktor": {
+                          "id": "urn:altinn:person:identifier-no:amir-rahimi",
+                          "type": "person",
+                          "navn": "Amir Rahimi",
+                          "initialer": "AR",
+                          "beskrivelse": "7. trinn ved Lykke barneskole",
+                          "fodselsdato": "2014-03-02"
+                        },
+                        "rolle": "selv",
+                        "rolletekst": "Det som gjelder deg på skolen",
+                        "hjemmel": {
+                          "beskrivelse": "Du er logget inn som deg selv",
+                          "kilde": {
+                            "virksomhet": "Digitaliseringsdirektoratet",
+                            "system": "ID-porten"
+                          }
+                        },
+                        "antallKreverHandling": 1
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/IkkeInnlogget"
+          }
+        }
+      }
+    },
+    "/aktorer/{aktorId}/oversikt": {
+      "get": {
+        "tags": [
+          "Oversikt"
+        ],
+        "operationId": "hentOversikt",
+        "summary": "Alt et dashbord trenger for én aktør",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AktorId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oversikten, filtrert etter den innloggedes rolle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Oversikt"
+                },
+                "examples": {
+                  "foresatt": {
+                    "summary": "Nora ser Amir (rolle foresatt)",
+                    "value": {
+                      "tilgang": {
+                        "aktor": {
+                          "id": "urn:altinn:person:identifier-no:amir-rahimi",
+                          "type": "person",
+                          "navn": "Amir Rahimi",
+                          "initialer": "AR",
+                          "beskrivelse": "7. trinn ved Lykke barneskole",
+                          "fodselsdato": "2014-03-02"
+                        },
+                        "rolle": "foresatt",
+                        "rolletekst": "Barn og skole · Du er foresatt",
+                        "hjemmel": {
+                          "beskrivelse": "Du har foreldreansvar",
+                          "kilde": {
+                            "virksomhet": "Skatteetaten",
+                            "system": "Folkeregisteret"
+                          }
+                        },
+                        "antallKreverHandling": 4
+                      },
+                      "livssituasjoner": [
+                        {
+                          "id": "barn-og-skole",
+                          "type": "barn-og-skole",
+                          "tittel": "Barn og skole",
+                          "aktivFase": "skolehverdag",
+                          "faser": [
+                            {
+                              "id": "skolehverdag",
+                              "tittel": "Skolehverdag",
+                              "steg": [
+                                {
+                                  "id": "leirskole",
+                                  "tittel": "Samtykke til leirskole på 7. trinn",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Lykke barneskole",
+                                  "frist": "2026-11-27",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000a001",
+                                  "synligFor": [
+                                    "foresatt"
+                                  ],
+                                  "handling": {
+                                    "tittel": "Svar",
+                                    "type": "dialog",
+                                    "mal": "01938a10-0000-7000-8000-00000000a001",
+                                    "primar": true
+                                  }
+                                },
+                                {
+                                  "id": "utviklingssamtale",
+                                  "tittel": "Velg tid for utviklingssamtale",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Kontaktlærer",
+                                  "frist": "2026-11-24",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000a002",
+                                  "synligFor": [
+                                    "foresatt"
+                                  ],
+                                  "handling": {
+                                    "tittel": "Velg tid",
+                                    "type": "dialog",
+                                    "mal": "01938a10-0000-7000-8000-00000000a002"
+                                  }
+                                },
+                                {
+                                  "id": "kontaktopplysninger",
+                                  "tittel": "Sjekk kontaktopplysningene skolen har om deg",
+                                  "beskrivelse": "Hentet fra Folkeregisteret og Kontakt- og reservasjonsregisteret – du trenger bare å bekrefte.",
+                                  "status": "under-arbeid",
+                                  "ansvarlig": "Lykke barneskole",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Adresse og foreldreansvar",
+                                      "kilde": "Folkeregisteret"
+                                    },
+                                    {
+                                      "opplysning": "E-post og mobil",
+                                      "kilde": "Kontakt- og reservasjonsregisteret"
+                                    }
+                                  ],
+                                  "synligFor": [
+                                    "foresatt"
+                                  ],
+                                  "handling": {
+                                    "tittel": "Se over",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "overgang",
+                              "tittel": "Overgang til ungdomsskolen",
+                              "beskrivelse": "Dette skjer det neste året. Mye ordnes automatisk med opplysninger det offentlige allerede har.",
+                              "steg": [
+                                {
+                                  "id": "skoleplass",
+                                  "tittel": "Skoleplass på Lykke ungdomsskole",
+                                  "beskrivelse": "Du trenger ikke søke.",
+                                  "status": "ordnet-automatisk",
+                                  "ansvarlig": "Lykke kommune",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Adresse",
+                                      "kilde": "Folkeregisteret"
+                                    },
+                                    {
+                                      "opplysning": "Skolekrets",
+                                      "kilde": "Lykke kommune"
+                                    }
+                                  ],
+                                  "handling": {
+                                    "tittel": "Se vedtak",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                },
+                                {
+                                  "id": "fremmedsprak",
+                                  "tittel": "Velg fremmedspråk eller fordypning",
+                                  "beskrivelse": "Amir og foresatte velger sammen.",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Lykke ungdomsskole",
+                                  "frist": "2027-03-01",
+                                  "handling": {
+                                    "tittel": "Start oppgave",
+                                    "type": "lenke",
+                                    "mal": "#",
+                                    "primar": true
+                                  }
+                                },
+                                {
+                                  "id": "skoleskyss",
+                                  "tittel": "Skoleskyss",
+                                  "beskrivelse": "Retten vurderes når skoleplassen er klar.",
+                                  "status": "til-behandling",
+                                  "ansvarlig": "Lykke fylkeskommune",
+                                  "tjenesteId": "skoleskyss",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Adresse",
+                                      "kilde": "Folkeregisteret"
+                                    },
+                                    {
+                                      "opplysning": "Ny skole",
+                                      "kilde": "Lykke kommune"
+                                    },
+                                    {
+                                      "opplysning": "Gangavstand",
+                                      "kilde": "Lykke fylkeskommune"
+                                    }
+                                  ],
+                                  "handling": {
+                                    "tittel": "Om tjenesten",
+                                    "type": "tjeneste",
+                                    "mal": "skoleskyss"
+                                  }
+                                },
+                                {
+                                  "id": "overforing",
+                                  "tittel": "Overføring av informasjon til ny skole",
+                                  "beskrivelse": "Barneskolen kan dele vurderinger og kartlegginger med ungdomsskolen hvis dere samtykker.",
+                                  "status": "til-signering",
+                                  "ansvarlig": "Lykke barneskole",
+                                  "handling": {
+                                    "tittel": "Ta stilling",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  },
+                                  "synligFor": [
+                                    "foresatt"
+                                  ]
+                                },
+                                {
+                                  "id": "bli-kjent",
+                                  "tittel": "Bli kjent-dag på ungdomsskolen",
+                                  "beskrivelse": "Invitasjon kommer fra Lykke ungdomsskole i mai 2027.",
+                                  "status": "senere",
+                                  "ansvarlig": "Lykke ungdomsskole"
+                                }
+                              ]
+                            }
+                          ],
+                          "forklaring": "Amir går på 7. trinn, og Lykke kommune har registrert at han skal over til Lykke ungdomsskole. Stegene kommer fra livssituasjonen «Overgang til ungdomsskolen», som knytter sammen tjenester fra kommunen, skolen og fylkeskommunen."
+                        }
+                      ],
+                      "opplysninger": [
+                        {
+                          "id": "fravaer",
+                          "domene": "skole.fravaer",
+                          "tittel": "Fravær",
+                          "hovedverdi": "3 dager og 4 timer",
+                          "beskrivelse": "Dette skoleåret, 2 dager er meldt av foresatte",
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "system": "skolens administrative system",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "skolear": "2026-2027",
+                            "dager": 3,
+                            "timer": 4,
+                            "meldtAvForesatte": 2
+                          },
+                          "handling": {
+                            "tittel": "Se dagene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "vurdering",
+                          "domene": "skole.vurdering",
+                          "tittel": "Vurderinger",
+                          "hovedverdi": "Halvårsvurdering våren 2026",
+                          "beskrivelse": "Skriftlig vurdering i 9 fag og 2 nye tilbakemeldinger i høst",
+                          "kilde": {
+                            "virksomhet": "Lykke barneskole",
+                            "system": "skolens læringsplattform",
+                            "hentet": "2026-11-16T18:40:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "periode": "Halvårsvurdering våren 2026",
+                            "fag": [
+                              {
+                                "fag": "Norsk"
+                              },
+                              {
+                                "fag": "Matematikk"
+                              },
+                              {
+                                "fag": "Engelsk"
+                              }
+                            ],
+                            "nyeTilbakemeldinger": 2
+                          },
+                          "handling": {
+                            "tittel": "Les vurderingene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "prover",
+                          "domene": "skole.provresultat",
+                          "tittel": "Prøver og kartlegginger",
+                          "hovedverdi": "Nasjonale prøver 5. trinn",
+                          "beskrivelse": "Lesing, regning og engelsk, og to kartlegginger i lesing fra 6. trinn",
+                          "kilde": {
+                            "virksomhet": "Utdanningsdirektoratet",
+                            "system": "prøveadministrasjonssystemet",
+                            "hentet": "2026-11-12T06:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "prover": [
+                              {
+                                "type": "nasjonal-prove",
+                                "omrade": "lesing",
+                                "trinn": 5,
+                                "skolear": "2024-2025",
+                                "mestringsniva": 2
+                              },
+                              {
+                                "type": "nasjonal-prove",
+                                "omrade": "regning",
+                                "trinn": 5,
+                                "skolear": "2024-2025",
+                                "mestringsniva": 2
+                              },
+                              {
+                                "type": "nasjonal-prove",
+                                "omrade": "engelsk",
+                                "trinn": 5,
+                                "skolear": "2024-2025",
+                                "mestringsniva": 3
+                              },
+                              {
+                                "type": "kartlegging",
+                                "omrade": "lesing",
+                                "trinn": 6,
+                                "skolear": "2025-2026"
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se utviklingen over tid",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "tilrettelegging",
+                          "domene": "skole.tilrettelegging",
+                          "tittel": "Tilrettelegging",
+                          "hovedverdi": "Ingen vedtak",
+                          "beskrivelse": "Ingen sakkyndig vurdering eller vedtak om spesialundervisning",
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "system": "PP-tjenesten",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "foresatt"
+                          ],
+                          "data": {
+                            "sakkyndigVurdering": false,
+                            "vedtak": []
+                          },
+                          "handling": {
+                            "tittel": "Hva er PP-tjenesten?",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "skoleplass",
+                          "domene": "skole.skoleplass",
+                          "tittel": "Skoleplass neste år",
+                          "hovedverdi": "Lykke ungdomsskole",
+                          "beskrivelse": "Fra høsten 2027. Før 1. mars velges fremmedspråk.",
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "hentet": "2026-11-01T07:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "skole": "Lykke ungdomsskole",
+                            "fra": "2027-08-17",
+                            "grunnlag": "Skolekrets etter adresse i Folkeregisteret"
+                          },
+                          "handling": {
+                            "tittel": "Les om språkfagene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        }
+                      ],
+                      "tjenesteforslag": [
+                        {
+                          "tjenesteId": "skoleskyss",
+                          "tittel": "Skoleskyss",
+                          "ansvarlig": "Lykke fylkeskommune",
+                          "begrunnelse": "Fordi Amir begynner på ungdomsskolen",
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        },
+                        {
+                          "tjenesteId": "pp-tjenesten",
+                          "tittel": "Kontakt PP-tjenesten",
+                          "ansvarlig": "Lykke kommune",
+                          "begrunnelse": "Tilbud til alle med barn i grunnskolen",
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        },
+                        {
+                          "tjenesteId": "skolehelsetjenesten",
+                          "tittel": "Skolehelsetjenesten",
+                          "ansvarlig": "Lykke kommune",
+                          "begrunnelse": "Fordi Amir går på 7. trinn",
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        }
+                      ],
+                      "dialoger": [
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a001",
+                          "livssituasjon": "barn-og-skole",
+                          "steg": "leirskole",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a002",
+                          "livssituasjon": "barn-og-skole",
+                          "steg": "utviklingssamtale",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a003",
+                          "livssituasjon": "barn-og-skole"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a005",
+                          "livssituasjon": "barn-og-skole"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a006",
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a007",
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "foresatt"
+                          ]
+                        }
+                      ],
+                      "sammenhenger": [
+                        {
+                          "id": "skolen",
+                          "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "til": "urn:altinn:person:identifier-no:amir-rahimi",
+                          "tittel": "Amir har mistet bestefaren sin",
+                          "beskrivelse": "Skolen kan følge Amir ekstra opp hvis de vet om det. Ingenting deles med skolen uten at du sier ja.",
+                          "krevesSamtykke": true,
+                          "handlinger": [
+                            {
+                              "tittel": "Gi beskjed til kontaktlæreren",
+                              "type": "lenke",
+                              "mal": "#",
+                              "primar": true
+                            },
+                            {
+                              "tittel": "Gå til Amirs oversikt",
+                              "type": "aktor",
+                              "mal": "urn:altinn:person:identifier-no:amir-rahimi"
+                            }
+                          ]
+                        }
+                      ],
+                      "kildestatus": [
+                        {
+                          "kilde": {
+                            "virksomhet": "Lykke barneskole",
+                            "system": "skolens læringsplattform"
+                          },
+                          "melding": "Timeplan og ukebrev fra skolens læringsplattform vises ikke akkurat nå. Prøv igjen senere.",
+                          "handling": {
+                            "tittel": "Gå direkte til læringsplattformen",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        }
+                      ],
+                      "hjelp": []
+                    }
+                  },
+                  "selv": {
+                    "summary": "Amir ser seg selv (rolle selv)",
+                    "value": {
+                      "tilgang": {
+                        "aktor": {
+                          "id": "urn:altinn:person:identifier-no:amir-rahimi",
+                          "type": "person",
+                          "navn": "Amir Rahimi",
+                          "initialer": "AR",
+                          "beskrivelse": "7. trinn ved Lykke barneskole",
+                          "fodselsdato": "2014-03-02"
+                        },
+                        "rolle": "selv",
+                        "rolletekst": "Det som gjelder deg på skolen",
+                        "hjemmel": {
+                          "beskrivelse": "Du er logget inn som deg selv",
+                          "kilde": {
+                            "virksomhet": "Digitaliseringsdirektoratet",
+                            "system": "ID-porten"
+                          }
+                        },
+                        "antallKreverHandling": 1
+                      },
+                      "livssituasjoner": [
+                        {
+                          "id": "barn-og-skole",
+                          "type": "barn-og-skole",
+                          "tittel": "Barn og skole",
+                          "aktivFase": "skolehverdag",
+                          "faser": [
+                            {
+                              "id": "skolehverdag",
+                              "tittel": "Skolehverdag",
+                              "steg": [
+                                {
+                                  "id": "fagtekst",
+                                  "tittel": "Lever fagtekst i norsk",
+                                  "status": "under-arbeid",
+                                  "ansvarlig": "Lykke barneskole",
+                                  "frist": "2026-11-26",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000a004",
+                                  "synligFor": [
+                                    "selv"
+                                  ],
+                                  "handling": {
+                                    "tittel": "Åpne oppgaven",
+                                    "type": "dialog",
+                                    "mal": "01938a10-0000-7000-8000-00000000a004"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "overgang",
+                              "tittel": "Overgang til ungdomsskolen",
+                              "beskrivelse": "Dette skjer det neste året. Mye ordnes automatisk med opplysninger det offentlige allerede har.",
+                              "steg": [
+                                {
+                                  "id": "skoleplass",
+                                  "tittel": "Skoleplass på Lykke ungdomsskole",
+                                  "beskrivelse": "Du trenger ikke søke.",
+                                  "status": "ordnet-automatisk",
+                                  "ansvarlig": "Lykke kommune",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Adresse",
+                                      "kilde": "Folkeregisteret"
+                                    },
+                                    {
+                                      "opplysning": "Skolekrets",
+                                      "kilde": "Lykke kommune"
+                                    }
+                                  ],
+                                  "handling": {
+                                    "tittel": "Se vedtak",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                },
+                                {
+                                  "id": "fremmedsprak",
+                                  "tittel": "Velg fremmedspråk eller fordypning",
+                                  "beskrivelse": "Amir og foresatte velger sammen.",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Lykke ungdomsskole",
+                                  "frist": "2027-03-01",
+                                  "handling": {
+                                    "tittel": "Start oppgave",
+                                    "type": "lenke",
+                                    "mal": "#",
+                                    "primar": true
+                                  }
+                                },
+                                {
+                                  "id": "skoleskyss",
+                                  "tittel": "Skoleskyss",
+                                  "beskrivelse": "Retten vurderes når skoleplassen er klar.",
+                                  "status": "til-behandling",
+                                  "ansvarlig": "Lykke fylkeskommune",
+                                  "tjenesteId": "skoleskyss",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Adresse",
+                                      "kilde": "Folkeregisteret"
+                                    },
+                                    {
+                                      "opplysning": "Ny skole",
+                                      "kilde": "Lykke kommune"
+                                    },
+                                    {
+                                      "opplysning": "Gangavstand",
+                                      "kilde": "Lykke fylkeskommune"
+                                    }
+                                  ],
+                                  "handling": {
+                                    "tittel": "Om tjenesten",
+                                    "type": "tjeneste",
+                                    "mal": "skoleskyss"
+                                  }
+                                },
+                                {
+                                  "id": "bli-kjent",
+                                  "tittel": "Bli kjent-dag på ungdomsskolen",
+                                  "beskrivelse": "Invitasjon kommer fra Lykke ungdomsskole i mai 2027.",
+                                  "status": "senere",
+                                  "ansvarlig": "Lykke ungdomsskole"
+                                }
+                              ]
+                            }
+                          ],
+                          "forklaring": "Amir går på 7. trinn, og Lykke kommune har registrert at han skal over til Lykke ungdomsskole. Stegene kommer fra livssituasjonen «Overgang til ungdomsskolen», som knytter sammen tjenester fra kommunen, skolen og fylkeskommunen."
+                        }
+                      ],
+                      "opplysninger": [
+                        {
+                          "id": "fravaer",
+                          "domene": "skole.fravaer",
+                          "tittel": "Fravær",
+                          "hovedverdi": "3 dager og 4 timer",
+                          "beskrivelse": "Dette skoleåret",
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "system": "skolens administrative system",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "skolear": "2026-2027",
+                            "dager": 3,
+                            "timer": 4,
+                            "meldtAvForesatte": 2
+                          },
+                          "handling": {
+                            "tittel": "Se dagene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "vurdering",
+                          "domene": "skole.vurdering",
+                          "tittel": "Tilbakemeldinger fra lærerne",
+                          "hovedverdi": "2 nye i høst",
+                          "beskrivelse": "I matematikk og engelsk",
+                          "kilde": {
+                            "virksomhet": "Lykke barneskole",
+                            "system": "skolens læringsplattform",
+                            "hentet": "2026-11-16T18:40:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "periode": "Halvårsvurdering våren 2026",
+                            "fag": [
+                              {
+                                "fag": "Norsk"
+                              },
+                              {
+                                "fag": "Matematikk"
+                              },
+                              {
+                                "fag": "Engelsk"
+                              }
+                            ],
+                            "nyeTilbakemeldinger": 2
+                          },
+                          "handling": {
+                            "tittel": "Les vurderingene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "prover",
+                          "domene": "skole.provresultat",
+                          "tittel": "Lesing",
+                          "hovedverdi": "Du har lest mer og raskere siden 5. trinn",
+                          "beskrivelse": "Fra nasjonale prøver og kartlegginger",
+                          "kilde": {
+                            "virksomhet": "Utdanningsdirektoratet",
+                            "system": "prøveadministrasjonssystemet",
+                            "hentet": "2026-11-12T06:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "prover": [
+                              {
+                                "type": "nasjonal-prove",
+                                "omrade": "lesing",
+                                "trinn": 5,
+                                "skolear": "2024-2025",
+                                "mestringsniva": 2
+                              },
+                              {
+                                "type": "nasjonal-prove",
+                                "omrade": "regning",
+                                "trinn": 5,
+                                "skolear": "2024-2025",
+                                "mestringsniva": 2
+                              },
+                              {
+                                "type": "nasjonal-prove",
+                                "omrade": "engelsk",
+                                "trinn": 5,
+                                "skolear": "2024-2025",
+                                "mestringsniva": 3
+                              },
+                              {
+                                "type": "kartlegging",
+                                "omrade": "lesing",
+                                "trinn": 6,
+                                "skolear": "2025-2026"
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se utviklingen over tid",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "helsesamtale",
+                          "domene": "skole.helsesamtale",
+                          "tittel": "Samtale med helsesykepleier",
+                          "hovedverdi": "Tirsdag 24. november kl. 11.30",
+                          "beskrivelse": "På helserommet. Foreldrene dine kan ikke se dette.",
+                          "merknad": {
+                            "tekst": "Når du er over 12 år, kan du snakke med helsesykepleier uten at foreldrene dine får vite hva dere snakker om.",
+                            "alvorlighet": "info"
+                          },
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "system": "skolehelsetjenesten",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "selv"
+                          ],
+                          "data": {
+                            "tidspunkt": "2026-11-24T11:30:00+01:00",
+                            "sted": "Helserommet, Lykke barneskole",
+                            "taushetsplikt": true
+                          },
+                          "handling": {
+                            "tittel": "Endre tid",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "skoleplass",
+                          "domene": "skole.skoleplass",
+                          "tittel": "Neste år: ungdomsskolen",
+                          "hovedverdi": "Du har fått plass på Lykke ungdomsskole",
+                          "beskrivelse": "Før 1. mars velger du fremmedspråk sammen med foreldrene dine.",
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "hentet": "2026-11-01T07:00:00+01:00"
+                          },
+                          "livssituasjon": "barn-og-skole",
+                          "data": {
+                            "skole": "Lykke ungdomsskole",
+                            "fra": "2027-08-17",
+                            "grunnlag": "Skolekrets etter adresse i Folkeregisteret"
+                          },
+                          "handling": {
+                            "tittel": "Les om språkfagene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        }
+                      ],
+                      "tjenesteforslag": [
+                        {
+                          "tjenesteId": "skolehelsetjenesten",
+                          "tittel": "Skolehelsetjenesten",
+                          "ansvarlig": "Lykke kommune",
+                          "begrunnelse": "Du kan snakke med helsesykepleier uten at foreldrene dine vet om det",
+                          "livssituasjon": "barn-og-skole",
+                          "synligFor": [
+                            "selv"
+                          ]
+                        }
+                      ],
+                      "dialoger": [
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a003",
+                          "livssituasjon": "barn-og-skole"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a004",
+                          "livssituasjon": "barn-og-skole",
+                          "steg": "fagtekst",
+                          "synligFor": [
+                            "selv"
+                          ]
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000a005",
+                          "livssituasjon": "barn-og-skole"
+                        }
+                      ],
+                      "sammenhenger": [],
+                      "kildestatus": [
+                        {
+                          "kilde": {
+                            "virksomhet": "Lykke barneskole",
+                            "system": "skolens læringsplattform"
+                          },
+                          "melding": "Timeplan og ukebrev fra skolens læringsplattform vises ikke akkurat nå. Prøv igjen senere.",
+                          "handling": {
+                            "tittel": "Gå direkte til læringsplattformen",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        }
+                      ],
+                      "hjelp": [
+                        {
+                          "tittel": "Trenger du noen å snakke med?",
+                          "handlinger": [
+                            {
+                              "tittel": "Kontaktlæreren din",
+                              "type": "lenke",
+                              "mal": "#"
+                            },
+                            {
+                              "tittel": "Helsesykepleier på skolen",
+                              "type": "tjeneste",
+                              "mal": "skolehelsetjenesten"
+                            },
+                            {
+                              "tittel": "Ung.no – spør anonymt",
+                              "type": "lenke",
+                              "mal": "https://www.ung.no/oss"
+                            }
+                          ],
+                          "synligFor": [
+                            "selv"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "virksomhet": {
+                    "summary": "Nora ser Lykke Bistro AS (rolle daglig-leder)",
+                    "value": {
+                      "tilgang": {
+                        "aktor": {
+                          "id": "urn:altinn:organization:identifier-no:lykke-bistro",
+                          "type": "organisasjon",
+                          "navn": "Lykke Bistro AS",
+                          "initialer": "LB",
+                          "beskrivelse": "Restaurant i Lykke sentrum"
+                        },
+                        "rolle": "daglig-leder",
+                        "rolletekst": "Starte og drive bedrift · Du er daglig leder",
+                        "hjemmel": {
+                          "beskrivelse": "Du er daglig leder",
+                          "kilde": {
+                            "virksomhet": "Brønnøysundregistrene",
+                            "system": "Enhetsregisteret"
+                          }
+                        },
+                        "antallKreverHandling": 2
+                      },
+                      "livssituasjoner": [
+                        {
+                          "id": "starte-og-drive-bedrift",
+                          "type": "starte-og-drive-bedrift",
+                          "tittel": "Starte og drive bedrift",
+                          "aktivFase": "drive",
+                          "faser": [
+                            {
+                              "id": "starte",
+                              "tittel": "Starte",
+                              "beskrivelse": "Alt er ferdig. Restauranten åpnet 1. mars 2025.",
+                              "steg": [
+                                {
+                                  "id": "etablere",
+                                  "tittel": "Etablere selskap",
+                                  "status": "utfort",
+                                  "ansvarlig": "Brønnøysundregistrene"
+                                },
+                                {
+                                  "id": "roller",
+                                  "tittel": "Fordele roller",
+                                  "beskrivelse": "Daglig leder, styreleder, styrer og stedfortreder",
+                                  "status": "utfort"
+                                },
+                                {
+                                  "id": "servering",
+                                  "tittel": "Serveringsbevilling",
+                                  "status": "utfort",
+                                  "ansvarlig": "Lykke kommune",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Etablererprøven",
+                                      "kilde": "Lykke kommune"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "skjenking",
+                                  "tittel": "Skjenkebevilling",
+                                  "beskrivelse": "Kunnskapsprøven ble delt med Jonas Berg og Reza Rahimi.",
+                                  "status": "utfort",
+                                  "ansvarlig": "Lykke kommune",
+                                  "handling": {
+                                    "tittel": "Se vedtak",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                },
+                                {
+                                  "id": "mva-registrering",
+                                  "tittel": "Registrere i Merverdiavgiftsregisteret",
+                                  "status": "utfort",
+                                  "ansvarlig": "Skatteetaten"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "drive",
+                              "tittel": "Drive",
+                              "steg": [
+                                {
+                                  "id": "stedfortreder",
+                                  "tittel": "Meld ny stedfortreder for skjenkebevillingen",
+                                  "beskrivelse": "Jonas Berg har bestått kunnskapsprøven og kan bli stedfortreder.",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Lykke kommune",
+                                  "fristtekst": "Bør gjøres snarest",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000b001",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Bestått kunnskapsprøve for Jonas Berg",
+                                      "kilde": "Lykke kommune"
+                                    }
+                                  ],
+                                  "handling": {
+                                    "tittel": "Start oppgave",
+                                    "type": "dialog",
+                                    "mal": "01938a10-0000-7000-8000-00000000b001",
+                                    "primar": true
+                                  }
+                                },
+                                {
+                                  "id": "a-melding",
+                                  "tittel": "Lever a-melding for november",
+                                  "beskrivelse": "Sendes fra lønnssystemet.",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Skatteetaten",
+                                  "frist": "2026-12-05",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000b002",
+                                  "handling": {
+                                    "tittel": "Del med regnskapsfører",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                },
+                                {
+                                  "id": "mva-melding",
+                                  "tittel": "Mva-melding for september og oktober",
+                                  "beskrivelse": "Regnskapsfører har startet.",
+                                  "status": "utkast",
+                                  "ansvarlig": "Skatteetaten",
+                                  "frist": "2026-12-10",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000b003",
+                                  "handling": {
+                                    "tittel": "Se utkastet",
+                                    "type": "dialog",
+                                    "mal": "01938a10-0000-7000-8000-00000000b003"
+                                  }
+                                },
+                                {
+                                  "id": "omsetningsoppgave",
+                                  "tittel": "Omsetningsoppgave for alkohol for 2026",
+                                  "beskrivelse": "Kommer i januar 2027.",
+                                  "status": "senere",
+                                  "ansvarlig": "Lykke kommune"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "opplysninger": [
+                        {
+                          "id": "eiere",
+                          "domene": "virksomhet.eiere",
+                          "tittel": "Eiere",
+                          "hovedverdi": "3 aksjonærer",
+                          "beskrivelse": "Nora Rahimi 40 %, Jonas Berg 40 %, dødsboet etter Reza Rahimi 20 %",
+                          "merknad": {
+                            "tekst": "Endres ved skiftet",
+                            "alvorlighet": "advarsel"
+                          },
+                          "kilde": {
+                            "virksomhet": "Skatteetaten",
+                            "system": "aksjonærregisteret",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "data": {
+                            "per": "2025-12-31",
+                            "eiere": [
+                              {
+                                "navn": "Nora Rahimi",
+                                "aktorId": "urn:altinn:person:identifier-no:nora-rahimi",
+                                "andelProsent": 40
+                              },
+                              {
+                                "navn": "Jonas Berg",
+                                "andelProsent": 40
+                              },
+                              {
+                                "navn": "Dødsboet etter Reza Rahimi",
+                                "aktorId": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                                "andelProsent": 20
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "bevillinger",
+                          "domene": "virksomhet.bevillinger",
+                          "tittel": "Bevillinger",
+                          "hovedverdi": "Mangler stedfortreder",
+                          "beskrivelse": "Serveringsbevilling gyldig. Skjenkebevilling gyldig til 30.09.2028, styrer Nora Rahimi.",
+                          "merknad": {
+                            "tekst": "Reza Rahimi var stedfortreder og døde 12. oktober.",
+                            "alvorlighet": "advarsel"
+                          },
+                          "kilde": {
+                            "virksomhet": "Lykke kommune",
+                            "system": "bevillingsregisteret",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "data": {
+                            "bevillinger": [
+                              {
+                                "type": "servering"
+                              },
+                              {
+                                "type": "skjenking",
+                                "gyldigTil": "2028-09-30",
+                                "styrer": "Nora Rahimi",
+                                "stedfortreder": null
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "ansatte",
+                          "domene": "virksomhet.ansatte",
+                          "tittel": "Ansatte",
+                          "hovedverdi": "6 ansatte",
+                          "beskrivelse": "Som rapportert i a-meldingen for oktober",
+                          "kilde": {
+                            "virksomhet": "Skatteetaten",
+                            "system": "a-ordningen",
+                            "hentet": "2026-11-06T07:00:00+01:00"
+                          },
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "data": {
+                            "antall": 6,
+                            "periode": "2026-10"
+                          }
+                        },
+                        {
+                          "id": "roller",
+                          "domene": "virksomhet.roller",
+                          "tittel": "Roller",
+                          "hovedverdi": "Nora Rahimi er daglig leder",
+                          "beskrivelse": "Jonas Berg er styreleder",
+                          "kilde": {
+                            "virksomhet": "Brønnøysundregistrene",
+                            "system": "Enhetsregisteret",
+                            "hentet": "2026-11-17T07:00:00+01:00"
+                          },
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "data": {
+                            "roller": [
+                              {
+                                "rolle": "daglig-leder",
+                                "navn": "Nora Rahimi"
+                              },
+                              {
+                                "rolle": "styreleder",
+                                "navn": "Jonas Berg"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "tjenesteforslag": [
+                        {
+                          "tjenesteId": "endre-styrer-stedfortreder",
+                          "tittel": "Endre styrer eller stedfortreder",
+                          "ansvarlig": "Lykke kommune",
+                          "begrunnelse": "Fordi bevillingen mangler stedfortreder",
+                          "livssituasjon": "starte-og-drive-bedrift"
+                        },
+                        {
+                          "tjenesteId": "endring-aksjeeiere",
+                          "tittel": "Melde endring i aksjeeiere",
+                          "ansvarlig": "Skatteetaten",
+                          "begrunnelse": "Fordi en aksjeeier er død",
+                          "livssituasjon": "starte-og-drive-bedrift"
+                        },
+                        {
+                          "tjenesteId": "kunnskapsproven",
+                          "tittel": "Kunnskapsprøven etter alkoholloven",
+                          "ansvarlig": "Lykke kommune",
+                          "livssituasjon": "starte-og-drive-bedrift"
+                        }
+                      ],
+                      "dialoger": [
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000b001",
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "steg": "stedfortreder"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000b002",
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "steg": "a-melding"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000b003",
+                          "livssituasjon": "starte-og-drive-bedrift",
+                          "steg": "mva-melding"
+                        }
+                      ],
+                      "sammenhenger": [
+                        {
+                          "id": "stedfortreder",
+                          "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+                          "tittel": "Restauranten mangler stedfortreder for skjenkebevillingen",
+                          "beskrivelse": "Reza Rahimi var registrert som stedfortreder. Lykke kommune må få melding om ny stedfortreder, ellers kan bevillingen stå i fare.",
+                          "kilder": [
+                            {
+                              "virksomhet": "Lykke kommune",
+                              "system": "bevillingsregisteret"
+                            },
+                            {
+                              "virksomhet": "Skatteetaten",
+                              "system": "Folkeregisteret"
+                            }
+                          ],
+                          "handlinger": [
+                            {
+                              "tittel": "Meld ny stedfortreder",
+                              "type": "dialog",
+                              "mal": "01938a10-0000-7000-8000-00000000b001",
+                              "primar": true
+                            }
+                          ]
+                        },
+                        {
+                          "id": "aksjer",
+                          "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+                          "tittel": "Dødsboet eier 20 % av aksjene i restauranten",
+                          "beskrivelse": "Aksjene må fordeles mellom arvingene i skiftet, og eierskiftet må registreres for selskapet.",
+                          "kilder": [
+                            {
+                              "virksomhet": "Skatteetaten",
+                              "system": "aksjonærregisteret"
+                            }
+                          ],
+                          "handlinger": [
+                            {
+                              "tittel": "Se i dødsboet",
+                              "type": "aktor",
+                              "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+                            }
+                          ]
+                        }
+                      ],
+                      "involverte": [
+                        {
+                          "gruppe": "Hvem ser denne oversikten",
+                          "navn": "Nora Rahimi",
+                          "initialer": "NR",
+                          "beskrivelse": "Daglig leder",
+                          "erDeg": true
+                        },
+                        {
+                          "gruppe": "Hvem ser denne oversikten",
+                          "navn": "Jonas Berg",
+                          "initialer": "JB",
+                          "beskrivelse": "Styreleder"
+                        },
+                        {
+                          "gruppe": "Hvem ser denne oversikten",
+                          "navn": "Regnskapsfører",
+                          "initialer": "RF",
+                          "type": "organisasjon",
+                          "beskrivelse": "Bare skatt og mva"
+                        }
+                      ]
+                    }
+                  },
+                  "dodsbo": {
+                    "summary": "Nora ser dødsboet (rolle arving)",
+                    "value": {
+                      "tilgang": {
+                        "aktor": {
+                          "id": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "type": "dodsbo",
+                          "navn": "Dødsboet etter Reza Rahimi",
+                          "initialer": "RR",
+                          "beskrivelse": "Faren din og Amirs bestefar · Døde 12. oktober 2026"
+                        },
+                        "rolle": "arving",
+                        "rolletekst": "Dødsfall og arv · Du er arving",
+                        "hjemmel": {
+                          "beskrivelse": "Du har formuesfullmakt",
+                          "kilde": {
+                            "virksomhet": "Lykke tingrett",
+                            "hentet": "2026-10-22T09:00:00+02:00"
+                          }
+                        },
+                        "antallKreverHandling": 2
+                      },
+                      "livssituasjoner": [
+                        {
+                          "id": "dodsfall-og-arv",
+                          "type": "dodsfall-og-arv",
+                          "tittel": "Dødsfall og arv",
+                          "aktivFase": "forste-ukene",
+                          "faser": [
+                            {
+                              "id": "forste-ukene",
+                              "tittel": "Rett etter dødsfallet",
+                              "steg": [
+                                {
+                                  "id": "melding",
+                                  "tittel": "Melding om dødsfallet",
+                                  "beskrivelse": "Du trenger ikke melde fra. Legen meldte dødsfallet, og Folkeregisteret har varslet tingretten, Nav og Skatteetaten.",
+                                  "status": "ordnet-automatisk",
+                                  "ansvarlig": "Skatteetaten"
+                                },
+                                {
+                                  "id": "gravferdsstonad",
+                                  "tittel": "Søk om gravferdsstønad",
+                                  "beskrivelse": "Opplysninger om dødsboet fylles ut for deg.",
+                                  "status": "krever-handling",
+                                  "ansvarlig": "Nav",
+                                  "frist": "2027-04-12",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000c002",
+                                  "bruker": [
+                                    {
+                                      "opplysning": "Eiendeler og gjeld",
+                                      "kilde": "Digitalt dødsbo"
+                                    }
+                                  ],
+                                  "handling": {
+                                    "tittel": "Start søknad",
+                                    "type": "dialog",
+                                    "mal": "01938a10-0000-7000-8000-00000000c002",
+                                    "primar": true
+                                  }
+                                },
+                                {
+                                  "id": "faste-avtaler",
+                                  "tittel": "Si opp faste avtaler",
+                                  "beskrivelse": "Vi har funnet 4 faste trekk på kontoene de siste tre månedene.",
+                                  "status": "under-arbeid",
+                                  "handling": {
+                                    "tittel": "Se trekkene",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "oppgjor",
+                              "tittel": "Oppgjør av dødsboet",
+                              "steg": [
+                                {
+                                  "id": "formuesfullmakt",
+                                  "tittel": "Formuesfullmakt",
+                                  "beskrivelse": "Utstedt av Lykke tingrett 22. oktober 2026",
+                                  "status": "utfort",
+                                  "ansvarlig": "Lykke tingrett",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000c003"
+                                },
+                                {
+                                  "id": "proklama",
+                                  "tittel": "Proklama – varsel til kreditorer",
+                                  "beskrivelse": "Valgfritt. Kreditorene får seks uker på å melde seg.",
+                                  "status": "ikke-startet",
+                                  "ansvarlig": "Lykke tingrett",
+                                  "handling": {
+                                    "tittel": "Bestill proklama",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                },
+                                {
+                                  "id": "testament",
+                                  "tittel": "Testament",
+                                  "beskrivelse": "Tingretten har ikke registrert noe testament",
+                                  "status": "ikke-aktuelt",
+                                  "ansvarlig": "Lykke tingrett"
+                                },
+                                {
+                                  "id": "skifteform",
+                                  "tittel": "Velg skifteform",
+                                  "beskrivelse": "2 av 3 arvinger har signert for privat skifte.",
+                                  "status": "til-signering",
+                                  "ansvarlig": "Lykke tingrett",
+                                  "frist": "2026-12-11",
+                                  "dialogId": "01938a10-0000-7000-8000-00000000c001",
+                                  "handling": {
+                                    "tittel": "Påminn Ali",
+                                    "type": "lenke",
+                                    "mal": "#"
+                                  }
+                                },
+                                {
+                                  "id": "skifteattest",
+                                  "tittel": "Skifteattest",
+                                  "beskrivelse": "Kommer fra tingretten normalt 1–2 uker etter at alle har signert",
+                                  "status": "senere",
+                                  "ansvarlig": "Lykke tingrett"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "opplysninger": [
+                        {
+                          "id": "bankkontoer",
+                          "domene": "dodsbo.bankkontoer",
+                          "tittel": "Bankkontoer",
+                          "hovedverdi": "3 kontoer i 2 banker",
+                          "beskrivelse": "Saldo og transaksjoner tre måneder før dødsfallet",
+                          "kilde": {
+                            "virksomhet": "Bankene",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "kontoer": [
+                              {
+                                "bank": "Lykke Sparebank",
+                                "kontotype": "Brukskonto"
+                              },
+                              {
+                                "bank": "Lykke Sparebank",
+                                "kontotype": "Sparekonto"
+                              },
+                              {
+                                "bank": "Nordbank",
+                                "kontotype": "Brukskonto"
+                              }
+                            ],
+                            "transaksjonerFra": "2026-07-12"
+                          },
+                          "handling": {
+                            "tittel": "Se kontoene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "gjeld",
+                          "domene": "dodsbo.gjeld",
+                          "tittel": "Gjeld",
+                          "hovedverdi": "Boliglån og ett kredittkort",
+                          "beskrivelse": "Kreditorer som melder seg etter proklama kommer i tillegg",
+                          "kilde": {
+                            "virksomhet": "Bankene og Skatteetaten",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "poster": [
+                              {
+                                "type": "boliglan",
+                                "kreditor": "Lykke Sparebank"
+                              },
+                              {
+                                "type": "kredittkort",
+                                "kreditor": "Nordbank"
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se gjelden",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "eiendom",
+                          "domene": "dodsbo.eiendom",
+                          "tittel": "Eiendom",
+                          "hovedverdi": "1 bolig i Lykke",
+                          "beskrivelse": "Eid alene, med pant til boliglånet",
+                          "kilde": {
+                            "virksomhet": "Kartverket",
+                            "system": "grunnboken",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "eiendommer": [
+                              {
+                                "kommune": "Lykke",
+                                "eierandel": "1/1",
+                                "heftelser": [
+                                  "Pant til Lykke Sparebank"
+                                ]
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se eiendommen",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "kjoretoy",
+                          "domene": "dodsbo.kjoretoy",
+                          "tittel": "Kjøretøy",
+                          "hovedverdi": "1 personbil",
+                          "beskrivelse": "Forsikringen løper til den sies opp eller overføres",
+                          "kilde": {
+                            "virksomhet": "Statens vegvesen",
+                            "system": "motorvognregisteret",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "kjoretoy": [
+                              {
+                                "type": "personbil"
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se kjøretøyet",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "pensjon",
+                          "domene": "dodsbo.pensjon-forsikring",
+                          "tittel": "Pensjon og forsikring",
+                          "hovedverdi": "2 avtaler",
+                          "beskrivelse": "En livsforsikring kan ha begunstiget utenfor dødsboet",
+                          "kilde": {
+                            "virksomhet": "Norsk Pensjon og forsikringsselskapene",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "avtaler": [
+                              {
+                                "type": "pensjon",
+                                "selskap": "Lykke Pensjon"
+                              },
+                              {
+                                "type": "livsforsikring",
+                                "selskap": "Lykke Forsikring",
+                                "begunstigetUtenforBoet": true
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se avtalene",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "skatt",
+                          "domene": "dodsbo.skatt",
+                          "tittel": "Skatt",
+                          "hovedverdi": "Skattemelding for 2026",
+                          "beskrivelse": "Dødsboet må levere skattemelding våren 2027",
+                          "kilde": {
+                            "virksomhet": "Skatteetaten",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "inntektsar": 2026,
+                            "skattemeldingLeveres": "våren 2027"
+                          },
+                          "handling": {
+                            "tittel": "Les mer",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "aksjer",
+                          "domene": "dodsbo.aksjer",
+                          "tittel": "Aksjer",
+                          "hovedverdi": "20 % av Lykke Bistro AS",
+                          "beskrivelse": "Må fordeles i skiftet og meldes som eierskifte",
+                          "kilde": {
+                            "virksomhet": "Skatteetaten",
+                            "system": "aksjonærregisteret",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "poster": [
+                              {
+                                "selskap": "Lykke Bistro AS",
+                                "aktorId": "urn:altinn:organization:identifier-no:lykke-bistro",
+                                "andelProsent": 20
+                              }
+                            ]
+                          },
+                          "handling": {
+                            "tittel": "Se selskapet",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        },
+                        {
+                          "id": "testament",
+                          "domene": "dodsbo.testament",
+                          "tittel": "Testament og ektepakt",
+                          "hovedverdi": "Ingen registrert",
+                          "beskrivelse": "Arven fordeles etter arveloven",
+                          "kilde": {
+                            "virksomhet": "Lykke tingrett og Brønnøysundregistrene",
+                            "hentet": "2026-10-23T07:00:00+02:00"
+                          },
+                          "livssituasjon": "dodsfall-og-arv",
+                          "data": {
+                            "testament": false,
+                            "ektepakt": false
+                          },
+                          "handling": {
+                            "tittel": "Slik fordeles arven",
+                            "type": "lenke",
+                            "mal": "#"
+                          }
+                        }
+                      ],
+                      "tjenesteforslag": [
+                        {
+                          "tjenesteId": "gravferdsstonad",
+                          "tittel": "Gravferdsstønad",
+                          "ansvarlig": "Nav",
+                          "livssituasjon": "dodsfall-og-arv"
+                        },
+                        {
+                          "tjenesteId": "tinglyse-arv",
+                          "tittel": "Tinglyse arv av bolig",
+                          "ansvarlig": "Kartverket",
+                          "begrunnelse": "Fordi dødsboet eier en bolig",
+                          "livssituasjon": "dodsfall-og-arv"
+                        },
+                        {
+                          "tjenesteId": "eierskifte-kjoretoy",
+                          "tittel": "Eierskifte av kjøretøy",
+                          "ansvarlig": "Statens vegvesen",
+                          "begrunnelse": "Fordi dødsboet eier en bil",
+                          "livssituasjon": "dodsfall-og-arv"
+                        }
+                      ],
+                      "dialoger": [
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000c001",
+                          "livssituasjon": "dodsfall-og-arv",
+                          "steg": "skifteform"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000c002",
+                          "livssituasjon": "dodsfall-og-arv",
+                          "steg": "gravferdsstonad"
+                        },
+                        {
+                          "dialogId": "01938a10-0000-7000-8000-00000000c003",
+                          "livssituasjon": "dodsfall-og-arv",
+                          "steg": "formuesfullmakt"
+                        }
+                      ],
+                      "sammenhenger": [
+                        {
+                          "id": "stedfortreder",
+                          "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+                          "tittel": "Restauranten mangler stedfortreder for skjenkebevillingen",
+                          "beskrivelse": "Reza Rahimi var registrert som stedfortreder. Lykke kommune må få melding om ny stedfortreder, ellers kan bevillingen stå i fare.",
+                          "kilder": [
+                            {
+                              "virksomhet": "Lykke kommune",
+                              "system": "bevillingsregisteret"
+                            },
+                            {
+                              "virksomhet": "Skatteetaten",
+                              "system": "Folkeregisteret"
+                            }
+                          ],
+                          "handlinger": [
+                            {
+                              "tittel": "Meld ny stedfortreder",
+                              "type": "dialog",
+                              "mal": "01938a10-0000-7000-8000-00000000b001",
+                              "primar": true
+                            }
+                          ]
+                        },
+                        {
+                          "id": "aksjer",
+                          "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+                          "tittel": "Dødsboet eier 20 % av aksjene i restauranten",
+                          "beskrivelse": "Aksjene må fordeles mellom arvingene i skiftet, og eierskiftet må registreres for selskapet.",
+                          "kilder": [
+                            {
+                              "virksomhet": "Skatteetaten",
+                              "system": "aksjonærregisteret"
+                            }
+                          ],
+                          "handlinger": [
+                            {
+                              "tittel": "Se i dødsboet",
+                              "type": "aktor",
+                              "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "skolen",
+                          "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "til": "urn:altinn:person:identifier-no:amir-rahimi",
+                          "tittel": "Amir har mistet bestefaren sin",
+                          "beskrivelse": "Skolen kan følge Amir ekstra opp hvis de vet om det. Ingenting deles med skolen uten at du sier ja.",
+                          "krevesSamtykke": true,
+                          "handlinger": [
+                            {
+                              "tittel": "Gi beskjed til kontaktlæreren",
+                              "type": "lenke",
+                              "mal": "#",
+                              "primar": true
+                            },
+                            {
+                              "tittel": "Gå til Amirs oversikt",
+                              "type": "aktor",
+                              "mal": "urn:altinn:person:identifier-no:amir-rahimi"
+                            }
+                          ]
+                        }
+                      ],
+                      "involverte": [
+                        {
+                          "gruppe": "Arvinger",
+                          "navn": "Nora Rahimi",
+                          "initialer": "NR",
+                          "erDeg": true,
+                          "tilstand": {
+                            "tekst": "Signert",
+                            "type": "ferdig"
+                          }
+                        },
+                        {
+                          "gruppe": "Arvinger",
+                          "navn": "Sara Rahimi",
+                          "initialer": "SR",
+                          "beskrivelse": "Søster",
+                          "tilstand": {
+                            "tekst": "Signert",
+                            "type": "ferdig"
+                          }
+                        },
+                        {
+                          "gruppe": "Arvinger",
+                          "navn": "Ali Rahimi",
+                          "initialer": "AR",
+                          "beskrivelse": "Bror",
+                          "tilstand": {
+                            "tekst": "Venter",
+                            "type": "venter"
+                          }
+                        }
+                      ],
+                      "lagresTil": "2027-10-12"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/IkkeInnlogget"
+          },
+          "403": {
+            "description": "Den innloggede har ingen tilgang til aktøren",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feil"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/IkkeFunnet"
+          }
+        }
+      }
+    },
+    "/sammenhenger": {
+      "get": {
+        "tags": [
+          "Oversikt"
+        ],
+        "operationId": "hentSammenhenger",
+        "summary": "Sammenhenger på tvers av aktørene den innloggede ser",
+        "responses": {
+          "200": {
+            "description": "Sammenhenger",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sammenheng"
+                  }
+                },
+                "examples": {
+                  "nora": {
+                    "summary": "Noras sammenhenger",
+                    "value": [
+                      {
+                        "id": "stedfortreder",
+                        "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                        "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+                        "tittel": "Restauranten mangler stedfortreder for skjenkebevillingen",
+                        "beskrivelse": "Reza Rahimi var registrert som stedfortreder. Lykke kommune må få melding om ny stedfortreder, ellers kan bevillingen stå i fare.",
+                        "kilder": [
+                          {
+                            "virksomhet": "Lykke kommune",
+                            "system": "bevillingsregisteret"
+                          },
+                          {
+                            "virksomhet": "Skatteetaten",
+                            "system": "Folkeregisteret"
+                          }
+                        ],
+                        "handlinger": [
+                          {
+                            "tittel": "Meld ny stedfortreder",
+                            "type": "dialog",
+                            "mal": "01938a10-0000-7000-8000-00000000b001",
+                            "primar": true
+                          }
+                        ]
+                      },
+                      {
+                        "id": "aksjer",
+                        "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                        "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+                        "tittel": "Dødsboet eier 20 % av aksjene i restauranten",
+                        "beskrivelse": "Aksjene må fordeles mellom arvingene i skiftet, og eierskiftet må registreres for selskapet.",
+                        "kilder": [
+                          {
+                            "virksomhet": "Skatteetaten",
+                            "system": "aksjonærregisteret"
+                          }
+                        ],
+                        "handlinger": [
+                          {
+                            "tittel": "Se i dødsboet",
+                            "type": "aktor",
+                            "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "skolen",
+                        "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                        "til": "urn:altinn:person:identifier-no:amir-rahimi",
+                        "tittel": "Amir har mistet bestefaren sin",
+                        "beskrivelse": "Skolen kan følge Amir ekstra opp hvis de vet om det. Ingenting deles med skolen uten at du sier ja.",
+                        "krevesSamtykke": true,
+                        "handlinger": [
+                          {
+                            "tittel": "Gi beskjed til kontaktlæreren",
+                            "type": "lenke",
+                            "mal": "#",
+                            "primar": true
+                          },
+                          {
+                            "tittel": "Gå til Amirs oversikt",
+                            "type": "aktor",
+                            "mal": "urn:altinn:person:identifier-no:amir-rahimi"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/IkkeInnlogget"
+          }
+        }
+      }
+    },
+    "/aktorer/{aktorId}/tjenester/{tjenesteId}": {
+      "get": {
+        "tags": [
+          "Tjenester"
+        ],
+        "operationId": "hentTjenestevurdering",
+        "summary": "En tjeneste vurdert for én aktør",
+        "description": "Om tjenesten gjelder aktøren, hvilke opplysninger som allerede er kjent og hva som må gjøres.\nFinnes det ingen vurdering, svarer tjenesten 404, og klienten viser bare katalogteksten.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AktorId"
+          },
+          {
+            "name": "tjenesteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vurderingen, filtrert etter den innloggedes rolle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tjenestevurdering"
+                },
+                "examples": {
+                  "skoleskyss": {
+                    "summary": "Skoleskyss vurdert for Amir, sett av Nora",
+                    "value": {
+                      "status": "til-behandling",
+                      "sammendrag": "Du trenger ikke søke. Når Amir har fått skoleplass på Lykke ungdomsskole, vurderer kommunen om han har rett til skyss. Du får svar her og i meldingene dine.",
+                      "kjenteOpplysninger": [
+                        {
+                          "opplysning": "Adresse",
+                          "verdi": "Lykkeveien 12, Lykke",
+                          "kilde": "Folkeregisteret"
+                        },
+                        {
+                          "opplysning": "Skole fra høsten 2027",
+                          "verdi": "Lykke ungdomsskole",
+                          "kilde": "Lykke kommune"
+                        },
+                        {
+                          "opplysning": "Gangavstand til skolen",
+                          "verdi": "3,6 km",
+                          "kilde": "Beregnet av fylkeskommunen"
+                        },
+                        {
+                          "opplysning": "Behov på grunn av helse",
+                          "verdi": "Ikke registrert",
+                          "kilde": "Kommer bare fra deg"
+                        }
+                      ],
+                      "merknad": {
+                        "tekst": "Med 3,6 km har Amir trolig ikke rett til skyss på grunn av avstand. Hvis skoleveien er farlig, eller Amir trenger skyss på grunn av helse, kan du si fra.",
+                        "alvorlighet": "advarsel"
+                      },
+                      "handlinger": [
+                        {
+                          "tittel": "Si fra om skoleveien eller helse",
+                          "type": "lenke",
+                          "mal": "#"
+                        }
+                      ],
+                      "aktor": {
+                        "id": "urn:altinn:person:identifier-no:amir-rahimi",
+                        "type": "person",
+                        "navn": "Amir Rahimi",
+                        "initialer": "AR",
+                        "beskrivelse": "7. trinn ved Lykke barneskole",
+                        "fodselsdato": "2014-03-02"
+                      },
+                      "tjeneste": {
+                        "id": "skoleskyss",
+                        "tittel": "Skoleskyss",
+                        "beskrivelse": "Elever i grunnskolen har rett til gratis skyss når skoleveien er lang, farlig eller særlig vanskelig.",
+                        "ansvarlig": "Lykke fylkeskommune, sammen med Lykke kommune",
+                        "livshendelser": [
+                          "barn-og-skole"
+                        ],
+                        "krav": [
+                          {
+                            "tittel": "Lang skolevei",
+                            "beskrivelse": "Elever på 2.–10. trinn som har mer enn 4 km til skolen. For 1. trinn er grensen 2 km."
+                          },
+                          {
+                            "tittel": "Farlig eller særlig vanskelig skolevei",
+                            "beskrivelse": "Kommunen vurderer skoleveien, uansett avstand."
+                          },
+                          {
+                            "tittel": "Funksjonsnedsettelse, skade eller sykdom",
+                            "beskrivelse": "Krever dokumentasjon fra lege eller annen fagperson."
+                          }
+                        ],
+                        "resultat": "Et vedtak om skyss. Hvis eleven har rett, følger et skysskort som gjelder hele skoleåret.",
+                        "relaterte": [
+                          {
+                            "tjenesteId": "skoleplass",
+                            "tittel": "Skoleplass i grunnskolen",
+                            "relasjon": "må være klar først"
+                          },
+                          {
+                            "tittel": "Bytte skole",
+                            "relasjon": "kan endre retten"
+                          },
+                          {
+                            "tittel": "Flytte",
+                            "relasjon": "ny adresse gir ny vurdering"
+                          }
+                        ],
+                        "kontaktpunkt": "Skyssekontoret, Lykke fylkeskommune",
+                        "katalogdekning": [
+                          {
+                            "visning": "Navn og beskrivelse",
+                            "felt": "dct:title, dct:description",
+                            "dekning": "ja"
+                          },
+                          {
+                            "visning": "Ansvarlig virksomhet",
+                            "felt": "cv:hasCompetentAuthority",
+                            "dekning": "ja"
+                          },
+                          {
+                            "visning": "Regelverk",
+                            "felt": "cpsv:follows, cv:hasLegalResource",
+                            "dekning": "sjelden"
+                          },
+                          {
+                            "visning": "Hvem har rett til skyss",
+                            "felt": "cv:holdsRequirement",
+                            "dekning": "nei"
+                          },
+                          {
+                            "visning": "Hva du får",
+                            "felt": "cpsvno:hasOutputType",
+                            "dekning": "nei"
+                          },
+                          {
+                            "visning": "Henger sammen med",
+                            "felt": "cv:relatedService, dct:requires",
+                            "dekning": "nei"
+                          },
+                          {
+                            "visning": "Livssituasjonen",
+                            "felt": "cv:isGroupedBy → cv:LifeEvent",
+                            "dekning": "nei"
+                          },
+                          {
+                            "visning": "Kontaktinformasjon",
+                            "felt": "cv:contactPoint",
+                            "dekning": "nei"
+                          },
+                          {
+                            "visning": "Dette vet vi allerede",
+                            "felt": "Kommer fra kildene med hjemmel",
+                            "dekning": "utenfor-katalogen"
+                          },
+                          {
+                            "visning": "Status for eleven",
+                            "felt": "Kommer fra saksbehandlingen",
+                            "dekning": "utenfor-katalogen"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/IkkeInnlogget"
+          },
+          "403": {
+            "description": "Den innloggede har ingen tilgang til aktøren",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feil"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/IkkeFunnet"
+          }
+        }
+      }
+    },
+    "/tjenester/{tjenesteId}": {
+      "get": {
+        "tags": [
+          "Tjenester"
+        ],
+        "operationId": "hentTjeneste",
+        "summary": "Én tjeneste, med markering av hvilke felt som finnes i tjenestekatalogen",
+        "parameters": [
+          {
+            "name": "tjenesteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tjenesten",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tjeneste"
+                },
+                "examples": {
+                  "skoleskyss": {
+                    "summary": "Skoleskyss",
+                    "value": {
+                      "id": "skoleskyss",
+                      "tittel": "Skoleskyss",
+                      "beskrivelse": "Elever i grunnskolen har rett til gratis skyss når skoleveien er lang, farlig eller særlig vanskelig.",
+                      "ansvarlig": "Lykke fylkeskommune, sammen med Lykke kommune",
+                      "livshendelser": [
+                        "barn-og-skole"
+                      ],
+                      "krav": [
+                        {
+                          "tittel": "Lang skolevei",
+                          "beskrivelse": "Elever på 2.–10. trinn som har mer enn 4 km til skolen. For 1. trinn er grensen 2 km."
+                        },
+                        {
+                          "tittel": "Farlig eller særlig vanskelig skolevei",
+                          "beskrivelse": "Kommunen vurderer skoleveien, uansett avstand."
+                        },
+                        {
+                          "tittel": "Funksjonsnedsettelse, skade eller sykdom",
+                          "beskrivelse": "Krever dokumentasjon fra lege eller annen fagperson."
+                        }
+                      ],
+                      "resultat": "Et vedtak om skyss. Hvis eleven har rett, følger et skysskort som gjelder hele skoleåret.",
+                      "relaterte": [
+                        {
+                          "tjenesteId": "skoleplass",
+                          "tittel": "Skoleplass i grunnskolen",
+                          "relasjon": "må være klar først"
+                        },
+                        {
+                          "tittel": "Bytte skole",
+                          "relasjon": "kan endre retten"
+                        },
+                        {
+                          "tittel": "Flytte",
+                          "relasjon": "ny adresse gir ny vurdering"
+                        }
+                      ],
+                      "kontaktpunkt": "Skyssekontoret, Lykke fylkeskommune",
+                      "katalogdekning": [
+                        {
+                          "visning": "Navn og beskrivelse",
+                          "felt": "dct:title, dct:description",
+                          "dekning": "ja"
+                        },
+                        {
+                          "visning": "Ansvarlig virksomhet",
+                          "felt": "cv:hasCompetentAuthority",
+                          "dekning": "ja"
+                        },
+                        {
+                          "visning": "Regelverk",
+                          "felt": "cpsv:follows, cv:hasLegalResource",
+                          "dekning": "sjelden"
+                        },
+                        {
+                          "visning": "Hvem har rett til skyss",
+                          "felt": "cv:holdsRequirement",
+                          "dekning": "nei"
+                        },
+                        {
+                          "visning": "Hva du får",
+                          "felt": "cpsvno:hasOutputType",
+                          "dekning": "nei"
+                        },
+                        {
+                          "visning": "Henger sammen med",
+                          "felt": "cv:relatedService, dct:requires",
+                          "dekning": "nei"
+                        },
+                        {
+                          "visning": "Livssituasjonen",
+                          "felt": "cv:isGroupedBy → cv:LifeEvent",
+                          "dekning": "nei"
+                        },
+                        {
+                          "visning": "Kontaktinformasjon",
+                          "felt": "cv:contactPoint",
+                          "dekning": "nei"
+                        },
+                        {
+                          "visning": "Dette vet vi allerede",
+                          "felt": "Kommer fra kildene med hjemmel",
+                          "dekning": "utenfor-katalogen"
+                        },
+                        {
+                          "visning": "Status for eleven",
+                          "felt": "Kommer fra saksbehandlingen",
+                          "dekning": "utenfor-katalogen"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/IkkeFunnet"
+          }
+        }
+      }
+    },
+    "/domener": {
+      "get": {
+        "tags": [
+          "Domener"
+        ],
+        "operationId": "hentDomenetyper",
+        "summary": "Register over opplysningstyper og skjemaene til `Opplysning.data`",
+        "responses": {
+          "200": {
+            "description": "Domenetyper",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domenetype"
+                  }
+                },
+                "examples": {
+                  "alle": {
+                    "summary": "Alle domenetyper",
+                    "value": [
+                      {
+                        "id": "dodsbo.bankkontoer",
+                        "domene": "dodsbo",
+                        "tittel": "Bankkontoer",
+                        "skjema": "#/components/schemas/dodsbo.bankkontoer"
+                      },
+                      {
+                        "id": "dodsbo.gjeld",
+                        "domene": "dodsbo",
+                        "tittel": "Gjeld",
+                        "skjema": "#/components/schemas/dodsbo.gjeld"
+                      },
+                      {
+                        "id": "dodsbo.eiendom",
+                        "domene": "dodsbo",
+                        "tittel": "Eiendom",
+                        "skjema": "#/components/schemas/dodsbo.eiendom"
+                      },
+                      {
+                        "id": "dodsbo.kjoretoy",
+                        "domene": "dodsbo",
+                        "tittel": "Kjøretøy",
+                        "skjema": "#/components/schemas/dodsbo.kjoretoy"
+                      },
+                      {
+                        "id": "dodsbo.pensjon-forsikring",
+                        "domene": "dodsbo",
+                        "tittel": "Pensjon og forsikring",
+                        "skjema": "#/components/schemas/dodsbo.pensjon-forsikring"
+                      },
+                      {
+                        "id": "dodsbo.skatt",
+                        "domene": "dodsbo",
+                        "tittel": "Skatt",
+                        "skjema": "#/components/schemas/dodsbo.skatt"
+                      },
+                      {
+                        "id": "dodsbo.aksjer",
+                        "domene": "dodsbo",
+                        "tittel": "Aksjer",
+                        "skjema": "#/components/schemas/dodsbo.aksjer"
+                      },
+                      {
+                        "id": "dodsbo.testament",
+                        "domene": "dodsbo",
+                        "tittel": "Testament og ektepakt",
+                        "skjema": "#/components/schemas/dodsbo.testament"
+                      },
+                      {
+                        "id": "skole.fravaer",
+                        "domene": "skole",
+                        "tittel": "Fravær",
+                        "skjema": "#/components/schemas/skole.fravaer"
+                      },
+                      {
+                        "id": "skole.vurdering",
+                        "domene": "skole",
+                        "tittel": "Vurderinger",
+                        "skjema": "#/components/schemas/skole.vurdering"
+                      },
+                      {
+                        "id": "skole.provresultat",
+                        "domene": "skole",
+                        "tittel": "Prøver og kartlegginger",
+                        "skjema": "#/components/schemas/skole.provresultat"
+                      },
+                      {
+                        "id": "skole.tilrettelegging",
+                        "domene": "skole",
+                        "tittel": "Tilrettelegging",
+                        "skjema": "#/components/schemas/skole.tilrettelegging"
+                      },
+                      {
+                        "id": "skole.helsesamtale",
+                        "domene": "skole",
+                        "tittel": "Samtale med skolehelsetjenesten",
+                        "skjema": "#/components/schemas/skole.helsesamtale"
+                      },
+                      {
+                        "id": "skole.skoleplass",
+                        "domene": "skole",
+                        "tittel": "Skoleplass",
+                        "skjema": "#/components/schemas/skole.skoleplass"
+                      },
+                      {
+                        "id": "virksomhet.roller",
+                        "domene": "virksomhet",
+                        "tittel": "Roller",
+                        "skjema": "#/components/schemas/virksomhet.roller"
+                      },
+                      {
+                        "id": "virksomhet.eiere",
+                        "domene": "virksomhet",
+                        "tittel": "Eiere",
+                        "skjema": "#/components/schemas/virksomhet.eiere"
+                      },
+                      {
+                        "id": "virksomhet.bevillinger",
+                        "domene": "virksomhet",
+                        "tittel": "Bevillinger",
+                        "skjema": "#/components/schemas/virksomhet.bevillinger"
+                      },
+                      {
+                        "id": "virksomhet.ansatte",
+                        "domene": "virksomhet",
+                        "tittel": "Ansatte",
+                        "skjema": "#/components/schemas/virksomhet.ansatte"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "AktorId": {
+        "name": "aktorId",
+        "in": "path",
+        "required": true,
+        "description": "Party-URN, URL-kodet.",
+        "schema": {
+          "$ref": "#/components/schemas/AktorId"
+        }
+      }
+    },
+    "responses": {
+      "IkkeInnlogget": {
+        "description": "Ikke innlogget",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Feil"
+            }
+          }
+        }
+      },
+      "IkkeFunnet": {
+        "description": "Finnes ikke",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Feil"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "AktorId": {
+        "type": "string",
+        "description": "Party-URN som i Altinn/Dialogporten, f.eks. urn:altinn:person:identifier-no:12345678901 eller urn:altinn:organization:identifier-no:999999999.",
+        "pattern": "^urn:altinn:(person|organization):"
+      },
+      "Rolle": {
+        "type": "string",
+        "description": "Hvilken rolle den innloggede har overfor aktøren. Bestemmer hva som er synlig.",
+        "enum": [
+          "selv",
+          "foresatt",
+          "daglig-leder",
+          "styreleder",
+          "regnskapsforer",
+          "arving"
+        ]
+      },
+      "Kilde": {
+        "type": "object",
+        "description": "Hvor en opplysning kommer fra og når den ble hentet.",
+        "required": [
+          "virksomhet"
+        ],
+        "properties": {
+          "virksomhet": {
+            "type": "string",
+            "description": "Virksomheten som eier opplysningen, f.eks. «Lykke kommune»."
+          },
+          "orgnr": {
+            "type": "string",
+            "pattern": "^[0-9]{9}$"
+          },
+          "system": {
+            "type": "string",
+            "description": "Register eller fagsystem, f.eks. «aksjonærregisteret»."
+          },
+          "hentet": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Hjemmel": {
+        "type": "object",
+        "description": "Hvorfor den innloggede får se aktøren.",
+        "required": [
+          "beskrivelse",
+          "kilde"
+        ],
+        "properties": {
+          "beskrivelse": {
+            "type": "string",
+            "description": "F.eks. «Du har foreldreansvar»."
+          },
+          "kilde": {
+            "$ref": "#/components/schemas/Kilde"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Aktor": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "navn"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/AktorId"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "person",
+              "organisasjon",
+              "dodsbo"
+            ]
+          },
+          "navn": {
+            "type": "string"
+          },
+          "initialer": {
+            "type": "string",
+            "maxLength": 3
+          },
+          "beskrivelse": {
+            "type": "string",
+            "description": "Kort undertekst, f.eks. «7. trinn ved Lykke barneskole»."
+          },
+          "fodselsdato": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Tilgang": {
+        "type": "object",
+        "description": "En aktør den innloggede kan se oversikten for.",
+        "required": [
+          "aktor",
+          "rolle",
+          "hjemmel"
+        ],
+        "properties": {
+          "aktor": {
+            "$ref": "#/components/schemas/Aktor"
+          },
+          "rolle": {
+            "$ref": "#/components/schemas/Rolle"
+          },
+          "rolletekst": {
+            "type": "string",
+            "description": "F.eks. «Du er foresatt»."
+          },
+          "hjemmel": {
+            "$ref": "#/components/schemas/Hjemmel"
+          },
+          "antallKreverHandling": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "SynligFor": {
+        "type": "array",
+        "description": "Rollene som får se elementet. Mangler feltet, ser alle roller det.",
+        "items": {
+          "$ref": "#/components/schemas/Rolle"
+        },
+        "uniqueItems": true
+      },
+      "Status": {
+        "type": "string",
+        "description": "Status for et steg. Steg som er knyttet til en dialog, bruker dialogens status i Dialogporten i stedet.",
+        "enum": [
+          "ordnet-automatisk",
+          "krever-handling",
+          "til-signering",
+          "til-behandling",
+          "under-arbeid",
+          "utkast",
+          "venter",
+          "utfort",
+          "ikke-startet",
+          "ikke-aktuelt",
+          "senere"
+        ]
+      },
+      "Handling": {
+        "type": "object",
+        "required": [
+          "tittel",
+          "type",
+          "mal"
+        ],
+        "properties": {
+          "tittel": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "dialog",
+              "tjeneste",
+              "aktor",
+              "lenke"
+            ],
+            "description": "Hva mal peker på: en dialog i Dialogporten, en tjeneste, en annen aktørs oversikt eller en ekstern lenke."
+          },
+          "mal": {
+            "type": "string"
+          },
+          "primar": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "Opplysningsbruk": {
+        "type": "object",
+        "description": "En opplysning som et steg gjenbruker, slik at brukeren ser hva som er gjenbrukt.",
+        "required": [
+          "opplysning",
+          "kilde"
+        ],
+        "properties": {
+          "opplysning": {
+            "type": "string"
+          },
+          "kilde": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Steg": {
+        "type": "object",
+        "required": [
+          "id",
+          "tittel",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "beskrivelse": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "ansvarlig": {
+            "type": "string"
+          },
+          "frist": {
+            "type": "string",
+            "format": "date"
+          },
+          "fristtekst": {
+            "type": "string",
+            "description": "Brukes når fristen ikke er en dato, f.eks. «Bør gjøres snarest»."
+          },
+          "bruker": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Opplysningsbruk"
+            }
+          },
+          "dialogId": {
+            "type": "string",
+            "description": "Dialog i Dialogporten som steget gjennomføres i."
+          },
+          "tjenesteId": {
+            "type": "string"
+          },
+          "handling": {
+            "$ref": "#/components/schemas/Handling"
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Fase": {
+        "type": "object",
+        "required": [
+          "id",
+          "tittel",
+          "steg"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "beskrivelse": {
+            "type": "string"
+          },
+          "steg": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Steg"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Livssituasjon": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "tittel",
+          "faser"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "Livshendelse, helst fra vokabularet https://data.norge.no/vocabulary/life-event-type.",
+            "examples": [
+              "barn-og-skole",
+              "starte-og-drive-bedrift",
+              "dodsfall-og-arv"
+            ]
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "aktivFase": {
+            "type": "string",
+            "description": "Id til fasen som vises først."
+          },
+          "forklaring": {
+            "type": "string",
+            "description": "Svar på «Hvorfor ser jeg dette?»: hva som utløste livssituasjonen og hvilke virksomheter stegene kommer fra."
+          },
+          "faser": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/Fase"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Merknad": {
+        "type": "object",
+        "required": [
+          "tekst",
+          "alvorlighet"
+        ],
+        "properties": {
+          "tekst": {
+            "type": "string"
+          },
+          "alvorlighet": {
+            "type": "string",
+            "enum": [
+              "info",
+              "advarsel"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Opplysning": {
+        "type": "object",
+        "description": "En opplysning hentet fra en kilde. Visningsfeltene er nok til å tegne et kort; domene og data gir detaljene, beskrevet av domeneskjemaet.",
+        "required": [
+          "id",
+          "domene",
+          "tittel",
+          "hovedverdi",
+          "kilde",
+          "data"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "domene": {
+            "type": "string",
+            "description": "Opplysningstype på formen <domene>.<type>, f.eks. skole.fravaer. Slås opp i /domener for å finne skjemaet til data.",
+            "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "hovedverdi": {
+            "type": "string"
+          },
+          "beskrivelse": {
+            "type": "string"
+          },
+          "handling": {
+            "$ref": "#/components/schemas/Handling",
+            "description": "Lenken nederst på kortet, f.eks. «Se dagene»."
+          },
+          "rolletekster": {
+            "type": "object",
+            "description": "Tekst tilpasset en rolle, f.eks. enklere tekst når barnet selv ser kortet. Tjenesten bytter inn teksten for den innloggedes rolle og fjerner feltet i svaret.",
+            "propertyNames": {
+              "$ref": "#/components/schemas/Rolle"
+            },
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Rolletekst"
+            }
+          },
+          "merknad": {
+            "$ref": "#/components/schemas/Merknad"
+          },
+          "kilde": {
+            "$ref": "#/components/schemas/Kilde"
+          },
+          "livssituasjon": {
+            "type": "string",
+            "description": "Id til livssituasjonen opplysningen hører til."
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          },
+          "data": {
+            "type": "object",
+            "description": "Validerer mot skjemaet til domene."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Rolletekst": {
+        "type": "object",
+        "properties": {
+          "tittel": {
+            "type": "string"
+          },
+          "hovedverdi": {
+            "type": "string"
+          },
+          "beskrivelse": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Involvert": {
+        "type": "object",
+        "description": "En annen part i saken, f.eks. en medarving som må signere eller noen som også ser oversikten.",
+        "required": [
+          "gruppe",
+          "navn"
+        ],
+        "properties": {
+          "gruppe": {
+            "type": "string",
+            "description": "Overskriften partene vises under, f.eks. «Arvinger»."
+          },
+          "navn": {
+            "type": "string"
+          },
+          "initialer": {
+            "type": "string",
+            "maxLength": 3
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "person",
+              "organisasjon"
+            ],
+            "default": "person"
+          },
+          "beskrivelse": {
+            "type": "string",
+            "description": "F.eks. «søster» eller «bare skatt og mva»."
+          },
+          "erDeg": {
+            "type": "boolean",
+            "description": "Sann når parten er den innloggede."
+          },
+          "tilstand": {
+            "type": "object",
+            "required": [
+              "tekst",
+              "type"
+            ],
+            "properties": {
+              "tekst": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "ferdig",
+                  "venter",
+                  "info"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Kildestatus": {
+        "type": "object",
+        "description": "En kilde som ikke svarte da oversikten ble satt sammen.",
+        "required": [
+          "kilde",
+          "melding"
+        ],
+        "properties": {
+          "kilde": {
+            "$ref": "#/components/schemas/Kilde"
+          },
+          "melding": {
+            "type": "string",
+            "description": "Hva som mangler, f.eks. «Timeplan og ukebrev vises ikke akkurat nå»."
+          },
+          "handling": {
+            "$ref": "#/components/schemas/Handling"
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Hjelp": {
+        "type": "object",
+        "description": "Hvor man kan få hjelp eller noen å snakke med.",
+        "required": [
+          "tittel",
+          "handlinger"
+        ],
+        "properties": {
+          "tittel": {
+            "type": "string"
+          },
+          "handlinger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Handling"
+            }
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Kjentopplysning": {
+        "type": "object",
+        "description": "En opplysning det offentlige allerede har og som brukes i tjenesten.",
+        "required": [
+          "opplysning",
+          "verdi",
+          "kilde"
+        ],
+        "properties": {
+          "opplysning": {
+            "type": "string"
+          },
+          "verdi": {
+            "type": "string"
+          },
+          "kilde": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Tjenestevurdering": {
+        "type": "object",
+        "description": "En tjeneste sett for én aktør: om den gjelder, hva som allerede er kjent og hva aktøren må gjøre.",
+        "required": [
+          "aktor",
+          "tjeneste",
+          "status",
+          "sammendrag"
+        ],
+        "properties": {
+          "aktor": {
+            "$ref": "#/components/schemas/Aktor"
+          },
+          "tjeneste": {
+            "$ref": "#/components/schemas/Tjeneste"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "sammendrag": {
+            "type": "string",
+            "description": "F.eks. «Du trenger ikke søke»."
+          },
+          "kjenteOpplysninger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Kjentopplysning"
+            }
+          },
+          "merknad": {
+            "$ref": "#/components/schemas/Merknad"
+          },
+          "handlinger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Handling"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Tjenesteforslag": {
+        "type": "object",
+        "required": [
+          "tjenesteId",
+          "tittel",
+          "ansvarlig"
+        ],
+        "properties": {
+          "tjenesteId": {
+            "type": "string"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "ansvarlig": {
+            "type": "string"
+          },
+          "begrunnelse": {
+            "type": "string",
+            "description": "Hvorfor tjenesten foreslås, f.eks. «Fordi Amir begynner på ungdomsskolen»."
+          },
+          "livssituasjon": {
+            "type": "string"
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Dialogreferanse": {
+        "type": "object",
+        "description": "Peker til en dialog i Dialogporten. Tittel, status og frist hentes derfra.",
+        "required": [
+          "dialogId"
+        ],
+        "properties": {
+          "dialogId": {
+            "type": "string"
+          },
+          "livssituasjon": {
+            "type": "string"
+          },
+          "steg": {
+            "type": "string"
+          },
+          "synligFor": {
+            "$ref": "#/components/schemas/SynligFor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sammenheng": {
+        "type": "object",
+        "description": "En kobling mellom to aktører eller livssituasjoner som den innloggede bør vite om.",
+        "required": [
+          "id",
+          "fra",
+          "til",
+          "tittel",
+          "beskrivelse"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fra": {
+            "$ref": "#/components/schemas/AktorId"
+          },
+          "til": {
+            "$ref": "#/components/schemas/AktorId"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "beskrivelse": {
+            "type": "string"
+          },
+          "kilder": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Kilde"
+            }
+          },
+          "handlinger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Handling"
+            }
+          },
+          "krevesSamtykke": {
+            "type": "boolean",
+            "description": "Sann når handlingen deler opplysninger og krever at brukeren sier ja."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Katalogfelt": {
+        "type": "object",
+        "required": [
+          "visning",
+          "felt",
+          "dekning"
+        ],
+        "properties": {
+          "visning": {
+            "type": "string",
+            "description": "Det siden viser, f.eks. «Hvem har rett til skyss»."
+          },
+          "felt": {
+            "type": "string",
+            "description": "Felt i CPSV-AP-NO."
+          },
+          "dekning": {
+            "type": "string",
+            "enum": [
+              "ja",
+              "sjelden",
+              "nei",
+              "utenfor-katalogen"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Tjeneste": {
+        "type": "object",
+        "description": "Utdrag av en offentlig tjeneste etter CPSV-AP-NO, slik den brukes i dashbordet.",
+        "required": [
+          "id",
+          "tittel",
+          "beskrivelse",
+          "ansvarlig"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "katalogUri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "beskrivelse": {
+            "type": "string"
+          },
+          "ansvarlig": {
+            "type": "string"
+          },
+          "livshendelser": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "krav": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "tittel"
+              ],
+              "properties": {
+                "tittel": {
+                  "type": "string"
+                },
+                "beskrivelse": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "resultat": {
+            "type": "string"
+          },
+          "relaterte": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "tittel",
+                "relasjon"
+              ],
+              "properties": {
+                "tjenesteId": {
+                  "type": "string"
+                },
+                "tittel": {
+                  "type": "string"
+                },
+                "relasjon": {
+                  "type": "string",
+                  "description": "F.eks. «må være klar først»."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "kontaktpunkt": {
+            "type": "string"
+          },
+          "katalogdekning": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Katalogfelt"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Domenetype": {
+        "type": "object",
+        "required": [
+          "id",
+          "domene",
+          "tittel",
+          "skjema"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "F.eks. skole.fravaer."
+          },
+          "domene": {
+            "type": "string"
+          },
+          "tittel": {
+            "type": "string"
+          },
+          "skjema": {
+            "type": "string",
+            "description": "URL til JSON Schema for Opplysning.data."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Oversikt": {
+        "type": "object",
+        "description": "Alt et dashbord trenger for én aktør, filtrert etter den innloggedes rolle.",
+        "required": [
+          "tilgang",
+          "livssituasjoner",
+          "opplysninger",
+          "tjenesteforslag",
+          "dialoger",
+          "sammenhenger"
+        ],
+        "properties": {
+          "tilgang": {
+            "$ref": "#/components/schemas/Tilgang"
+          },
+          "livssituasjoner": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Livssituasjon"
+            }
+          },
+          "opplysninger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Opplysning"
+            }
+          },
+          "tjenesteforslag": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tjenesteforslag"
+            }
+          },
+          "dialoger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dialogreferanse"
+            }
+          },
+          "sammenhenger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sammenheng"
+            }
+          },
+          "involverte": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Involvert"
+            }
+          },
+          "kildestatus": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Kildestatus"
+            }
+          },
+          "hjelp": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Hjelp"
+            }
+          },
+          "lagresTil": {
+            "type": "string",
+            "format": "date",
+            "description": "Når opplysningene slettes, f.eks. 12 måneder etter dødsfallet for et dødsbo."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Feil": {
+        "type": "object",
+        "required": [
+          "melding"
+        ],
+        "properties": {
+          "melding": {
+            "type": "string"
+          }
+        }
+      },
+      "dodsbo.bankkontoer": {
+        "title": "Bankkontoer",
+        "type": "object",
+        "required": [
+          "kontoer"
+        ],
+        "properties": {
+          "kontoer": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "bank",
+                "kontotype"
+              ],
+              "properties": {
+                "bank": {
+                  "type": "string"
+                },
+                "kontotype": {
+                  "type": "string"
+                },
+                "saldo": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "transaksjonerFra": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Bankkontoer Brukes i Opplysning.data når domene er «dodsbo.bankkontoer»."
+      },
+      "dodsbo.gjeld": {
+        "title": "Gjeld",
+        "type": "object",
+        "required": [
+          "poster"
+        ],
+        "properties": {
+          "poster": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "kreditor"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "boliglan",
+                    "kredittkort",
+                    "forbrukslan",
+                    "annen"
+                  ]
+                },
+                "kreditor": {
+                  "type": "string"
+                },
+                "belop": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "proklamaFrist": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Gjeld Brukes i Opplysning.data når domene er «dodsbo.gjeld»."
+      },
+      "dodsbo.eiendom": {
+        "title": "Eiendom",
+        "type": "object",
+        "required": [
+          "eiendommer"
+        ],
+        "properties": {
+          "eiendommer": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "kommune",
+                "eierandel"
+              ],
+              "properties": {
+                "adresse": {
+                  "type": "string"
+                },
+                "kommune": {
+                  "type": "string"
+                },
+                "eierandel": {
+                  "type": "string",
+                  "description": "F.eks. «1/1»."
+                },
+                "heftelser": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Eiendom Brukes i Opplysning.data når domene er «dodsbo.eiendom»."
+      },
+      "dodsbo.kjoretoy": {
+        "title": "Kjøretøy",
+        "type": "object",
+        "required": [
+          "kjoretoy"
+        ],
+        "properties": {
+          "kjoretoy": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "merke": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Kjøretøy Brukes i Opplysning.data når domene er «dodsbo.kjoretoy»."
+      },
+      "dodsbo.pensjon-forsikring": {
+        "title": "Pensjon og forsikring",
+        "type": "object",
+        "required": [
+          "avtaler"
+        ],
+        "properties": {
+          "avtaler": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "selskap"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "pensjon",
+                    "livsforsikring",
+                    "annen"
+                  ]
+                },
+                "selskap": {
+                  "type": "string"
+                },
+                "begunstigetUtenforBoet": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Pensjon og forsikring Brukes i Opplysning.data når domene er «dodsbo.pensjon-forsikring»."
+      },
+      "dodsbo.skatt": {
+        "title": "Skatt",
+        "type": "object",
+        "required": [
+          "inntektsar"
+        ],
+        "properties": {
+          "inntektsar": {
+            "type": "integer"
+          },
+          "skattemeldingLeveres": {
+            "type": "string",
+            "description": "F.eks. «våren 2027»."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Skatt Brukes i Opplysning.data når domene er «dodsbo.skatt»."
+      },
+      "dodsbo.aksjer": {
+        "title": "Aksjer",
+        "type": "object",
+        "required": [
+          "poster"
+        ],
+        "properties": {
+          "poster": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "selskap",
+                "andelProsent"
+              ],
+              "properties": {
+                "selskap": {
+                  "type": "string"
+                },
+                "aktorId": {
+                  "type": "string"
+                },
+                "andelProsent": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Aksjer Brukes i Opplysning.data når domene er «dodsbo.aksjer»."
+      },
+      "dodsbo.testament": {
+        "title": "Testament og ektepakt",
+        "type": "object",
+        "required": [
+          "testament",
+          "ektepakt"
+        ],
+        "properties": {
+          "testament": {
+            "type": "boolean"
+          },
+          "ektepakt": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Testament og ektepakt Brukes i Opplysning.data når domene er «dodsbo.testament»."
+      },
+      "skole.fravaer": {
+        "title": "Fravær",
+        "type": "object",
+        "required": [
+          "skolear",
+          "dager",
+          "timer"
+        ],
+        "properties": {
+          "skolear": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{4}$"
+          },
+          "dager": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "timer": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "meldtAvForesatte": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Antall dager meldt av foresatte."
+          },
+          "registreringer": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "dato",
+                "omfang"
+              ],
+              "properties": {
+                "dato": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "omfang": {
+                  "type": "string",
+                  "enum": [
+                    "dag",
+                    "time"
+                  ]
+                },
+                "antall": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "meldtAvForesatte": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Fravær Brukes i Opplysning.data når domene er «skole.fravaer»."
+      },
+      "skole.vurdering": {
+        "title": "Vurderinger",
+        "type": "object",
+        "required": [
+          "periode",
+          "fag"
+        ],
+        "properties": {
+          "periode": {
+            "type": "string",
+            "description": "F.eks. «Halvårsvurdering våren 2026»."
+          },
+          "fag": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "fag"
+              ],
+              "properties": {
+                "fag": {
+                  "type": "string"
+                },
+                "kommentar": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "nyeTilbakemeldinger": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "description": "Vurderinger Brukes i Opplysning.data når domene er «skole.vurdering»."
+      },
+      "skole.provresultat": {
+        "title": "Prøver og kartlegginger",
+        "type": "object",
+        "required": [
+          "prover"
+        ],
+        "properties": {
+          "prover": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "omrade",
+                "trinn"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "nasjonal-prove",
+                    "kartlegging"
+                  ]
+                },
+                "omrade": {
+                  "type": "string",
+                  "enum": [
+                    "lesing",
+                    "regning",
+                    "engelsk"
+                  ]
+                },
+                "trinn": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10
+                },
+                "skolear": {
+                  "type": "string"
+                },
+                "mestringsniva": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Prøver og kartlegginger Brukes i Opplysning.data når domene er «skole.provresultat»."
+      },
+      "skole.tilrettelegging": {
+        "title": "Tilrettelegging",
+        "type": "object",
+        "required": [
+          "sakkyndigVurdering",
+          "vedtak"
+        ],
+        "properties": {
+          "sakkyndigVurdering": {
+            "type": "boolean"
+          },
+          "vedtak": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "fra"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "fra": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "til": {
+                  "type": "string",
+                  "format": "date"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Tilrettelegging Brukes i Opplysning.data når domene er «skole.tilrettelegging»."
+      },
+      "skole.helsesamtale": {
+        "title": "Samtale med skolehelsetjenesten",
+        "type": "object",
+        "required": [
+          "tidspunkt",
+          "sted"
+        ],
+        "properties": {
+          "tidspunkt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sted": {
+            "type": "string"
+          },
+          "taushetsplikt": {
+            "type": "boolean",
+            "description": "Sann når foresatte ikke skal se avtalen."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Samtale med skolehelsetjenesten Brukes i Opplysning.data når domene er «skole.helsesamtale»."
+      },
+      "skole.skoleplass": {
+        "title": "Skoleplass",
+        "type": "object",
+        "required": [
+          "skole",
+          "fra"
+        ],
+        "properties": {
+          "skole": {
+            "type": "string"
+          },
+          "fra": {
+            "type": "string",
+            "format": "date"
+          },
+          "grunnlag": {
+            "type": "string",
+            "description": "F.eks. «Skolekrets etter adresse i Folkeregisteret»."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Skoleplass Brukes i Opplysning.data når domene er «skole.skoleplass»."
+      },
+      "virksomhet.roller": {
+        "title": "Roller",
+        "type": "object",
+        "required": [
+          "roller"
+        ],
+        "properties": {
+          "roller": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "rolle",
+                "navn"
+              ],
+              "properties": {
+                "rolle": {
+                  "type": "string",
+                  "enum": [
+                    "daglig-leder",
+                    "styreleder",
+                    "styremedlem",
+                    "regnskapsforer",
+                    "revisor"
+                  ]
+                },
+                "navn": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Roller Brukes i Opplysning.data når domene er «virksomhet.roller»."
+      },
+      "virksomhet.eiere": {
+        "title": "Eiere",
+        "type": "object",
+        "required": [
+          "per",
+          "eiere"
+        ],
+        "properties": {
+          "per": {
+            "type": "string",
+            "format": "date"
+          },
+          "eiere": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "navn",
+                "andelProsent"
+              ],
+              "properties": {
+                "navn": {
+                  "type": "string"
+                },
+                "aktorId": {
+                  "type": "string"
+                },
+                "andelProsent": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Eiere Brukes i Opplysning.data når domene er «virksomhet.eiere»."
+      },
+      "virksomhet.bevillinger": {
+        "title": "Bevillinger",
+        "type": "object",
+        "required": [
+          "bevillinger"
+        ],
+        "properties": {
+          "bevillinger": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "servering",
+                    "skjenking",
+                    "salg-av-alkohol"
+                  ]
+                },
+                "gyldigTil": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "styrer": {
+                  "type": "string"
+                },
+                "stedfortreder": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "null betyr at bevillingen mangler stedfortreder."
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Bevillinger Brukes i Opplysning.data når domene er «virksomhet.bevillinger»."
+      },
+      "virksomhet.ansatte": {
+        "title": "Ansatte",
+        "type": "object",
+        "required": [
+          "antall",
+          "periode"
+        ],
+        "properties": {
+          "antall": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "periode": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}$",
+            "description": "A-meldingsperioden tallet gjelder, ÅÅÅÅ-MM."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Ansatte Brukes i Opplysning.data når domene er «virksomhet.ansatte»."
+      }
+    }
+  }
+}
