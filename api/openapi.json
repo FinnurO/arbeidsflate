@@ -130,6 +130,26 @@
                       },
                       {
                         "aktor": {
+                          "id": "urn:altinn:person:identifier-no:parvin-rahimi",
+                          "type": "person",
+                          "navn": "Parvin Rahimi",
+                          "initialer": "PR",
+                          "beskrivelse": "78 år · Enke etter Reza · Bor alene i Lykke",
+                          "fodselsdato": "1948-04-02"
+                        },
+                        "rolle": "fullmektig",
+                        "rolletekst": "Hjelp i hverdagen · Du har fullmakt",
+                        "hjemmel": {
+                          "beskrivelse": "Parvin har gitt deg fullmakt overfor Nav, Skatteetaten og kommunen, og til timeavtaler på Helsenorge",
+                          "kilde": {
+                            "virksomhet": "Digitaliseringsdirektoratet og Norsk helsenett",
+                            "system": "Altinn og Helsenorge fullmakter"
+                          }
+                        },
+                        "antallKreverHandling": 1
+                      },
+                      {
+                        "aktor": {
                           "id": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
                           "type": "dodsbo",
                           "navn": "Dødsboet etter Reza Rahimi",
@@ -1574,7 +1594,7 @@
                                 {
                                   "id": "skifteform",
                                   "tittel": "Velg skifteform",
-                                  "beskrivelse": "2 av 3 arvinger har signert for privat skifte.",
+                                  "beskrivelse": "3 av 4 arvinger har signert for privat skifte. Du signerte for Parvin med fullmakten.",
                                   "status": "til-signering",
                                   "ansvarlig": "Lykke tingrett",
                                   "frist": "2026-12-11",
@@ -1688,6 +1708,10 @@
                             "tittel": "Se eiendommen",
                             "type": "lenke",
                             "mal": "#"
+                          },
+                          "merknad": {
+                            "tekst": "Parvin bor i boligen. Som gjenlevende ektefelle kan hun kreve å overta den i skiftet.",
+                            "alvorlighet": "info"
                           }
                         },
                         {
@@ -1920,6 +1944,29 @@
                               "mal": "urn:altinn:person:identifier-no:amir-rahimi"
                             }
                           ]
+                        },
+                        {
+                          "id": "parvin-dodsbo",
+                          "fra": "urn:altinn:person:identifier-no:parvin-rahimi",
+                          "til": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                          "tittel": "Moren din bor i boligen som er en del av dødsboet",
+                          "beskrivelse": "Parvin er arving og har signert for privat skifte gjennom deg. Som gjenlevende ektefelle kan hun kreve å overta boligen hun bor i. Det må avtales med Sara og Ali før skiftet.",
+                          "kilder": [
+                            {
+                              "virksomhet": "Kartverket",
+                              "system": "grunnboken"
+                            },
+                            {
+                              "virksomhet": "Lykke tingrett"
+                            }
+                          ],
+                          "handlinger": [
+                            {
+                              "tittel": "Se dødsboet",
+                              "type": "aktor",
+                              "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+                            }
+                          ]
                         }
                       ],
                       "involverte": [
@@ -1931,6 +1978,21 @@
                           "tilstand": {
                             "tekst": "Signert",
                             "type": "ferdig"
+                          }
+                        },
+                        {
+                          "gruppe": "Arvinger",
+                          "navn": "Parvin Rahimi",
+                          "initialer": "PR",
+                          "beskrivelse": "Gjenlevende ektefelle",
+                          "tilstand": {
+                            "tekst": "Signert via fullmakt",
+                            "type": "ferdig"
+                          },
+                          "handling": {
+                            "tittel": "Se Parvins oversikt",
+                            "type": "aktor",
+                            "mal": "urn:altinn:person:identifier-no:parvin-rahimi"
                           }
                         },
                         {
@@ -2736,6 +2798,49 @@
                             "mal": "urn:altinn:person:identifier-no:amir-rahimi"
                           }
                         ]
+                      },
+                      {
+                        "id": "parvin-dodsbo",
+                        "fra": "urn:altinn:person:identifier-no:parvin-rahimi",
+                        "til": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+                        "tittel": "Moren din bor i boligen som er en del av dødsboet",
+                        "beskrivelse": "Parvin er arving og har signert for privat skifte gjennom deg. Som gjenlevende ektefelle kan hun kreve å overta boligen hun bor i. Det må avtales med Sara og Ali før skiftet.",
+                        "kilder": [
+                          {
+                            "virksomhet": "Kartverket",
+                            "system": "grunnboken"
+                          },
+                          {
+                            "virksomhet": "Lykke tingrett"
+                          }
+                        ],
+                        "handlinger": [
+                          {
+                            "tittel": "Se dødsboet",
+                            "type": "aktor",
+                            "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "parvin-nora",
+                        "fra": "urn:altinn:person:identifier-no:parvin-rahimi",
+                        "til": "urn:altinn:person:identifier-no:nora-rahimi",
+                        "tittel": "Du hjelper både Lea og moren din",
+                        "beskrivelse": "Du er nå pårørende for to. Kommunen tilbyr pårørendestøtte, og kan vurdere avlastning eller omsorgsstønad samlet. Det er også lurt at Sara eller Ali får fullmakt, så dere kan dele på oppgavene.",
+                        "kilder": [
+                          {
+                            "virksomhet": "Lykke kommune"
+                          }
+                        ],
+                        "handlinger": [
+                          {
+                            "tittel": "Les om pårørendestøtte",
+                            "type": "tjeneste",
+                            "mal": "parorendestotte",
+                            "primar": true
+                          }
+                        ]
                       }
                     ]
                   }
@@ -3316,10 +3421,22 @@
                         "skjema": "#/components/schemas/helse.individuell-plan"
                       },
                       {
+                        "id": "helse.legemidler",
+                        "domene": "helse",
+                        "tittel": "Legemidler",
+                        "skjema": "#/components/schemas/helse.legemidler"
+                      },
+                      {
                         "id": "helse.pasientreiser",
                         "domene": "helse",
                         "tittel": "Pasientreiser",
                         "skjema": "#/components/schemas/helse.pasientreiser"
+                      },
+                      {
+                        "id": "pensjon.alderspensjon",
+                        "domene": "pensjon",
+                        "tittel": "Alderspensjon",
+                        "skjema": "#/components/schemas/pensjon.alderspensjon"
                       },
                       {
                         "id": "skole.fravaer",
@@ -3440,7 +3557,8 @@
           "daglig-leder",
           "styreleder",
           "regnskapsforer",
-          "arving"
+          "arving",
+          "fullmektig"
         ]
       },
       "Kilde": {
@@ -4767,7 +4885,12 @@
                     "bpa",
                     "stottekontakt",
                     "spesialpedagogisk-hjelp",
-                    "ekstra-bemanning"
+                    "ekstra-bemanning",
+                    "hjemmesykepleie",
+                    "praktisk-bistand",
+                    "trygghetsalarm",
+                    "dagsenter",
+                    "matombringing"
                   ]
                 },
                 "timerPerManed": {
@@ -4857,6 +4980,30 @@
         },
         "additionalProperties": false
       },
+      "helse.legemidler": {
+        "title": "Legemidler",
+        "description": "Om legemidlene håndteres som multidose, og når listen sist ble endret. Selve legemidlene er ikke med. Brukes i Opplysning.data når domene er «helse.legemidler».",
+        "type": "object",
+        "required": [
+          "multidose"
+        ],
+        "properties": {
+          "multidose": {
+            "type": "boolean"
+          },
+          "apotek": {
+            "type": "string"
+          },
+          "sistEndret": {
+            "type": "string",
+            "format": "date"
+          },
+          "endretAv": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "helse.pasientreiser": {
         "title": "Pasientreiser",
         "description": "Reiser til behandling og om det er søkt refusjon. Fristen er 6 måneder etter reisen. Brukes i Opplysning.data når domene er «helse.pasientreiser».",
@@ -4893,6 +5040,38 @@
           }
         },
         "additionalProperties": false
+      },
+      "pensjon.alderspensjon": {
+        "title": "Alderspensjon",
+        "type": "object",
+        "required": [
+          "beregnet"
+        ],
+        "properties": {
+          "beregnet": {
+            "type": "string",
+            "format": "date",
+            "description": "Når pensjonen sist ble beregnet."
+          },
+          "arsak": {
+            "type": "string",
+            "description": "F.eks. «Dødsfall i familien»."
+          },
+          "gjenlevenderett": {
+            "type": "boolean",
+            "description": "Sann når pensjonen er beregnet med rettigheter etter avdød ektefelle."
+          },
+          "utbetalingsdag": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "fullmektigHarInnsyn": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Alderspensjon Brukes i Opplysning.data når domene er «pensjon.alderspensjon»."
       },
       "skole.fravaer": {
         "title": "Fravær",

@@ -1,1 +1,0 @@
-import{i as e,t}from"./arbeidsflateData.IzvkYKV2.js";var n=e(t(`rahimi-berg`));export{n as profile};
