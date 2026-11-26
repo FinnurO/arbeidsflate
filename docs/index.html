@@ -240,6 +240,8 @@
         for (const bilde of innhold.querySelectorAll('img[src]')) {
           const src = bilde.getAttribute('src');
           if (/^([a-z][a-z0-9+.-]*:|\/\/)/i.test(src)) continue;
+          // Personakortene publiseres ved siden av visningen.
+          if (/^(\.\/)?personas\//.test(src)) continue;
           bilde.setAttribute('src', `${new URL(src, REPO).href}?raw=true`);
         }
       };

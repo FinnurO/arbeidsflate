@@ -6,6 +6,8 @@ påvirker hverandre. Det er da en samlet oversikt gjør mest nytte.
 
 Se også [arkitekturen](arkitektur.md) og [API-guiden](guide.md).
 
+![Aktørene i demoen: Nora, Jonas, Amir, Lea, Parvin, Reza og Lykke Bistro AS](personas/familien.svg)
+
 ```mermaid
 flowchart TB
   Reza["Reza Rahimi †<br/>døde 12. oktober 2026"]
@@ -61,6 +63,8 @@ som må oppdage dem.
 
 ## Nora Rahimi, mor og daglig leder
 
+![Personakort: Nora Rahimi, mor og daglig leder](personas/nora.svg)
+
 **Situasjon.** Nora er 44 år, gift med Jonas og mor til Amir og Lea. Hun driver Lykke Bistro AS sammen med Jonas og
 er ansatt der. I oktober døde faren hennes, og i høst ble Lea alvorlig syk. Moren hennes, Parvin, klarer seg dårligere
 alene og har gitt Nora fullmakt.
@@ -83,6 +87,8 @@ alene og har gitt Nora fullmakt.
 
 ## Jonas Berg, far og styreleder
 
+![Personakort: Jonas Berg, far og styreleder](personas/jonas.svg)
+
 **Situasjon.** Jonas er far til Amir og Lea og styreleder i Lykke Bistro AS. Han deler omsorgen for Lea med Nora og
 søker pleiepenger selv.
 
@@ -93,6 +99,8 @@ dødsboet, fordi han verken er arving eller har fullmakt.
 Jonas har ingen egen innlogging i demoen. Han er med for å vise at to foresatte ser det samme.
 
 ## Amir Rahimi, 12 år
+
+![Personakort: Amir Rahimi, 12 år](personas/amir.svg)
 
 **Situasjon.** Amir går i 7. trinn ved Lykke barneskole og skal begynne på ungdomsskolen til høsten. Lillesøsteren er
 alvorlig syk og bestefaren er død. Hjemme går mye av oppmerksomheten til Lea.
@@ -110,6 +118,8 @@ og tilrettelegging, som han ikke ser. Det er samme data, filtrert med `synligFor
 [Se Amirs oversikt i demoen](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg-amir)
 
 ## Lea Rahimi, 5 år
+
+![Personakort: Lea Rahimi, 5 år](personas/lea.svg)
 
 **Situasjon.** Lea går i Lykke barnehage og følges av barneavdelingen ved Lykke sykehus over lang tid. Diagnosen står
 ikke i dataene. Tjenestene trenger bare å vite at hun følges av spesialisthelsetjenesten.
@@ -137,6 +147,8 @@ Det er tid som kommer i tillegg til selve omsorgen. Det de etterspør, er:
 [Se Leas oversikt i demoen](https://finnuro.github.io/arbeidsflate/oversikt/aktor/urn%3Aaltinn%3Aperson%3Aidentifier-no%3Alea-rahimi?mock=true&playwrightId=rahimi-berg)
 
 ## Parvin Rahimi, 78 år
+
+![Personakort: Parvin Rahimi, 78 år](personas/parvin.svg)
 
 **Situasjon.** Parvin var gift med Reza i 54 år og bor alene i huset deres i Lykke siden han døde i oktober. Det var
 Reza som tok seg av papirene og kjørte bil. Nå har hun sluttet å kjøre, glemmer legemidlene innimellom og har falt én
@@ -172,6 +184,8 @@ Parvin kan se selv, kan hun fortsatt se selv.
 
 ## Reza Rahimi og dødsboet
 
+![Personakort: Reza Rahimi og dødsboet](personas/reza.svg)
+
 **Situasjon.** Reza døde 12. oktober 2026, 80 år gammel. Han eide boligen der han og Parvin bodde, 20 % av aksjene
 i Lykke Bistro AS og en bil, og var stedfortreder for restaurantens skjenkebevilling. Han hadde ikke testament.
 
@@ -194,6 +208,8 @@ avtaler som må sies opp, og hva som må meldes hvor. Mye av dette vet det offen
 
 ## Lykke Bistro AS
 
+![Personakort: Lykke Bistro AS](personas/lykke-bistro.svg)
+
 **Situasjon.** En restaurant i Lykke sentrum med seks ansatte. Nora er daglig leder, Jonas er styreleder, og
 regnskapsføreren har tilgang til skatt og mva. Aksjonærene er Nora, Jonas og Reza, nå dødsboet.
 
@@ -214,3 +230,7 @@ omsetningsoppgave for alkohol), og nå kommer endringer som følger av det som s
 Noras søsken er arvinger, men har ingen innlogging i demoen. Sara har signert for privat skifte, Ali har ikke. I
 dødsboets oversikt står de som involverte med signeringsstatus. Hos Parvin står de som familie, og
 pårørendesammenhengen foreslår at én av dem også får fullmakt, så de kan dele på oppgavene.
+
+---
+
+Personakortene og avatarene er tegnet som SVG fra [`personas/personas.json`](personas/personas.json). Endre teksten der og kjør `pnpm --filter oversikt-api personas` for å tegne dem på nytt.
