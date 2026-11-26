@@ -129,5 +129,54 @@
         }
       ]
     }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
+      "id": "parvin-dodsbo",
+      "fra": "urn:altinn:person:identifier-no:parvin-rahimi",
+      "til": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
+      "tittel": "Moren din bor i boligen som er en del av dødsboet",
+      "beskrivelse": "Parvin er arving og har signert for privat skifte gjennom deg. Som gjenlevende ektefelle kan hun kreve å overta boligen hun bor i. Det må avtales med Sara og Ali før skiftet.",
+      "kilder": [
+        {
+          "virksomhet": "Kartverket",
+          "system": "grunnboken"
+        },
+        {
+          "virksomhet": "Lykke tingrett"
+        }
+      ],
+      "handlinger": [
+        {
+          "tittel": "Se dødsboet",
+          "type": "aktor",
+          "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+        }
+      ]
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
+      "id": "parvin-nora",
+      "fra": "urn:altinn:person:identifier-no:parvin-rahimi",
+      "til": "urn:altinn:person:identifier-no:nora-rahimi",
+      "tittel": "Du hjelper både Lea og moren din",
+      "beskrivelse": "Du er nå pårørende for to. Kommunen tilbyr pårørendestøtte, og kan vurdere avlastning eller omsorgsstønad samlet. Det er også lurt at Sara eller Ali får fullmakt, så dere kan dele på oppgavene.",
+      "kilder": [
+        {
+          "virksomhet": "Lykke kommune"
+        }
+      ],
+      "handlinger": [
+        {
+          "tittel": "Les om pårørendestøtte",
+          "type": "tjeneste",
+          "mal": "parorendestotte",
+          "primar": true
+        }
+      ]
+    }
   }
 ]

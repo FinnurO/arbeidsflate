@@ -1,0 +1,451 @@
+{
+  "aktor": {
+    "id": "urn:altinn:person:identifier-no:parvin-rahimi",
+    "type": "person",
+    "navn": "Parvin Rahimi",
+    "initialer": "PR",
+    "beskrivelse": "78 år · Enke etter Reza · Bor alene i Lykke",
+    "fodselsdato": "1948-04-02"
+  },
+  "livssituasjoner": [
+    {
+      "id": "hjelp-i-hverdagen",
+      "type": "eldre-og-hjelp-i-hverdagen",
+      "tittel": "Hjelp i hverdagen",
+      "aktivFase": "hjemme",
+      "forklaring": "Parvin har bodd alene siden Reza døde i oktober, og trenger mer hjelp enn før. Fastlegen og familien har meldt behovet til kommunen. Stegene samler det kommunen, Nav og helsetjenesten kan gi, slik at hun kan bo hjemme så lenge som mulig.",
+      "faser": [
+        {
+          "id": "hjemme",
+          "tittel": "Hjelp hjemme",
+          "steg": [
+            {
+              "id": "vurderingsbesok",
+              "tittel": "Vurderingsbesøk fra kommunen",
+              "beskrivelse": "Kommunen kommer hjem til Parvin for å se hva hun trenger hjelp til. Du kan være med.",
+              "status": "under-arbeid",
+              "ansvarlig": "Lykke kommune, tildelingskontoret",
+              "fristtekst": "Besøk torsdag 10. desember kl. 10.00",
+              "dialogId": "01938a10-0000-7000-8000-00000000e001"
+            },
+            {
+              "id": "trygghetsalarm",
+              "tittel": "Trygghetsalarm",
+              "beskrivelse": "Søknaden tas med på vurderingsbesøket.",
+              "status": "til-behandling",
+              "ansvarlig": "Lykke kommune",
+              "dialogId": "01938a10-0000-7000-8000-00000000e002",
+              "tjenesteId": "trygghetsalarm",
+              "bruker": [
+                {
+                  "opplysning": "Adresse og at hun bor alene",
+                  "kilde": "Folkeregisteret"
+                },
+                {
+                  "opplysning": "Pårørende som skal varsles",
+                  "kilde": "fullmakten til Nora"
+                }
+              ],
+              "handling": {
+                "tittel": "Se hva kommunen vet",
+                "type": "tjeneste",
+                "mal": "trygghetsalarm"
+              }
+            },
+            {
+              "id": "hjemmesykepleie",
+              "tittel": "Hjemmesykepleie for legemidler",
+              "beskrivelse": "To besøk i uka fra 16. november.",
+              "status": "utfort",
+              "ansvarlig": "Lykke kommune",
+              "dialogId": "01938a10-0000-7000-8000-00000000e003"
+            },
+            {
+              "id": "multidose",
+              "tittel": "Legemidler i multidose",
+              "beskrivelse": "Fastlegen startet multidose fra apoteket, så legemidlene kommer ferdig pakket for hver dag.",
+              "status": "ordnet-automatisk",
+              "ansvarlig": "Fastlegen og Lykke apotek",
+              "bruker": [
+                {
+                  "opplysning": "Legemiddellisten",
+                  "kilde": "Kjernejournal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ute",
+          "tittel": "Komme seg ut",
+          "steg": [
+            {
+              "id": "tt-kort",
+              "tittel": "TT-kort (tilrettelagt transport)",
+              "beskrivelse": "Parvin har sluttet å kjøre bil og kan ikke ta buss alene. Søknaden trenger en erklæring fra fastlegen.",
+              "status": "krever-handling",
+              "ansvarlig": "Lykke fylkeskommune",
+              "tjenesteId": "tt-kort",
+              "handling": {
+                "tittel": "Søk om TT-kort",
+                "type": "tjeneste",
+                "mal": "tt-kort",
+                "primar": true
+              }
+            },
+            {
+              "id": "dagsenter",
+              "tittel": "Dagsenter",
+              "beskrivelse": "Kan vurderes på vurderingsbesøket. Gir fellesskap og et måltid to dager i uka.",
+              "status": "ikke-startet",
+              "ansvarlig": "Lykke kommune",
+              "tjenesteId": "dagsenter"
+            }
+          ]
+        },
+        {
+          "id": "framover",
+          "tittel": "Framover",
+          "steg": [
+            {
+              "id": "hjelpemidler",
+              "tittel": "Hjelpemidler i boligen",
+              "beskrivelse": "Ergoterapeuten har søkt om rullator og dusjkrakk.",
+              "status": "til-behandling",
+              "ansvarlig": "Nav hjelpemiddelsentral",
+              "tjenesteId": "hjelpemidler"
+            },
+            {
+              "id": "fremtidsfullmakt",
+              "tittel": "Fremtidsfullmakt",
+              "beskrivelse": "Fullmakten til Nora gjelder bare så lenge Parvin selv kan gi den. Med en fremtidsfullmakt kan Nora hjelpe henne også hvis hun senere ikke klarer det selv.",
+              "status": "ikke-startet",
+              "ansvarlig": "Statsforvalteren",
+              "tjenesteId": "fremtidsfullmakt",
+              "handling": {
+                "tittel": "Les om fremtidsfullmakt",
+                "type": "lenke",
+                "mal": "https://www.vergemal.no/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "etter-dodsfall",
+      "type": "dodsfall-og-arv",
+      "tittel": "Etter at Reza døde",
+      "faser": [
+        {
+          "id": "etterlatt",
+          "tittel": "Som etterlatt",
+          "steg": [
+            {
+              "id": "pensjon",
+              "tittel": "Alderspensjon med gjenlevenderett",
+              "beskrivelse": "Nav har beregnet pensjonen på nytt etter dødsfallet. Parvin trenger ikke søke.",
+              "status": "ordnet-automatisk",
+              "ansvarlig": "Nav",
+              "dialogId": "01938a10-0000-7000-8000-00000000e004",
+              "bruker": [
+                {
+                  "opplysning": "Dødsfall og sivilstand",
+                  "kilde": "Folkeregisteret"
+                },
+                {
+                  "opplysning": "Rezas pensjonsopptjening",
+                  "kilde": "Nav"
+                }
+              ]
+            },
+            {
+              "id": "skifte",
+              "tittel": "Arv og skifte",
+              "beskrivelse": "Parvin valgte privat skifte i stedet for uskifte. Du signerte for henne med fullmakten.",
+              "status": "utfort",
+              "ansvarlig": "Lykke tingrett",
+              "handling": {
+                "tittel": "Se dødsboet",
+                "type": "aktor",
+                "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+              }
+            },
+            {
+              "id": "bolig",
+              "tittel": "Overta boligen",
+              "beskrivelse": "Boligen Parvin bor i, sto på Reza. Som gjenlevende ektefelle kan hun kreve å overta den i skiftet.",
+              "status": "under-arbeid",
+              "ansvarlig": "Arvingene",
+              "handling": {
+                "tittel": "Se dødsboet",
+                "type": "aktor",
+                "mal": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi"
+              }
+            },
+            {
+              "id": "avtaler",
+              "tittel": "Strøm, forsikring og avtaler i Parvins navn",
+              "beskrivelse": "4 avtaler sto på Reza og må flyttes over eller sies opp.",
+              "status": "under-arbeid",
+              "handling": {
+                "tittel": "Se avtalene",
+                "type": "lenke",
+                "mal": "#"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "opplysninger": [
+    {
+      "id": "timeavtaler",
+      "domene": "helse.timeavtaler",
+      "tittel": "Neste time hos fastlegen",
+      "hovedverdi": "Mandag 7. desember kl. 11.30",
+      "beskrivelse": "Lykke legekontor. Du kan bli med.",
+      "merknad": {
+        "tekst": "Fullmakten gir deg innsyn i timeavtalene, ikke i journalen hos fastlegen. Parvin kan endre det på Helsenorge.",
+        "alvorlighet": "info"
+      },
+      "kilde": {
+        "virksomhet": "Lykke legekontor",
+        "system": "Helsenorge",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "hjelp-i-hverdagen",
+      "data": {
+        "avtaler": [
+          {
+            "tidspunkt": "2026-12-07T11:30:00+01:00",
+            "sted": "Lykke legekontor",
+            "type": "poliklinikk"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hjemmesykepleie",
+      "domene": "helse.kommunale-vedtak",
+      "tittel": "Hjemmesykepleie",
+      "hovedverdi": "2 besøk i uka",
+      "beskrivelse": "For legemidler og tilsyn. Alle besøkene i november er gjennomført.",
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "helse- og omsorgstjenestene",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "hjelp-i-hverdagen",
+      "data": {
+        "vedtak": [
+          {
+            "tjeneste": "hjemmesykepleie",
+            "timerPerManed": 4,
+            "fra": "2026-11-16",
+            "levert": [
+              {
+                "maned": "2026-11",
+                "timer": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "legemidler",
+      "domene": "helse.legemidler",
+      "tittel": "Legemidler",
+      "hovedverdi": "Multidose fra apoteket",
+      "beskrivelse": "Fastlegen endret legemiddellisten 12. november.",
+      "kilde": {
+        "virksomhet": "Lykke legekontor",
+        "system": "Kjernejournal",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "hjelp-i-hverdagen",
+      "data": {
+        "multidose": true,
+        "apotek": "Lykke apotek",
+        "sistEndret": "2026-11-12",
+        "endretAv": "Fastlegen"
+      }
+    },
+    {
+      "id": "alderspensjon",
+      "domene": "pensjon.alderspensjon",
+      "tittel": "Alderspensjon",
+      "hovedverdi": "Beregnet på nytt 1. november",
+      "beskrivelse": "Med gjenlevenderett etter Reza. Utbetales den 20. hver måned.",
+      "handling": {
+        "tittel": "Se pensjonen på nav.no",
+        "type": "lenke",
+        "mal": "https://www.nav.no/minside"
+      },
+      "kilde": {
+        "virksomhet": "Nav",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "etter-dodsfall",
+      "data": {
+        "beregnet": "2026-11-01",
+        "arsak": "Dødsfall i familien",
+        "gjenlevenderett": true,
+        "utbetalingsdag": 20,
+        "fullmektigHarInnsyn": true
+      }
+    }
+  ],
+  "tjenesteforslag": [
+    {
+      "tjenesteId": "matombringing",
+      "tittel": "Middag levert hjem",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Hvis matlagingen blir tung",
+      "livssituasjon": "hjelp-i-hverdagen"
+    },
+    {
+      "tjenesteId": "sorgstotte",
+      "tittel": "Sorggruppe for etterlatte",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Fordi Parvin nylig mistet ektefellen sin",
+      "livssituasjon": "etter-dodsfall"
+    },
+    {
+      "tjenesteId": "bostotte",
+      "tittel": "Bostøtte",
+      "ansvarlig": "Husbanken",
+      "begrunnelse": "Husholdningen har én inntekt nå",
+      "livssituasjon": "etter-dodsfall"
+    },
+    {
+      "tjenesteId": "parorendestotte",
+      "tittel": "Pårørendestøtte",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "For deg som hjelper moren din",
+      "livssituasjon": "hjelp-i-hverdagen"
+    }
+  ],
+  "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000e001",
+      "livssituasjon": "hjelp-i-hverdagen",
+      "steg": "vurderingsbesok"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000e002",
+      "livssituasjon": "hjelp-i-hverdagen",
+      "steg": "trygghetsalarm"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000e003",
+      "livssituasjon": "hjelp-i-hverdagen",
+      "steg": "hjemmesykepleie"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000e004",
+      "livssituasjon": "etter-dodsfall",
+      "steg": "pensjon"
+    }
+  ],
+  "involverte": [
+    {
+      "gruppe": "Rundt Parvin",
+      "navn": "Nora Rahimi",
+      "initialer": "NR",
+      "beskrivelse": "Datter, har fullmakt",
+      "erDeg": true
+    },
+    {
+      "gruppe": "Rundt Parvin",
+      "navn": "Sara Rahimi",
+      "initialer": "SR",
+      "beskrivelse": "Datter"
+    },
+    {
+      "gruppe": "Rundt Parvin",
+      "navn": "Ali Rahimi",
+      "initialer": "AR",
+      "beskrivelse": "Sønn"
+    },
+    {
+      "gruppe": "Rundt Parvin",
+      "navn": "Erik Holm",
+      "initialer": "EH",
+      "beskrivelse": "Fastlege, Lykke legekontor",
+      "handling": {
+        "tittel": "Send melding på Helsenorge",
+        "type": "lenke",
+        "mal": "https://www.helsenorge.no/"
+      }
+    },
+    {
+      "gruppe": "Rundt Parvin",
+      "navn": "Hjemmesykepleien",
+      "initialer": "HS",
+      "type": "organisasjon",
+      "beskrivelse": "Lykke kommune, sone sentrum",
+      "tilstand": {
+        "tekst": "Kommer tirsdag og fredag",
+        "type": "info"
+      },
+      "handling": {
+        "tittel": "Ring hjemmesykepleien",
+        "type": "lenke",
+        "mal": "#"
+      }
+    }
+  ],
+  "hjelp": [
+    {
+      "tittel": "Trenger du noen å snakke med om situasjonen?",
+      "handlinger": [
+        {
+          "tittel": "Pårørendeveileder i Lykke kommune",
+          "type": "tjeneste",
+          "mal": "parorendestotte"
+        },
+        {
+          "tittel": "Pårørendelinjen",
+          "type": "lenke",
+          "mal": "https://parorendelinjen.no/"
+        }
+      ]
+    }
+  ],
+  "tjenestevurderinger": [
+    {
+      "tjenesteId": "trygghetsalarm",
+      "status": "til-behandling",
+      "sammendrag": "Søknaden er mottatt. Kommunen tar den med på vurderingsbesøket 10. desember, og alarmen kan normalt være på plass innen to uker etter vedtak.",
+      "kjenteOpplysninger": [
+        {
+          "opplysning": "Adresse",
+          "verdi": "Lykkeveien 3, Lykke",
+          "kilde": "Folkeregisteret"
+        },
+        {
+          "opplysning": "Bor alene",
+          "verdi": "Ja, siden oktober 2026",
+          "kilde": "Folkeregisteret"
+        },
+        {
+          "opplysning": "Pårørende som varsles",
+          "verdi": "Nora Rahimi",
+          "kilde": "Fullmakten"
+        },
+        {
+          "opplysning": "Fastlege",
+          "verdi": "Erik Holm, Lykke legekontor",
+          "kilde": "Fastlegeregisteret"
+        }
+      ],
+      "merknad": {
+        "tekst": "Nøkkelen til boligen må gis til hjemmesykepleien, så de kan komme inn når alarmen går. Det avtales på vurderingsbesøket.",
+        "alvorlighet": "info"
+      }
+    }
+  ]
+}

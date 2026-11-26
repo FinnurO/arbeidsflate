@@ -36,11 +36,12 @@ jobs:
         env:
           STATIC_MOCK_BASE: '/${{ github.event.repository.name }}/'
 
-      - name: 'Build API reference'
+      - name: 'Build API reference and docs'
         run: |
           pnpm --filter oversikt-api docs
-          mkdir -p packages/frontend/dist/api
-          cp packages/oversikt-api/dist/* packages/frontend/dist/api/
+          mkdir -p packages/frontend/dist/api packages/frontend/dist/docs
+          cp -r packages/oversikt-api/dist/* packages/frontend/dist/api/
+          cp -r packages/oversikt-api/dist/docs/. packages/frontend/dist/docs/
 
       - name: 'Upload'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

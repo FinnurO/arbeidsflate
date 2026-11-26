@@ -1,6 +1,7 @@
 // Samler openapi.yaml til én fil for dokumentasjon: skjemaene fra schemas/ legges inn under
 // components.schemas, og hvert endepunkt får eksempelsvar laget av mocken (familien Rahimi Berg).
 // Kjør: pnpm --filter oversikt-api docs  →  dist/openapi.json + dist/index.html
+// Legger også Markdown-dokumentene med visningssiden i dist/docs/ (docs/visning.html → dist/docs/index.html).
 import { copyFileSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -132,4 +133,13 @@ for (const [sti, eksempel] of Object.entries(eksempler)) {
 mkdirSync(ut, { recursive: true });
 writeFileSync(join(ut, 'openapi.json'), `${JSON.stringify(samlet, null, 2)}\n`);
 copyFileSync(join(rot, 'docs/referanse.html'), join(ut, 'index.html'));
-console.log(`Skrev dist/openapi.json (${Object.keys(skjemaer).length} skjemaer) og dist/index.html`);
+
+const dokumenter = ['familien', 'arkitektur', 'guide'];
+mkdirSync(join(ut, 'docs'), { recursive: true });
+copyFileSync(join(rot, 'docs/visning.html'), join(ut, 'docs/index.html'));
+for (const dokument of dokumenter) {
+  copyFileSync(join(rot, `docs/${dokument}.md`), join(ut, `docs/${dokument}.md`));
+}
+console.log(
+  `Skrev dist/openapi.json (${Object.keys(skjemaer).length} skjemaer), dist/index.html og dist/docs/ (${dokumenter.length} dokumenter)`,
+);

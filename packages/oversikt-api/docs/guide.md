@@ -49,7 +49,7 @@ flowchart LR
 |---|---|---|
 | **Aktør** | Den oversikten gjelder: en person, en virksomhet eller et dødsbo. Id-en er party-URN som i Altinn. | `urn:altinn:person:identifier-no:amir-rahimi` |
 | **Tilgang** | At den innloggede kan se aktøren, med **rolle** og **hjemmel** (hvorfor, og hvem som sier det). | Nora er `foresatt` for Amir. Hjemmel: «Du har foreldreansvar», kilde Folkeregisteret. |
-| **Rolle** | Den innloggedes forhold til aktøren. Styrer hva som vises. | `selv`, `foresatt`, `daglig-leder`, `styreleder`, `regnskapsforer`, `arving` |
+| **Rolle** | Den innloggedes forhold til aktøren. Styrer hva som vises. | `selv`, `foresatt`, `daglig-leder`, `styreleder`, `regnskapsforer`, `arving`, `fullmektig` |
 | **Livssituasjon** | En livshendelse aktøren er i, delt i **faser** med **steg**. | «Barn og skole» med fasene Skolehverdag og Overgang til ungdomsskolen |
 | **Steg** | Noe som skal skje, med status, frist og ansvarlig. Kan peke til en dialog, en tjeneste eller en handling, og vise hvilke opplysninger som gjenbrukes. | «Skoleplass på Lykke ungdomsskole», status `ordnet-automatisk`, bruker adresse fra Folkeregisteret |
 | **Opplysning** | Noe det offentlige vet om aktøren, alltid med **kilde** og hentet-tidspunkt. | Fravær, eierandeler, bankkontoer |
@@ -165,7 +165,8 @@ Svaret beholder `synligFor`, slik at dashbordet kan vise «hvem ser hva» uten �
 | `skole` | `fravaer`, `vurdering`, `provresultat`, `tilrettelegging`, `helsesamtale`, `skoleplass` |
 | `virksomhet` | `roller`, `eiere`, `bevillinger`, `ansatte` |
 | `dodsbo` | `bankkontoer`, `gjeld`, `eiendom`, `kjoretoy`, `pensjon-forsikring`, `skatt`, `aksjer`, `testament` |
-| `helse` | `timeavtaler`, `legeerklaering`, `ytelser`, `kommunale-vedtak`, `individuell-plan`, `pasientreiser` |
+| `helse` | `timeavtaler`, `legeerklaering`, `ytelser`, `kommunale-vedtak`, `individuell-plan`, `legemidler`, `pasientreiser` |
+| `pensjon` | `alderspensjon` |
 
 Domenet `helse` ble lagt til for livssituasjonen «Alvorlig sykt barn» uten endringer i dashbordet. To små ting ble
 lagt til i kjernen samtidig: statusen `avslatt`, fordi et avslag i Dialogporten bare er en avsluttet dialog, og
@@ -173,6 +174,11 @@ lagt til i kjernen samtidig: statusen `avslatt`, fordi et avslag i Dialogporten 
 
 `kommunale-vedtak` skiller mellom det som er vedtatt og det som er levert. Det er en av de vanligste kildene til
 ekstraarbeid for foreldre, ifølge Helsedirektoratets innsikt fra livshendelsen «Alvorlig sykt barn».
+
+Domenet `pensjon` og rollen `fullmektig` kom med bestemoren Parvin, som har gitt Nora fullmakt. Hjemmetjenestene
+hennes (hjemmesykepleie, trygghetsalarm, dagsenter) er nye verdier i `helse.kommunale-vedtak`, og `helse.legemidler`
+sier bare om legemidlene er i multidose, ikke hvilke de er. En fullmakt gir ikke innsyn i journalen, så Nora ser
+timeavtalene, men ikke det fastlegen har skrevet. Dashbordet ble ikke endret.
 
 ### Legge til et domene
 

@@ -12,7 +12,7 @@
     "Rolle": {
       "type": "string",
       "description": "Hvilken rolle den innloggede har overfor aktøren. Bestemmer hva som er synlig.",
-      "enum": ["selv", "foresatt", "daglig-leder", "styreleder", "regnskapsforer", "arving"]
+      "enum": ["selv", "foresatt", "daglig-leder", "styreleder", "regnskapsforer", "arving", "fullmektig"]
     },
     "Kilde": {
       "type": "object",

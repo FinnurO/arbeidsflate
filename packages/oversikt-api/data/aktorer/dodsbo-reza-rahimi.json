@@ -92,7 +92,7 @@
             {
               "id": "skifteform",
               "tittel": "Velg skifteform",
-              "beskrivelse": "2 av 3 arvinger har signert for privat skifte.",
+              "beskrivelse": "3 av 4 arvinger har signert for privat skifte. Du signerte for Parvin med fullmakten.",
               "status": "til-signering",
               "ansvarlig": "Lykke tingrett",
               "frist": "2026-12-11",
@@ -206,6 +206,10 @@
         "tittel": "Se eiendommen",
         "type": "lenke",
         "mal": "#"
+      },
+      "merknad": {
+        "tekst": "Parvin bor i boligen. Som gjenlevende ektefelle kan hun kreve å overta den i skiftet.",
+        "alvorlighet": "info"
       }
     },
     {
@@ -382,6 +386,21 @@
       "tilstand": {
         "tekst": "Signert",
         "type": "ferdig"
+      }
+    },
+    {
+      "gruppe": "Arvinger",
+      "navn": "Parvin Rahimi",
+      "initialer": "PR",
+      "beskrivelse": "Gjenlevende ektefelle",
+      "tilstand": {
+        "tekst": "Signert via fullmakt",
+        "type": "ferdig"
+      },
+      "handling": {
+        "tittel": "Se Parvins oversikt",
+        "type": "aktor",
+        "mal": "urn:altinn:person:identifier-no:parvin-rahimi"
       }
     },
     {

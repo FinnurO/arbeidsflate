@@ -79,7 +79,7 @@
     "id": "01938a10-0000-7000-8000-00000000c001",
     "party": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
     "tittel": "Velg skifteform",
-    "sammendrag": "2 av 3 arvinger har signert for privat skifte.",
+    "sammendrag": "3 av 4 arvinger har signert for privat skifte.",
     "avsender": "Lykke tingrett",
     "tjeneste": "skifteform",
     "status": "RequiresAttention",
@@ -235,5 +235,47 @@
     "status": "Completed",
     "opprettet": "2026-11-15T09:00:00+01:00",
     "lest": true
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000e001",
+    "party": "urn:altinn:person:identifier-no:parvin-rahimi",
+    "tittel": "Vurderingsbesøk fra tildelingskontoret",
+    "sammendrag": "Vi kommer hjem til deg torsdag 10. desember kl. 10.00 for å se hva du trenger hjelp til. Pårørende kan gjerne være med.",
+    "avsender": "Lykke kommune, tildelingskontoret",
+    "tjeneste": "lykke-helse-og-omsorg",
+    "status": "InProgress",
+    "opprettet": "2026-11-23T09:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000e002",
+    "party": "urn:altinn:person:identifier-no:parvin-rahimi",
+    "tittel": "Søknad om trygghetsalarm",
+    "sammendrag": "Søknaden er mottatt og tas med på vurderingsbesøket.",
+    "avsender": "Lykke kommune",
+    "tjeneste": "trygghetsalarm",
+    "status": "Awaiting",
+    "opprettet": "2026-11-20T14:00:00+01:00",
+    "lest": true
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000e003",
+    "party": "urn:altinn:person:identifier-no:parvin-rahimi",
+    "tittel": "Vedtak om hjemmesykepleie",
+    "sammendrag": "Du får hjemmesykepleie to ganger i uka fra 16. november, for legemidler og tilsyn.",
+    "avsender": "Lykke kommune",
+    "tjeneste": "hjemmesykepleie",
+    "status": "Completed",
+    "opprettet": "2026-11-13T10:00:00+01:00",
+    "lest": true
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000e004",
+    "party": "urn:altinn:person:identifier-no:parvin-rahimi",
+    "tittel": "Alderspensjonen din er beregnet på nytt",
+    "sammendrag": "Etter dødsfallet er pensjonen beregnet med gjenlevenderett fra 1. november. Du trenger ikke gjøre noe.",
+    "avsender": "Nav",
+    "tjeneste": "alderspensjon",
+    "status": "Completed",
+    "opprettet": "2026-11-02T08:00:00+01:00"
   }
 ]

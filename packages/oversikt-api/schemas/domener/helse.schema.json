@@ -101,7 +101,12 @@
                   "bpa",
                   "stottekontakt",
                   "spesialpedagogisk-hjelp",
-                  "ekstra-bemanning"
+                  "ekstra-bemanning",
+                  "hjemmesykepleie",
+                  "praktisk-bistand",
+                  "trygghetsalarm",
+                  "dagsenter",
+                  "matombringing"
                 ]
               },
               "timerPerManed": { "type": "number", "minimum": 0 },
@@ -147,6 +152,19 @@
             "additionalProperties": false
           }
         }
+      },
+      "additionalProperties": false
+    },
+    "legemidler": {
+      "title": "Legemidler",
+      "description": "Om legemidlene håndteres som multidose, og når listen sist ble endret. Selve legemidlene er ikke med.",
+      "type": "object",
+      "required": ["multidose"],
+      "properties": {
+        "multidose": { "type": "boolean" },
+        "apotek": { "type": "string" },
+        "sistEndret": { "type": "string", "format": "date" },
+        "endretAv": { "type": "string" }
       },
       "additionalProperties": false
     },

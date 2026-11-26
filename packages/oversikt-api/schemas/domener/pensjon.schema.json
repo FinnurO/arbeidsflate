@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/domener/pensjon.schema.json",
+  "title": "Pensjon",
+  "description": "Opplysninger om pensjon fra Nav. Hver $defs-oppføring er én opplysningstype (pensjon.<navn>).",
+  "$defs": {
+    "alderspensjon": {
+      "title": "Alderspensjon",
+      "type": "object",
+      "required": ["beregnet"],
+      "properties": {
+        "beregnet": { "type": "string", "format": "date", "description": "Når pensjonen sist ble beregnet." },
+        "arsak": { "type": "string", "description": "F.eks. «Dødsfall i familien»." },
+        "gjenlevenderett": {
+          "type": "boolean",
+          "description": "Sann når pensjonen er beregnet med rettigheter etter avdød ektefelle."
+        },
+        "utbetalingsdag": { "type": "integer", "minimum": 1, "maximum": 31 },
+        "fullmektigHarInnsyn": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

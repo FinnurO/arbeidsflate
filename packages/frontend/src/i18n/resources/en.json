@@ -593,6 +593,7 @@
   "oversikt.rolle.styreleder": "The chair sees this",
   "oversikt.rolle.regnskapsforer": "The accountant sees this",
   "oversikt.rolle.arving": "The heirs see this",
+  "oversikt.rolle.fullmektig": "Those with power of attorney see this",
   "oversikt.privat.tittel": "Some of this only you can see",
   "oversikt.privat.tekst": "Things about your health can stay private. Your parents see much of the same as you, but not everything.",
   "oversikt.feil.tittel": "We could not load the overview",

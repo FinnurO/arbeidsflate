@@ -3,7 +3,7 @@
 
 export type AktorId = string;
 
-export type Rolle = 'selv' | 'foresatt' | 'daglig-leder' | 'styreleder' | 'regnskapsforer' | 'arving';
+export type Rolle = 'selv' | 'foresatt' | 'daglig-leder' | 'styreleder' | 'regnskapsforer' | 'arving' | 'fullmektig';
 
 export type Status =
   | 'ordnet-automatisk'

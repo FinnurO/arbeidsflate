@@ -53,6 +53,19 @@
   },
   {
     "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "aktor": "urn:altinn:person:identifier-no:parvin-rahimi",
+    "rolle": "fullmektig",
+    "rolletekst": "Hjelp i hverdagen · Du har fullmakt",
+    "hjemmel": {
+      "beskrivelse": "Parvin har gitt deg fullmakt overfor Nav, Skatteetaten og kommunen, og til timeavtaler på Helsenorge",
+      "kilde": {
+        "virksomhet": "Digitaliseringsdirektoratet og Norsk helsenett",
+        "system": "Altinn og Helsenorge fullmakter"
+      }
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
     "aktor": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
     "rolle": "arving",
     "rolletekst": "Dødsfall og arv · Du er arving",

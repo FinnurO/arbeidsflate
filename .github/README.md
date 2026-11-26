@@ -6,19 +6,25 @@ tvers av livssituasjoner, og ett felles API som alle dashbordene leser fra.
 
 Konseptet er en utforskning, ikke en del av Arbeidsflate. All data er oppdiktet.
 
-**Prøv demoen:** https://finnuro.github.io/arbeidsflate/
-**Les API-referansen:** https://finnuro.github.io/arbeidsflate/api/
+- **Prøv demoen:** https://finnuro.github.io/arbeidsflate/
+- **Les API-referansen:** https://finnuro.github.io/arbeidsflate/api/
+- **Møt familien:** https://finnuro.github.io/arbeidsflate/docs/?side=familien ([i repoet](../packages/oversikt-api/docs/familien.md))
+- **Se arkitekturen:** https://finnuro.github.io/arbeidsflate/docs/?side=arkitektur ([i repoet](../packages/oversikt-api/docs/arkitektur.md))
 
 ## Familien i demoen
 
 Nora Rahimi og Jonas Berg har barna Amir (12) og Lea (5) og driver restauranten Lykke Bistro AS. Lea er alvorlig
-syk og følges av barneavdelingen på sykehuset. Noras far, Reza Rahimi, døde nylig. Samme person står da i fire
-livssituasjoner på én gang, og de påvirker hverandre:
+syk og følges av barneavdelingen på sykehuset. Noras far, Reza Rahimi, døde nylig, og moren hennes, Parvin (78),
+begynner å trenge hjelp i hverdagen og har gitt Nora fullmakt. Samme person står da i fem livssituasjoner på én
+gang, og de påvirker hverandre:
 
 - Reza var stedfortreder for restaurantens skjenkebevilling, så bevillingen mangler nå stedfortreder.
 - Dødsboet eier 20 % av aksjene i restauranten.
 - Nora er ansatt i eget AS, så restauranten må sende inntektsmeldingen før Nav kan behandle pleiepengene for Lea.
 - Amir er søsken til et alvorlig sykt barn og har mistet bestefaren. Skolen kan følge ham opp hvis Nora sier ja.
+- Parvin bor i boligen som er i dødsboet, og Nora er nå pårørende for både Lea og moren sin.
+
+Personas for hver av dem står i [familien.md](../packages/oversikt-api/docs/familien.md).
 
 ### Alvorlig sykt barn
 
@@ -36,12 +42,13 @@ Diagnosen står ikke i dataene. Tjenestene trenger bare å vite at Lea følges a
 
 | Logg inn som | Lenke | Ser |
 |---|---|---|
-| Nora | [?playwrightId=rahimi-berg](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg) | seg selv, Amir og Lea (foresatt), Lykke Bistro AS (daglig leder) og dødsboet (arving) |
+| Nora | [?playwrightId=rahimi-berg](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg) | seg selv, Amir og Lea (foresatt), Lykke Bistro AS (daglig leder), Parvin (fullmektig) og dødsboet (arving) |
 | Amir | [?playwrightId=rahimi-berg-amir](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg-amir) | bare seg selv, med tekst tilpasset ham og det foreldrene ikke ser |
 
 ## Hva konseptet viser
 
-- **Én mal for alle livssituasjoner.** Skole, virksomhet og dødsbo vises av samme generiske dashbord. Bare dataene
+- **Én mal for alle livssituasjoner.** Skole, virksomhet, dødsbo, alvorlig sykt barn og hjelp i
+  hverdagen vises av samme generiske dashbord. Bare dataene
   er forskjellige.
 - **Sammenhenger på tvers.** Den samlede oversikten viser hvordan livssituasjonene påvirker hverandre.
 - **Opplysninger med kilde.** Hvert kort sier hvem som eier opplysningen og når den ble hentet, og siden sier fra
@@ -58,6 +65,8 @@ Diagnosen står ikke i dataene. Tjenestene trenger bare å vite at Lea følges a
 | Hva | Hvor |
 |---|---|
 | Oversikt-API: kontrakt, skjemaer, mockdata, validering | [`packages/oversikt-api`](../packages/oversikt-api) |
+| Familien og personas | [`packages/oversikt-api/docs/familien.md`](../packages/oversikt-api/docs/familien.md) |
+| Arkitektur og byggeklosser: lag, Felles datakatalog, utvidelse, hull | [`packages/oversikt-api/docs/arkitektur.md`](../packages/oversikt-api/docs/arkitektur.md) |
 | API-guide: begreper, flyt, eksempler, nye domener | [`packages/oversikt-api/docs/guide.md`](../packages/oversikt-api/docs/guide.md) |
 | Kontrakten (OpenAPI 3.1) | [`packages/oversikt-api/openapi.yaml`](../packages/oversikt-api/openapi.yaml) |
 | Dashbordene i Arbeidsflate | [`packages/frontend/src/pages/Oversikt`](../packages/frontend/src/pages/Oversikt) |

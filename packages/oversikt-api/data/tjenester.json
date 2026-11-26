@@ -395,5 +395,116 @@
     "livshendelser": [
       "alvorlig-sykt-barn"
     ]
+  },
+  {
+    "id": "trygghetsalarm",
+    "tittel": "Trygghetsalarm",
+    "beskrivelse": "En alarm du bærer på armen eller rundt halsen, som varsler hjemmetjenesten når du trenger hjelp.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "hjemmesykepleie",
+    "tittel": "Hjemmesykepleie",
+    "beskrivelse": "Helsehjelp hjemme, for eksempel med legemidler, sårstell eller tilsyn.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "praktisk-bistand",
+    "tittel": "Praktisk bistand i hjemmet",
+    "beskrivelse": "Hjelp til praktiske gjøremål som renhold, innkjøp og personlig stell.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "tt-kort",
+    "tittel": "TT-kort (tilrettelagt transport)",
+    "beskrivelse": "Rabatterte reiser med drosje for deg som ikke kan bruke vanlig kollektivtransport.",
+    "ansvarlig": "Lykke fylkeskommune",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "dagsenter",
+    "tittel": "Dagsenter",
+    "beskrivelse": "Et sted å være på dagtid med aktiviteter, fellesskap og et måltid.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "matombringing",
+    "tittel": "Middag levert hjem",
+    "beskrivelse": "Ferdig middag levert på døra fra kommunens kjøkken.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "fremtidsfullmakt",
+    "tittel": "Fremtidsfullmakt",
+    "beskrivelse": "En fullmakt som gjelder fra den dagen du ikke lenger kan ivareta egne interesser. Statsforvalteren stadfester den.",
+    "ansvarlig": "Statsforvalteren",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "bostotte",
+    "tittel": "Bostøtte",
+    "beskrivelse": "Støtte til boutgifter for deg med lav inntekt og høye boutgifter.",
+    "ansvarlig": "Husbanken",
+    "livshendelser": [
+      "dodsfall-og-arv",
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "sorgstotte",
+    "tittel": "Sorggruppe for etterlatte",
+    "beskrivelse": "Samtalegrupper for deg som har mistet noen som sto deg nær.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "dodsfall-og-arv"
+    ]
+  },
+  {
+    "id": "parorendestotte",
+    "tittel": "Pårørendestøtte",
+    "beskrivelse": "Veiledning, avlastning og omsorgsstønad for deg som har et særlig tyngende omsorgsarbeid.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "bli-eldre",
+      "alvorlig-sykt-barn"
+    ]
+  },
+  {
+    "id": "hjelpemidler",
+    "tittel": "Hjelpemidler",
+    "beskrivelse": "Rullator, dusjkrakk og andre hjelpemidler som gjør det lettere å klare seg hjemme.",
+    "ansvarlig": "Nav hjelpemiddelsentral",
+    "livshendelser": [
+      "bli-eldre"
+    ]
+  },
+  {
+    "id": "alderspensjon",
+    "tittel": "Alderspensjon",
+    "beskrivelse": "Pensjon fra folketrygden. Gjenlevende kan få pensjonen beregnet med rettigheter etter avdød ektefelle.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "dodsfall-og-arv",
+      "bli-eldre"
+    ]
   }
 ]
