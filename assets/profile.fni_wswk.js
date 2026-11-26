@@ -1,1 +1,0 @@
-import{i as e,t}from"./arbeidsflateData.CgoKMdee.js";var n=e(t(`rahimi-berg-amir`));export{n as profile};

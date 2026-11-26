@@ -1,1 +1,0 @@
-{"version":3,"file":"dialogs.CneQmxJa.js","names":[],"sources":["../../src/mocks/data/stories/rahimi-berg-amir/dialogs.ts"],"sourcesContent":["import { brukerFor, lagDialoger } from '../../../oversikt/arbeidsflateData.ts';\n\nexport const dialogs = lagDialoger(brukerFor('rahimi-berg-amir'));\n"],"mappings":"qDAEA,IAAa,EAAU,EAAY,EAAU,kBAAkB,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"parties.CdDZwS_Z.js","names":[],"sources":["../../src/mocks/data/stories/rahimi-berg-amir/parties.ts"],"sourcesContent":["import { brukerFor, lagParties } from '../../../oversikt/arbeidsflateData.ts';\n\nexport const parties = lagParties(brukerFor('rahimi-berg-amir'));\n"],"mappings":"qDAEA,IAAa,EAAU,EAAW,EAAU,kBAAkB,CAAC"}
