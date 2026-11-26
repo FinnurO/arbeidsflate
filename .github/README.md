@@ -13,6 +13,8 @@ Konseptet er en utforskning, ikke en del av Arbeidsflate. All data er oppdiktet.
 
 ## Familien i demoen
 
+![Aktørene i demoen: Nora, Jonas, Amir, Lea, Parvin, Reza og Lykke Bistro AS](../packages/oversikt-api/docs/personas/familien.svg)
+
 Nora Rahimi og Jonas Berg har barna Amir (12) og Lea (5) og driver restauranten Lykke Bistro AS. Lea er alvorlig
 syk og følges av barneavdelingen på sykehuset. Noras far, Reza Rahimi, døde nylig, og moren hennes, Parvin (78),
 begynner å trenge hjelp i hverdagen og har gitt Nora fullmakt. Samme person står da i fem livssituasjoner på én

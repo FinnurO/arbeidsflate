@@ -2,7 +2,7 @@
 // components.schemas, og hvert endepunkt får eksempelsvar laget av mocken (familien Rahimi Berg).
 // Kjør: pnpm --filter oversikt-api docs  →  dist/openapi.json + dist/index.html
 // Legger også Markdown-dokumentene med visningssiden i dist/docs/ (docs/visning.html → dist/docs/index.html).
-import { copyFileSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
@@ -137,6 +137,7 @@ copyFileSync(join(rot, 'docs/referanse.html'), join(ut, 'index.html'));
 const dokumenter = ['familien', 'arkitektur', 'guide'];
 mkdirSync(join(ut, 'docs'), { recursive: true });
 copyFileSync(join(rot, 'docs/visning.html'), join(ut, 'docs/index.html'));
+cpSync(join(rot, 'docs/personas'), join(ut, 'docs/personas'), { recursive: true });
 for (const dokument of dokumenter) {
   copyFileSync(join(rot, `docs/${dokument}.md`), join(ut, `docs/${dokument}.md`));
 }

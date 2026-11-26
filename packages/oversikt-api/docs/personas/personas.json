@@ -1,0 +1,296 @@
+{
+  "personas": [
+    {
+      "id": "nora",
+      "navn": "Nora Rahimi",
+      "kortnavn": "Nora",
+      "kortrolle": "Mor, datter og daglig leder",
+      "undertittel": "44 år · daglig leder i Lykke Bistro AS · mor til Amir og Lea",
+      "etikett": "Persona · den som holder alt sammen",
+      "roller": ["Amir og Lea · foresatt", "Lykke Bistro · daglig leder", "Parvin · fullmektig", "Dødsboet · arving"],
+      "sitat": { "tekst": "Jeg bruker kveldene på å finne ut hvem jeg skal svare først." },
+      "situasjon": "Står i fem livssituasjoner på én gang: et alvorlig sykt barn, en far som nettopp døde, en mor som trenger hjelp, en sønn på vei til ungdomsskolen og en restaurant som skal drives videre.",
+      "behov": [
+        "Se alt som haster på ett sted",
+        "Få vite hva familien har rett til",
+        "Slippe å gi de samme opplysningene på nytt"
+      ],
+      "vanskelig": [
+        "Sju innlogginger og ingen som ser helheten",
+        "En sak hos Nav venter på en oppgave i restauranten",
+        "Rettigheter oppdages tilfeldig eller for sent"
+      ],
+      "gir": [
+        "Alle hun handler for, med hvor mange oppgaver som venter hos hver",
+        "Sammenhengene på tvers, med hva hun bør gjøre først",
+        "Opplysninger med kilde, så hun vet hvem hun skal kontakte"
+      ],
+      "livssituasjoner": [
+        "Alvorlig sykt barn",
+        "Dødsfall og arv",
+        "Hjelp i hverdagen",
+        "Barn og skole",
+        "Drive bedrift"
+      ],
+      "avatar": {
+        "type": "person",
+        "alder": "voksen",
+        "hud": "#c98d68",
+        "hudskygge": "#a9714f",
+        "har": "#2f2019",
+        "harstil": "skulder",
+        "klaer": "#1f4e8c",
+        "plagg": "blazer",
+        "detaljer": ["orepynt", "kinn"],
+        "bakgrunn": "#cfe2f6",
+        "aksent": "#0062ba",
+        "lys": "#eaf2fb"
+      }
+    },
+    {
+      "id": "jonas",
+      "navn": "Jonas Berg",
+      "kortnavn": "Jonas",
+      "kortrolle": "Far, kokk og styreleder",
+      "undertittel": "46 år · kokk og styreleder i Lykke Bistro AS · far til Amir og Lea",
+      "etikett": "Persona · den andre forelderen",
+      "roller": ["Amir og Lea · foresatt", "Lykke Bistro · styreleder"],
+      "sitat": { "tekst": "Nora har oversikten. Jeg vil ta min del uten å måtte spørre henne om alt." },
+      "situasjon": "Deler omsorgen for Lea med Nora og søker pleiepenger selv. Står på kjøkkenet det meste av dagen. Har ikke tilgang til Parvin eller dødsboet, fordi han verken er arving eller har fullmakt.",
+      "behov": [
+        "Se det samme som Nora om barna",
+        "Vite hvilke oppgaver som er hans",
+        "Følge restauranten som styreleder"
+      ],
+      "vanskelig": [
+        "Informasjonen går gjennom Nora",
+        "Pleiepengene hans venter på papirer han ikke ser",
+        "Uklart hvem som har svart på hva"
+      ],
+      "gir": [
+        "Den samme oversikten for barna som Nora, fordi begge har foreldreansvar",
+        "Styrelederens utsnitt av restauranten, ikke alt daglig leder ser",
+        "Hvem som har gjort hva, så de slipper å gjøre ting to ganger"
+      ],
+      "livssituasjoner": ["Alvorlig sykt barn", "Barn og skole", "Drive bedrift"],
+      "avatar": {
+        "type": "person",
+        "alder": "voksen",
+        "hud": "#f0c4a2",
+        "hudskygge": "#d49f7c",
+        "har": "#7a5434",
+        "harstil": "kort",
+        "klaer": "#ffffff",
+        "plagg": "kokkejakke",
+        "detaljer": ["skjegg"],
+        "bakgrunn": "#d3ecdc",
+        "aksent": "#18794e",
+        "lys": "#eaf6ef"
+      }
+    },
+    {
+      "id": "amir",
+      "navn": "Amir Rahimi",
+      "kortnavn": "Amir",
+      "kortrolle": "12 år, storebror",
+      "undertittel": "12 år · 7. trinn ved Lykke barneskole · storebror til Lea",
+      "etikett": "Persona · barnet som ser sin egen oversikt",
+      "roller": ["Ser bare seg selv", "Foreldrene er foresatte"],
+      "sitat": { "tekst": "Alle snakker om Lea. Jeg vil bare vite hva jeg skal levere." },
+      "situasjon": "Skal begynne på ungdomsskolen til høsten. Lillesøsteren er alvorlig syk og bestefaren er død, og mye av oppmerksomheten hjemme går til Lea.",
+      "behov": [
+        "Egne skoleoppgaver med enkle ord",
+        "Snakke med helsesykepleieren uten at foreldrene får vite det",
+        "At skolen vet at han har det tungt, hvis foreldrene sier ja"
+      ],
+      "vanskelig": [
+        "Frister forsvinner i foreldrenes innboks",
+        "Ingen forklarer ham hva som skjer med Lea",
+        "Overgangen til ungdomsskolen kommer samtidig"
+      ],
+      "gir": [
+        "Tekster skrevet til ham, som «Du har lest mer og raskere siden 5. trinn»",
+        "Samtalen med helsesykepleieren, som foreldrene ikke ser",
+        "Søskentilbud ved sykehuset, foreslått til foreldrene"
+      ],
+      "livssituasjoner": ["Barn og skole"],
+      "avatar": {
+        "type": "person",
+        "alder": "barn",
+        "hud": "#dba582",
+        "hudskygge": "#bd8662",
+        "har": "#2b1d16",
+        "harstil": "bustete",
+        "klaer": "#e07a1f",
+        "plagg": "hettegenser",
+        "detaljer": [],
+        "bakgrunn": "#fde3c4",
+        "aksent": "#b45309",
+        "lys": "#fff4e6"
+      }
+    },
+    {
+      "id": "lea",
+      "navn": "Lea Rahimi",
+      "kortnavn": "Lea",
+      "kortrolle": "5 år, alvorlig syk",
+      "undertittel": "5 år · Lykke barnehage · følges av barneavdelingen ved Lykke sykehus",
+      "etikett": "Persona · alvorlig sykt barn",
+      "roller": ["Nora og Jonas · foresatte", "Barnekoordinator i kommunen"],
+      "tall": { "verdi": "19 t", "tekst": "i uka går til å søke, klage og koordinere (snitt, Helsedirektoratet 2021)" },
+      "sitat": { "tekst": "Vi bruker mer tid på søknader enn på å være sammen med henne.", "hvem": "Nora og Jonas" },
+      "situasjon": "Følges av spesialisthelsetjenesten over lang tid. Familien har saker hos Nav, kommunen, sykehuset og barnehagen samtidig. Diagnosen står ikke i dataene, for tjenestene trenger den ikke.",
+      "behov": [
+        "Én oversikt over alle saker, med frister",
+        "Ett fast kontaktpunkt",
+        "Slippe å fortelle historien på nytt"
+      ],
+      "vanskelig": [
+        "Den samme legeerklæringen i hver søknad",
+        "Vedtak som ikke blir levert",
+        "Avslag og klagefrister midt i alt annet"
+      ],
+      "gir": [
+        "Barnekoordinatoren, kontaktlegen og barnehagen øverst",
+        "«6 av 12 timer avlastning levert i november»",
+        "Rettigheter foreslått ut fra situasjonen, og hjelp til å klage"
+      ],
+      "livssituasjoner": ["Alvorlig sykt barn"],
+      "avatar": {
+        "type": "person",
+        "alder": "barn",
+        "hud": "#e2b08e",
+        "hudskygge": "#c48f6c",
+        "har": "#3a261b",
+        "harstil": "fletter",
+        "klaer": "#e5577e",
+        "plagg": "kjole",
+        "detaljer": ["kinn"],
+        "bakgrunn": "#fbd9e2",
+        "aksent": "#c0265a",
+        "lys": "#fdeef2"
+      }
+    },
+    {
+      "id": "parvin",
+      "navn": "Parvin Rahimi",
+      "kortnavn": "Parvin",
+      "kortrolle": "78 år, enke, mormor",
+      "undertittel": "78 år · enke etter Reza · bor alene i huset deres i Lykke",
+      "etikett": "Persona · trenger hjelp i hverdagen",
+      "roller": ["Nora · fullmektig", "Arving i dødsboet"],
+      "sitat": { "tekst": "Jeg vil bo hjemme. Men jeg klarer ikke papirene alene lenger." },
+      "situasjon": "Det var Reza som tok seg av papirene og kjørte bil. Nå har hun sluttet å kjøre, glemmer legemidlene innimellom og har falt på badet. Hun har gitt Nora fullmakt, men bestemmer fortsatt selv.",
+      "behov": [
+        "Hjelp hjemme fra kommunen",
+        "Komme seg ut og treffe folk",
+        "En fremtidsfullmakt mens hun selv kan gi den"
+      ],
+      "vanskelig": [
+        "Hjelpen kommer fra sju ulike steder",
+        "Fullmakten gjelder ikke alt, som journalen",
+        "Arven berører boligen hun bor i"
+      ],
+      "gir": [
+        "Vurderingsbesøk, trygghetsalarm og hjemmesykepleie samlet",
+        "Pensjonen beregnet på nytt med gjenlevenderett, uten søknad",
+        "Forslag om fremtidsfullmakt, middag levert hjem og sorggruppe"
+      ],
+      "livssituasjoner": ["Hjelp i hverdagen", "Dødsfall og arv"],
+      "avatar": {
+        "type": "person",
+        "alder": "eldre",
+        "hud": "#cf9a78",
+        "hudskygge": "#ad7957",
+        "har": "#c9c6cf",
+        "bryn": "#8f8a94",
+        "harstil": "knute",
+        "klaer": "#6d4bb0",
+        "plagg": "cardigan",
+        "detaljer": ["briller"],
+        "bakgrunn": "#e4dcf5",
+        "aksent": "#5b3aa4",
+        "lys": "#f2eefb"
+      }
+    },
+    {
+      "id": "reza",
+      "navn": "Dødsboet etter Reza Rahimi",
+      "kortnavn": "Reza †",
+      "kortrolle": "Døde i oktober, dødsboet",
+      "undertittel": "Reza døde 12. oktober 2026, 80 år · privat skifte",
+      "etikett": "Persona · dødsboet og arvingene",
+      "roller": ["Nora, Sara, Ali og Parvin · arvinger", "3 av 4 har signert"],
+      "sitat": {
+        "tekst": "Vi visste ikke hva pappa eide, eller hvem vi skulle si fra til.",
+        "hvem": "Nora, Sara og Ali"
+      },
+      "situasjon": "Reza eide boligen der han og Parvin bodde, 20 % av aksjene i Lykke Bistro AS og en bil, og var stedfortreder for skjenkebevillingen. Han hadde ikke testament.",
+      "behov": ["Vite hva avdøde eide og skyldte", "Si opp avtaler og faste trekk", "Bli enige om skiftet"],
+      "vanskelig": [
+        "Opplysningene ligger i banker, Kartverket og Skatteetaten",
+        "Arvingene bor spredt og signerer hver for seg",
+        "Dødsfallet gir restauranten nye oppgaver"
+      ],
+      "gir": [
+        "Konti, gjeld, eiendom, kjøretøy og aksjer, hver med kilde",
+        "Arvingene med signeringsstatus, også Parvin via fullmakt",
+        "At opplysningene slettes etter 12 måneder, som i Digitalt dødsbo"
+      ],
+      "livssituasjoner": ["Dødsfall og arv"],
+      "avatar": {
+        "type": "person",
+        "alder": "eldre",
+        "hud": "#c48c69",
+        "hudskygge": "#a26d4c",
+        "har": "#b9b9bf",
+        "bryn": "#8d8d94",
+        "harstil": "tynt",
+        "klaer": "#3f4a5a",
+        "plagg": "dress",
+        "munn": "rolig",
+        "detaljer": ["bart"],
+        "dempet": true,
+        "bakgrunn": "#e1e5eb",
+        "aksent": "#4a5568",
+        "lys": "#f0f2f5"
+      }
+    },
+    {
+      "id": "lykke-bistro",
+      "navn": "Lykke Bistro AS",
+      "kortnavn": "Lykke Bistro",
+      "kortrolle": "Restaurant, 6 ansatte",
+      "undertittel": "Restaurant i Lykke sentrum · 6 ansatte · eid av Nora, Jonas og dødsboet",
+      "etikett": "Persona · virksomheten",
+      "roller": ["Nora · daglig leder", "Jonas · styreleder", "Regnskapsfører · skatt og mva"],
+      "sitat": {
+        "tekst": "Vanlige frister er nok. Nå kommer familiens saker i tillegg.",
+        "hvem": "Nora, daglig leder"
+      },
+      "situasjon": "En vanlig, travel restaurant med a-melding, mva og omsetningsoppgave for alkohol. Det som skjer i familien, gir restauranten nye oppgaver som ingen etat forklarer sammenhengen i.",
+      "behov": [
+        "Se frister for a-melding, mva og alkohol",
+        "Forstå hvorfor nye oppgaver dukker opp",
+        "Styre hvem som ser hva"
+      ],
+      "vanskelig": [
+        "Inntektsmeldingen stopper Noras pleiepenger",
+        "Skjenkebevillingen mangler stedfortreder",
+        "Aksjeeierne må meldes etter skiftet"
+      ],
+      "gir": [
+        "Oppgavene med begrunnelse, også de som kommer fra familien",
+        "Sammenhengen til Lea og dødsboet",
+        "Hvem som ser oversikten, og at regnskapsføreren bare ser skatt og mva"
+      ],
+      "livssituasjoner": ["Drive bedrift"],
+      "avatar": {
+        "type": "virksomhet",
+        "bakgrunn": "#fde0cc",
+        "aksent": "#c2410c",
+        "lys": "#fff1e8"
+      }
+    }
+  ]
+}

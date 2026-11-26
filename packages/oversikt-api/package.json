@@ -7,7 +7,8 @@
   "scripts": {
     "validate": "node scripts/validate.mjs",
     "editor": "node scripts/editor-server.mjs",
-    "docs": "node scripts/bundle.mjs"
+    "docs": "node scripts/bundle.mjs",
+    "personas": "node scripts/personas.mjs"
   },
   "devDependencies": {
     "ajv": "8.18.0",
