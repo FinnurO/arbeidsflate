@@ -635,5 +635,6 @@
   "oversikt.tjeneste.kjent": "What we already know",
   "oversikt.tjeneste.opplysning": "Information",
   "oversikt.tjeneste.verdi": "Value",
-  "oversikt.tjeneste.katalog_status": "A query against the National Data Directory on 30 October 2026 returned 1,462 public services and no life events. Almost all are harvested from the Altinn resource registry, and requirements, outputs and relations between services are not filled in."
+  "oversikt.tjeneste.katalog_status": "A query against the National Data Directory on 30 October 2026 returned 1,462 public services and no life events. Almost all are harvested from the Altinn resource registry, and requirements, outputs and relations between services are not filled in.",
+  "oversikt.status.avslatt": "Rejected"
 }

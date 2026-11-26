@@ -23,11 +23,11 @@ import { usePageTitle } from '../../hooks/usePageTitle.ts';
 import {
   aktorSti,
   dialogSti,
-  dialogstatusTilStatus,
   formaterDato,
   grupperEtter,
   medMock,
   statusBadge,
+  stegstatus,
   storForbokstav,
   synlighetstekst,
   tekst,
@@ -73,7 +73,9 @@ const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
   const { tilgang, livssituasjoner, opplysninger, tjenesteforslag, dialoger, sammenhenger } = oversikt;
   const { aktor, rolle } = tilgang;
   const { data: tilganger = [] } = useTilganger();
-  const { data: dialogdata = [] } = useDialogerForAktorer([aktor.id]);
+  // Noen steg gjelder den innloggedes egne saker (f.eks. foreldrenes pleiepenger), så de dialogene hentes også.
+  const selv = tilganger.find((kandidat) => kandidat.rolle === 'selv')?.aktor.id;
+  const { data: dialogdata = [] } = useDialogerForAktorer(selv && selv !== aktor.id ? [aktor.id, selv] : [aktor.id]);
   const [faser, setFaser] = useState<Record<string, string>>({});
   const [visSynlighet, setVisSynlighet] = useState(false);
   const ga = (sti: string) => navigate(medMock(sti, search));
@@ -93,7 +95,7 @@ const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
 
   const stegItem = (steg: Steg) => {
     const fraDialog = dialog(steg.dialogId);
-    const status = (fraDialog && dialogstatusTilStatus[fraDialog.status]) || steg.status;
+    const status = stegstatus(steg.status, fraDialog?.status);
     const frist = fraDialog?.dueAt ?? steg.frist;
     const beskrivelse = [
       steg.ansvarlig,
@@ -332,6 +334,11 @@ const Dashbord = ({ oversikt }: { oversikt: Oversikt }) => {
                             size: 'sm',
                           }
                         : undefined
+                    }
+                    controls={
+                      involvert.handling ? (
+                        <HandlingKnapp handling={involvert.handling} aktorId={aktor.id} variant="ghost" />
+                      ) : undefined
                     }
                   />
                 ))}

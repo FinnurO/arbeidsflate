@@ -635,5 +635,6 @@
   "oversikt.tjeneste.kjent": "Dette veit vi allereie",
   "oversikt.tjeneste.opplysning": "Opplysning",
   "oversikt.tjeneste.verdi": "Verdi",
-  "oversikt.tjeneste.katalog_status": "Ei spørjing mot Felles datakatalog 30. oktober 2026 gav 1 462 offentlege tenester og ingen livshendingar. Nesten alle er hausta frå Altinn ressursregister, og krav, resultat og relasjonar mellom tenester er ikkje fylte ut."
+  "oversikt.tjeneste.katalog_status": "Ei spørjing mot Felles datakatalog 30. oktober 2026 gav 1 462 offentlege tenester og ingen livshendingar. Nesten alle er hausta frå Altinn ressursregister, og krav, resultat og relasjonar mellom tenester er ikkje fylte ut.",
+  "oversikt.status.avslatt": "Avslått"
 }

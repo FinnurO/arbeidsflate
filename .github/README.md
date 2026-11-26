@@ -11,16 +11,32 @@ Konseptet er en utforskning, ikke en del av Arbeidsflate. All data er oppdiktet.
 
 ## Familien i demoen
 
-Nora Rahimi og Jonas Berg har sønnen Amir (12) og driver restauranten Lykke Bistro AS. Noras far, Reza Rahimi,
-døde nylig. Samme person står da i tre livssituasjoner på én gang, og de påvirker hverandre:
+Nora Rahimi og Jonas Berg har barna Amir (12) og Lea (5) og driver restauranten Lykke Bistro AS. Lea er alvorlig
+syk og følges av barneavdelingen på sykehuset. Noras far, Reza Rahimi, døde nylig. Samme person står da i fire
+livssituasjoner på én gang, og de påvirker hverandre:
 
 - Reza var stedfortreder for restaurantens skjenkebevilling, så bevillingen mangler nå stedfortreder.
 - Dødsboet eier 20 % av aksjene i restauranten.
-- Skolen kan følge Amir opp ekstra, hvis Nora sier ja til å dele at bestefaren er død.
+- Nora er ansatt i eget AS, så restauranten må sende inntektsmeldingen før Nav kan behandle pleiepengene for Lea.
+- Amir er søsken til et alvorlig sykt barn og har mistet bestefaren. Skolen kan følge ham opp hvis Nora sier ja.
+
+### Alvorlig sykt barn
+
+Foreldre til barn med sammensatte behov bruker i snitt 19 timer i uka (median 10) på å lete etter informasjon,
+søke, klage og koordinere tjenester, ifølge Helsedirektoratets nullpunktsmåling fra 2021. Leas oversikt viser hvordan
+én oversikt kan ta bort noe av det:
+
+- Alle saker hos Nav, kommunen, sykehuset og barnehagen på ett sted, med frister.
+- Gjenbruk: én legeerklæring brukes i flere søknader, og pleiepengesiden viser hva Nav allerede vet.
+- Fast kontaktpunkt: barnekoordinatoren og teamet rundt Lea øverst.
+- Vedtak mot levert («6 av 12 timer avlastning levert i november») og klageveiledning ved avslag.
+- Rettigheter foreslått ut fra situasjonen, i stedet for at foreldrene må lete.
+
+Diagnosen står ikke i dataene. Tjenestene trenger bare å vite at Lea følges av spesialisthelsetjenesten.
 
 | Logg inn som | Lenke | Ser |
 |---|---|---|
-| Nora | [?playwrightId=rahimi-berg](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg) | seg selv, Amir (foresatt), Lykke Bistro AS (daglig leder) og dødsboet (arving) |
+| Nora | [?playwrightId=rahimi-berg](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg) | seg selv, Amir og Lea (foresatt), Lykke Bistro AS (daglig leder) og dødsboet (arving) |
 | Amir | [?playwrightId=rahimi-berg-amir](https://finnuro.github.io/arbeidsflate/oversikt?mock=true&playwrightId=rahimi-berg-amir) | bare seg selv, med tekst tilpasset ham og det foreldrene ikke ser |
 
 ## Hva konseptet viser

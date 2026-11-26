@@ -1,0 +1,598 @@
+{
+  "aktor": {
+    "id": "urn:altinn:person:identifier-no:lea-rahimi",
+    "type": "person",
+    "navn": "Lea Rahimi",
+    "initialer": "LR",
+    "beskrivelse": "5 år · Lykke barnehage · Følges av barneavdelingen ved Lykke sykehus",
+    "fodselsdato": "2021-06-14"
+  },
+  "livssituasjoner": [
+    {
+      "id": "alvorlig-sykt-barn",
+      "type": "alvorlig-sykt-barn",
+      "tittel": "Alvorlig sykt barn",
+      "aktivFase": "hverdag",
+      "forklaring": "Lykke sykehus har registrert at Lea følges av barneavdelingen over lang tid. Det gir rett til blant annet pleiepenger, utvidede omsorgsdager og barnekoordinator. Stegene samler tjenester fra Nav, Lykke kommune, sykehuset og barnehagen, og bruker opplysninger de allerede har, så dere slipper å fortelle historien på nytt.",
+      "faser": [
+        {
+          "id": "forste-tiden",
+          "tittel": "Den første tiden",
+          "beskrivelse": "Rettigheter og hjelp som gjelder fra starten.",
+          "steg": [
+            {
+              "id": "barnekoordinator",
+              "tittel": "Barnekoordinator",
+              "beskrivelse": "Kari Lund er barnekoordinator for familien. Hun har samtykke til å se denne oversikten og hjelper dere med søknader, planer og kontakt med tjenestene.",
+              "status": "utfort",
+              "ansvarlig": "Lykke kommune",
+              "tjenesteId": "barnekoordinator"
+            },
+            {
+              "id": "pleiepenger-nora",
+              "tittel": "Pleiepenger for Nora",
+              "beskrivelse": "Søknaden er mottatt. Nav venter på inntektsmelding fra Lykke Bistro AS.",
+              "status": "venter",
+              "ansvarlig": "Nav",
+              "dialogId": "01938a10-0000-7000-8000-00000000d010",
+              "tjenesteId": "pleiepenger",
+              "bruker": [
+                {
+                  "opplysning": "Legeerklæring",
+                  "kilde": "Lykke sykehus"
+                },
+                {
+                  "opplysning": "Arbeidsforhold og inntekt",
+                  "kilde": "a-ordningen"
+                },
+                {
+                  "opplysning": "Tid i barnehagen",
+                  "kilde": "Lykke kommune"
+                }
+              ],
+              "handling": {
+                "tittel": "Se hva Nav vet",
+                "type": "tjeneste",
+                "mal": "pleiepenger"
+              }
+            },
+            {
+              "id": "pleiepenger-jonas",
+              "tittel": "Pleiepenger for Jonas",
+              "beskrivelse": "Jonas søker selv og har delt at saken er til behandling. Når Lea er innlagt, kan dere få pleiepenger samtidig.",
+              "status": "til-behandling",
+              "ansvarlig": "Nav"
+            },
+            {
+              "id": "omsorgsdager",
+              "tittel": "Utvidet rett til omsorgsdager",
+              "beskrivelse": "10 ekstra dager per år for hver av dere.",
+              "status": "utfort",
+              "ansvarlig": "Nav",
+              "dialogId": "01938a10-0000-7000-8000-00000000d012",
+              "bruker": [
+                {
+                  "opplysning": "Samme legeerklæring som til pleiepengene",
+                  "kilde": "Lykke sykehus"
+                }
+              ]
+            },
+            {
+              "id": "opplaringspenger",
+              "tittel": "Opplæringspenger for kurs ved sykehuset",
+              "beskrivelse": "Sykehuset holder foreldrekurs i januar. Dere kan få opplæringspenger for dagene dere er borte fra jobb.",
+              "status": "ikke-startet",
+              "ansvarlig": "Nav",
+              "tjenesteId": "opplaringspenger",
+              "handling": {
+                "tittel": "Les om ordningen",
+                "type": "tjeneste",
+                "mal": "opplaringspenger"
+              }
+            }
+          ]
+        },
+        {
+          "id": "hverdag",
+          "tittel": "Hverdag med behandling",
+          "steg": [
+            {
+              "id": "ppt",
+              "tittel": "Samtykke til sakkyndig vurdering fra PPT",
+              "beskrivelse": "Gir grunnlag for spesialpedagogisk hjelp og tilrettelegging i barnehagen.",
+              "status": "krever-handling",
+              "ansvarlig": "Lykke kommune, PP-tjenesten",
+              "frist": "2026-12-04",
+              "dialogId": "01938a10-0000-7000-8000-00000000d002",
+              "handling": {
+                "tittel": "Svar",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000d002",
+                "primar": true
+              }
+            },
+            {
+              "id": "ansvarsgruppe",
+              "tittel": "Ansvarsgruppemøte og individuell plan",
+              "beskrivelse": "Barnekoordinatoren, kontaktlegen og barnehagen deltar.",
+              "status": "under-arbeid",
+              "ansvarlig": "Barnekoordinator",
+              "dialogId": "01938a10-0000-7000-8000-00000000d003",
+              "fristtekst": "Møte torsdag 3. desember kl. 14.00"
+            },
+            {
+              "id": "avlastning",
+              "tittel": "Avlastning",
+              "beskrivelse": "Vedtak om 12 timer i måneden. I november er 6 timer levert.",
+              "status": "under-arbeid",
+              "ansvarlig": "Lykke kommune",
+              "handling": {
+                "tittel": "Ta det opp med Kari",
+                "type": "lenke",
+                "mal": "#"
+              }
+            },
+            {
+              "id": "hjelpestonad",
+              "tittel": "Hjelpestønad",
+              "beskrivelse": "Behandlingstiden er normalt 4 måneder.",
+              "status": "til-behandling",
+              "ansvarlig": "Nav",
+              "dialogId": "01938a10-0000-7000-8000-00000000d005",
+              "tjenesteId": "hjelpestonad"
+            },
+            {
+              "id": "grunnstonad",
+              "tittel": "Grunnstønad",
+              "beskrivelse": "Nav mener ekstrautgiftene er under laveste sats. Dere kan klage innen 6 uker, og barnekoordinatoren kan hjelpe.",
+              "status": "avslatt",
+              "ansvarlig": "Nav",
+              "frist": "2026-12-24",
+              "dialogId": "01938a10-0000-7000-8000-00000000d004",
+              "handling": {
+                "tittel": "Slik klager du",
+                "type": "lenke",
+                "mal": "https://klage.nav.no/"
+              }
+            },
+            {
+              "id": "pasientreiser",
+              "tittel": "Søk refusjon for pasientreiser",
+              "beskrivelse": "3 reiser til sykehuset er ikke søkt refundert. Fristen er 6 måneder etter hver reise.",
+              "status": "krever-handling",
+              "ansvarlig": "Pasientreiser",
+              "frist": "2027-05-02",
+              "tjenesteId": "pasientreiser",
+              "handling": {
+                "tittel": "Søk på Helsenorge",
+                "type": "lenke",
+                "mal": "https://www.helsenorge.no/pasientreiser/"
+              }
+            }
+          ]
+        },
+        {
+          "id": "skolestart",
+          "tittel": "Skolestart høsten 2027",
+          "beskrivelse": "Overgangen fra barnehage til skole planlegges i god tid, så skolen kjenner Lea før hun begynner.",
+          "steg": [
+            {
+              "id": "skoleplanlegging",
+              "tittel": "Planlegging med skolen",
+              "beskrivelse": "Barnekoordinatoren starter i mars 2027 sammen med barnehagen og Lykke skole.",
+              "status": "senere",
+              "ansvarlig": "Barnekoordinator"
+            },
+            {
+              "id": "overforing",
+              "tittel": "Overføring av informasjon fra barnehagen",
+              "beskrivelse": "Barnehagen kan dele det skolen trenger hvis dere samtykker.",
+              "status": "senere",
+              "ansvarlig": "Lykke barnehage"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "opplysninger": [
+    {
+      "id": "timeavtaler",
+      "domene": "helse.timeavtaler",
+      "tittel": "Neste time på sykehuset",
+      "hovedverdi": "Torsdag 3. desember kl. 09.00",
+      "beskrivelse": "Poliklinikk, barneavdelingen. 4 timer de neste to ukene.",
+      "handling": {
+        "tittel": "Se alle timer",
+        "type": "lenke",
+        "mal": "https://www.helsenorge.no/"
+      },
+      "kilde": {
+        "virksomhet": "Lykke sykehus",
+        "system": "Helsenorge",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "alvorlig-sykt-barn",
+      "data": {
+        "avtaler": [
+          {
+            "tidspunkt": "2026-12-03T09:00:00+01:00",
+            "sted": "Barneavdelingen, Lykke sykehus",
+            "type": "poliklinikk"
+          },
+          {
+            "tidspunkt": "2026-12-07T08:00:00+01:00",
+            "sted": "Barneavdelingen, Lykke sykehus",
+            "type": "dagbehandling"
+          },
+          {
+            "tidspunkt": "2026-12-09T13:00:00+01:00",
+            "sted": "Barneavdelingen, Lykke sykehus",
+            "type": "video"
+          },
+          {
+            "tidspunkt": "2026-12-14T08:00:00+01:00",
+            "sted": "Barneavdelingen, Lykke sykehus",
+            "type": "dagbehandling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "legeerklaering",
+      "domene": "helse.legeerklaering",
+      "tittel": "Legeerklæring",
+      "hovedverdi": "Gyldig til 31. mai 2027",
+      "beskrivelse": "Fra kontaktlegen ved Lykke sykehus. Brukt i 2 søknader, så dere slapp å laste den opp to ganger.",
+      "kilde": {
+        "virksomhet": "Lykke sykehus",
+        "system": "pasientjournal",
+        "hentet": "2026-11-05T10:00:00+01:00"
+      },
+      "livssituasjon": "alvorlig-sykt-barn",
+      "data": {
+        "utstedt": "2026-11-04",
+        "gyldigTil": "2027-05-31",
+        "utstedtAv": "Kontaktlege, barneavdelingen, Lykke sykehus",
+        "spesialisthelsetjenesten": true,
+        "brukesI": [
+          "pleiepenger",
+          "omsorgsdager-utvidet"
+        ]
+      }
+    },
+    {
+      "id": "ytelser",
+      "domene": "helse.ytelser",
+      "tittel": "Ytelser fra Nav",
+      "hovedverdi": "1 innvilget, 3 til behandling",
+      "beskrivelse": "Omsorgsdager innvilget. Pleiepenger for begge og hjelpestønad til behandling. Grunnstønad avslått.",
+      "handling": {
+        "tittel": "Se sakene på nav.no",
+        "type": "lenke",
+        "mal": "https://www.nav.no/minside"
+      },
+      "kilde": {
+        "virksomhet": "Nav",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "alvorlig-sykt-barn",
+      "data": {
+        "ytelser": [
+          {
+            "ytelse": "omsorgsdager-utvidet",
+            "mottaker": "Nora Rahimi og Jonas Berg",
+            "status": "innvilget",
+            "fra": "2026-11-01"
+          },
+          {
+            "ytelse": "pleiepenger",
+            "mottaker": "Nora Rahimi",
+            "status": "til-behandling"
+          },
+          {
+            "ytelse": "pleiepenger",
+            "mottaker": "Jonas Berg",
+            "status": "til-behandling"
+          },
+          {
+            "ytelse": "hjelpestonad",
+            "mottaker": "Nora Rahimi",
+            "status": "til-behandling"
+          },
+          {
+            "ytelse": "grunnstonad",
+            "mottaker": "Nora Rahimi",
+            "status": "avslatt",
+            "klagefrist": "2026-12-24"
+          }
+        ]
+      }
+    },
+    {
+      "id": "avlastning",
+      "domene": "helse.kommunale-vedtak",
+      "tittel": "Avlastning",
+      "hovedverdi": "6 av 12 timer levert i november",
+      "beskrivelse": "Vedtak fra 1. oktober om 12 timer i måneden.",
+      "merknad": {
+        "tekst": "Kommunen har levert halvparten av timene i vedtaket. Ta det opp med barnekoordinatoren.",
+        "alvorlighet": "advarsel"
+      },
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "helse- og omsorgstjenestene",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "alvorlig-sykt-barn",
+      "data": {
+        "vedtak": [
+          {
+            "tjeneste": "avlastning",
+            "timerPerManed": 12,
+            "fra": "2026-10-01",
+            "levert": [
+              {
+                "maned": "2026-10",
+                "timer": 12
+              },
+              {
+                "maned": "2026-11",
+                "timer": 6
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "individuell-plan",
+      "domene": "helse.individuell-plan",
+      "tittel": "Individuell plan",
+      "hovedverdi": "Neste møte 3. desember",
+      "beskrivelse": "3 mål på tvers av sykehus, kommune og barnehage. Barnekoordinatoren holder planen oppdatert.",
+      "handling": {
+        "tittel": "Les planen",
+        "type": "lenke",
+        "mal": "#"
+      },
+      "kilde": {
+        "virksomhet": "Lykke kommune",
+        "system": "koordinerende enhet",
+        "hentet": "2026-11-20T09:00:00+01:00"
+      },
+      "livssituasjon": "alvorlig-sykt-barn",
+      "data": {
+        "ansvarlig": "Kari Lund, barnekoordinator",
+        "sistOppdatert": "2026-11-20",
+        "nesteMote": "2026-12-03T14:00:00+01:00",
+        "mal": [
+          {
+            "mal": "Lea kan være i barnehagen de dagene hun er frisk nok",
+            "ansvarlig": "Lykke barnehage",
+            "status": "pagar"
+          },
+          {
+            "mal": "Foreldrene får avlastning som vedtatt",
+            "ansvarlig": "Lykke kommune",
+            "status": "pagar"
+          },
+          {
+            "mal": "Skolen er forberedt før skolestart 2027",
+            "ansvarlig": "Barnekoordinator",
+            "status": "ikke-startet"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pasientreiser",
+      "domene": "helse.pasientreiser",
+      "tittel": "Pasientreiser",
+      "hovedverdi": "3 reiser ikke søkt",
+      "beskrivelse": "Eldste frist er 2. mai 2027. Lea trenger ikke dokumentasjon for å ha med ledsager.",
+      "handling": {
+        "tittel": "Søk på Helsenorge",
+        "type": "lenke",
+        "mal": "https://www.helsenorge.no/pasientreiser/"
+      },
+      "kilde": {
+        "virksomhet": "Pasientreiser",
+        "hentet": "2026-11-26T07:00:00+01:00"
+      },
+      "livssituasjon": "alvorlig-sykt-barn",
+      "data": {
+        "reiser": [
+          {
+            "dato": "2026-11-02",
+            "til": "Lykke sykehus",
+            "soktRefusjon": false,
+            "ledsager": true
+          },
+          {
+            "dato": "2026-11-12",
+            "til": "Lykke sykehus",
+            "soktRefusjon": false,
+            "ledsager": true
+          },
+          {
+            "dato": "2026-11-19",
+            "til": "Lykke sykehus",
+            "soktRefusjon": false,
+            "ledsager": true
+          }
+        ]
+      }
+    }
+  ],
+  "tjenesteforslag": [
+    {
+      "tjenesteId": "opplaringspenger",
+      "tittel": "Opplæringspenger",
+      "ansvarlig": "Nav",
+      "begrunnelse": "Fordi sykehuset holder foreldrekurs i januar",
+      "livssituasjon": "alvorlig-sykt-barn"
+    },
+    {
+      "tjenesteId": "parkeringstillatelse",
+      "tittel": "Parkeringstillatelse for forflytningshemmede",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Kan gis til foreldre som kjører barnet ofte til behandling",
+      "livssituasjon": "alvorlig-sykt-barn"
+    },
+    {
+      "tjenesteId": "sosken-tilbud",
+      "tittel": "Søskentilbud ved sykehuset",
+      "ansvarlig": "Lykke sykehus",
+      "begrunnelse": "Fordi Amir er storebror",
+      "livssituasjon": "alvorlig-sykt-barn"
+    },
+    {
+      "tjenesteId": "bpa",
+      "tittel": "Brukerstyrt personlig assistanse som avlastning",
+      "ansvarlig": "Lykke kommune",
+      "begrunnelse": "Et alternativ hvis avlastningen ikke blir levert",
+      "livssituasjon": "alvorlig-sykt-barn"
+    }
+  ],
+  "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d001",
+      "livssituasjon": "alvorlig-sykt-barn"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d002",
+      "livssituasjon": "alvorlig-sykt-barn",
+      "steg": "ppt"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d003",
+      "livssituasjon": "alvorlig-sykt-barn",
+      "steg": "ansvarsgruppe"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d004",
+      "livssituasjon": "alvorlig-sykt-barn",
+      "steg": "grunnstonad"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d005",
+      "livssituasjon": "alvorlig-sykt-barn",
+      "steg": "hjelpestonad"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d006",
+      "livssituasjon": "alvorlig-sykt-barn"
+    }
+  ],
+  "involverte": [
+    {
+      "gruppe": "Teamet rundt Lea",
+      "navn": "Kari Lund",
+      "initialer": "KL",
+      "beskrivelse": "Barnekoordinator, Lykke kommune",
+      "tilstand": {
+        "tekst": "Fast kontakt",
+        "type": "info"
+      },
+      "handling": {
+        "tittel": "Send melding",
+        "type": "lenke",
+        "mal": "#"
+      }
+    },
+    {
+      "gruppe": "Teamet rundt Lea",
+      "navn": "Ingrid Moe",
+      "initialer": "IM",
+      "beskrivelse": "Kontaktlege, barneavdelingen, Lykke sykehus",
+      "handling": {
+        "tittel": "Send melding på Helsenorge",
+        "type": "lenke",
+        "mal": "https://www.helsenorge.no/"
+      }
+    },
+    {
+      "gruppe": "Teamet rundt Lea",
+      "navn": "Siri Dahl",
+      "initialer": "SD",
+      "beskrivelse": "Pedagogisk leder, Lykke barnehage"
+    },
+    {
+      "gruppe": "Foreldre",
+      "navn": "Nora Rahimi",
+      "initialer": "NR",
+      "beskrivelse": "Mor",
+      "erDeg": true
+    },
+    {
+      "gruppe": "Foreldre",
+      "navn": "Jonas Berg",
+      "initialer": "JB",
+      "beskrivelse": "Far. Ser den samme oversikten."
+    }
+  ],
+  "hjelp": [
+    {
+      "tittel": "Usikker på hva dere har rett til?",
+      "handlinger": [
+        {
+          "tittel": "Spør barnekoordinatoren",
+          "type": "lenke",
+          "mal": "#"
+        },
+        {
+          "tittel": "Svarveien – spør om rettigheter",
+          "type": "lenke",
+          "mal": "https://alvorligsyktbarn.no/"
+        }
+      ]
+    }
+  ],
+  "tjenestevurderinger": [
+    {
+      "tjenesteId": "pleiepenger",
+      "status": "venter",
+      "sammendrag": "Søknaden er mottatt. Nav venter på inntektsmelding fra Lykke Bistro AS før saken kan behandles. Behandlingstiden er normalt 8 uker etter at alt er kommet inn.",
+      "kjenteOpplysninger": [
+        {
+          "opplysning": "Legeerklæring",
+          "verdi": "Fra kontaktlegen, gyldig til 31. mai 2027",
+          "kilde": "Lykke sykehus"
+        },
+        {
+          "opplysning": "Foreldreansvar",
+          "verdi": "Nora Rahimi og Jonas Berg",
+          "kilde": "Folkeregisteret"
+        },
+        {
+          "opplysning": "Arbeidsforhold",
+          "verdi": "Ansatt i Lykke Bistro AS, 100 %",
+          "kilde": "a-ordningen"
+        },
+        {
+          "opplysning": "Inntekt",
+          "verdi": "Hentes fra a-ordningen",
+          "kilde": "a-ordningen"
+        },
+        {
+          "opplysning": "Tid i barnehagen",
+          "verdi": "25 timer i uka, trekkes fra",
+          "kilde": "Lykke kommune"
+        }
+      ],
+      "merknad": {
+        "tekst": "Fordi du er ansatt i eget AS, må Lykke Bistro AS sende inntektsmeldingen. Nav stiller strenge krav når noen sender inntektsmelding for seg selv, og kan be om arbeidsavtale og dokumentasjon på at lønnen er regelmessig.",
+        "alvorlighet": "advarsel"
+      },
+      "handlinger": [
+        {
+          "tittel": "Gå til inntektsmeldingen",
+          "type": "dialog",
+          "mal": "01938a10-0000-7000-8000-00000000d011",
+          "primar": true
+        }
+      ]
+    }
+  ]
+}

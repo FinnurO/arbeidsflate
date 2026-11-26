@@ -62,10 +62,14 @@ flowchart LR
 ### Status
 
 Steg har én av disse statusene. Er steget knyttet til en dialog, bruker dashbordet dialogens status i Dialogporten
-i stedet, så statusen bare finnes ett sted.
+i stedet, så statusen bare finnes ett sted. Unntaket er `avslatt`: et avslag er en avsluttet dialog i Dialogporten,
+så stegets egen status vinner.
 
 `ordnet-automatisk`, `krever-handling`, `til-signering`, `til-behandling`, `under-arbeid`, `utkast`, `venter`,
-`utfort`, `ikke-startet`, `ikke-aktuelt`, `senere`
+`utfort`, `ikke-startet`, `ikke-aktuelt`, `senere`, `avslatt`
+
+Et steg kan også gjelde den innloggedes egne saker, for eksempel foreldrenes pleiepenger i barnets livssituasjon.
+Dashbordet henter derfor dialogene både for aktøren og for den innloggede.
 
 ### Handlinger
 
@@ -161,6 +165,14 @@ Svaret beholder `synligFor`, slik at dashbordet kan vise «hvem ser hva» uten �
 | `skole` | `fravaer`, `vurdering`, `provresultat`, `tilrettelegging`, `helsesamtale`, `skoleplass` |
 | `virksomhet` | `roller`, `eiere`, `bevillinger`, `ansatte` |
 | `dodsbo` | `bankkontoer`, `gjeld`, `eiendom`, `kjoretoy`, `pensjon-forsikring`, `skatt`, `aksjer`, `testament` |
+| `helse` | `timeavtaler`, `legeerklaering`, `ytelser`, `kommunale-vedtak`, `individuell-plan`, `pasientreiser` |
+
+Domenet `helse` ble lagt til for livssituasjonen «Alvorlig sykt barn» uten endringer i dashbordet. To små ting ble
+lagt til i kjernen samtidig: statusen `avslatt`, fordi et avslag i Dialogporten bare er en avsluttet dialog, og
+`handling` på involverte, så barnekoordinatoren kan kontaktes. Diagnosen er bevisst ikke med i domenet.
+
+`kommunale-vedtak` skiller mellom det som er vedtatt og det som er levert. Det er en av de vanligste kildene til
+ekstraarbeid for foreldre, ifølge Helsedirektoratets innsikt fra livshendelsen «Alvorlig sykt barn».
 
 ### Legge til et domene
 

@@ -2,6 +2,62 @@
   {
     "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
     "sammenheng": {
+      "id": "lea-restaurant",
+      "fra": "urn:altinn:person:identifier-no:lea-rahimi",
+      "til": "urn:altinn:organization:identifier-no:lykke-bistro",
+      "tittel": "Restauranten må sende inntektsmelding for pleiepengene dine",
+      "beskrivelse": "Du er ansatt i Lykke Bistro AS, så selskapet må sende inntektsmeldingen før Nav kan behandle pleiepengene for Lea. Du blir også mer borte, og skjenkebevillingen mangler fortsatt stedfortreder.",
+      "kilder": [
+        {
+          "virksomhet": "Nav"
+        },
+        {
+          "virksomhet": "Skatteetaten",
+          "system": "a-ordningen"
+        }
+      ],
+      "handlinger": [
+        {
+          "tittel": "Send inntektsmelding",
+          "type": "dialog",
+          "mal": "01938a10-0000-7000-8000-00000000d011",
+          "primar": true
+        },
+        {
+          "tittel": "Se restauranten",
+          "type": "aktor",
+          "mal": "urn:altinn:organization:identifier-no:lykke-bistro"
+        }
+      ]
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
+      "id": "lea-amir",
+      "fra": "urn:altinn:person:identifier-no:lea-rahimi",
+      "til": "urn:altinn:person:identifier-no:amir-rahimi",
+      "tittel": "Amir er søsken til et alvorlig sykt barn",
+      "beskrivelse": "Søsken har rett til informasjon og oppfølging fra sykehuset. Amir har også nettopp mistet bestefaren sin. Skolen kan følge ham opp hvis du ønsker det.",
+      "krevesSamtykke": true,
+      "handlinger": [
+        {
+          "tittel": "Søskentilbud ved sykehuset",
+          "type": "tjeneste",
+          "mal": "sosken-tilbud",
+          "primar": true
+        },
+        {
+          "tittel": "Gå til Amirs oversikt",
+          "type": "aktor",
+          "mal": "urn:altinn:person:identifier-no:amir-rahimi"
+        }
+      ]
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "sammenheng": {
       "id": "stedfortreder",
       "fra": "urn:altinn:organization:identifier-no:dodsbo-reza-rahimi",
       "til": "urn:altinn:organization:identifier-no:lykke-bistro",

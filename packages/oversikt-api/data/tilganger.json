@@ -27,6 +27,19 @@
   },
   {
     "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
+    "aktor": "urn:altinn:person:identifier-no:lea-rahimi",
+    "rolle": "foresatt",
+    "rolletekst": "Alvorlig sykt barn · Du er foresatt",
+    "hjemmel": {
+      "beskrivelse": "Du har foreldreansvar",
+      "kilde": {
+        "virksomhet": "Skatteetaten",
+        "system": "Folkeregisteret"
+      }
+    }
+  },
+  {
+    "bruker": "urn:altinn:person:identifier-no:nora-rahimi",
     "aktor": "urn:altinn:organization:identifier-no:lykke-bistro",
     "rolle": "daglig-leder",
     "rolletekst": "Starte og drive bedrift · Du er daglig leder",

@@ -16,7 +16,8 @@ export type Status =
   | 'utfort'
   | 'ikke-startet'
   | 'ikke-aktuelt'
-  | 'senere';
+  | 'senere'
+  | 'avslatt';
 
 export interface Kilde {
   virksomhet: string;
@@ -124,6 +125,7 @@ export interface Involvert {
   beskrivelse?: string;
   erDeg?: boolean;
   tilstand?: { tekst: string; type: 'ferdig' | 'venter' | 'info' };
+  handling?: Handling;
   synligFor?: Rolle[];
 }
 

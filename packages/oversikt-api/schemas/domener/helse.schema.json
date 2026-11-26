@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oversikt.local/schemas/domener/helse.schema.json",
+  "title": "Helse og omsorg",
+  "description": "Opplysninger om et barn som er alvorlig sykt eller har langvarige behov, og om tjenestene rundt. Diagnosen er bevisst ikke med: tjenestene trenger sjelden mer enn at barnet følges av spesialisthelsetjenesten. Hver $defs-oppføring er én opplysningstype (helse.<navn>).",
+  "$defs": {
+    "timeavtaler": {
+      "title": "Timeavtaler",
+      "description": "Kommende timer i spesialisthelsetjenesten, som på Helsenorge. Foreldre ser timene for barn under 12 år.",
+      "type": "object",
+      "required": ["avtaler"],
+      "properties": {
+        "avtaler": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tidspunkt", "sted"],
+            "properties": {
+              "tidspunkt": { "type": "string", "format": "date-time" },
+              "sted": { "type": "string" },
+              "type": { "type": "string", "enum": ["poliklinikk", "innleggelse", "dagbehandling", "telefon", "video"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "legeerklaering": {
+      "title": "Legeerklæring",
+      "description": "En erklæring fra lege som kan gjenbrukes i flere søknader, i stedet for at foreldrene laster opp et bilde til hver.",
+      "type": "object",
+      "required": ["utstedt", "utstedtAv", "brukesI"],
+      "properties": {
+        "utstedt": { "type": "string", "format": "date" },
+        "gyldigTil": { "type": "string", "format": "date" },
+        "utstedtAv": { "type": "string", "description": "F.eks. «Kontaktlege, barneavdelingen, Lykke sykehus»." },
+        "spesialisthelsetjenesten": {
+          "type": "boolean",
+          "description": "Pleiepenger krever erklæring fra spesialisthelsetjenesten."
+        },
+        "brukesI": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Tjeneste-id-er erklæringen er brukt i."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ytelser": {
+      "title": "Ytelser",
+      "description": "Ytelser fra Nav knyttet til barnet, også de som utbetales til foreldrene.",
+      "type": "object",
+      "required": ["ytelser"],
+      "properties": {
+        "ytelser": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ytelse", "mottaker", "status"],
+            "properties": {
+              "ytelse": {
+                "type": "string",
+                "enum": ["pleiepenger", "omsorgsdager-utvidet", "opplaringspenger", "hjelpestonad", "grunnstonad"]
+              },
+              "mottaker": { "type": "string" },
+              "status": { "type": "string", "enum": ["sokt", "til-behandling", "innvilget", "avslatt"] },
+              "grad": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 200,
+                "description": "Prosent, f.eks. gradert pleiepenger."
+              },
+              "fra": { "type": "string", "format": "date" },
+              "til": { "type": "string", "format": "date" },
+              "klagefrist": { "type": "string", "format": "date" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "kommunale-vedtak": {
+      "title": "Kommunale vedtak",
+      "description": "Vedtak om kommunale tjenester, med det som faktisk er levert. Forskjellen er en av de vanligste kildene til ekstraarbeid for foreldre.",
+      "type": "object",
+      "required": ["vedtak"],
+      "properties": {
+        "vedtak": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tjeneste", "timerPerManed"],
+            "properties": {
+              "tjeneste": {
+                "type": "string",
+                "enum": [
+                  "avlastning",
+                  "omsorgsstonad",
+                  "bpa",
+                  "stottekontakt",
+                  "spesialpedagogisk-hjelp",
+                  "ekstra-bemanning"
+                ]
+              },
+              "timerPerManed": { "type": "number", "minimum": 0 },
+              "fra": { "type": "string", "format": "date" },
+              "levert": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["maned", "timer"],
+                  "properties": {
+                    "maned": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$" },
+                    "timer": { "type": "number", "minimum": 0 }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "individuell-plan": {
+      "title": "Individuell plan",
+      "description": "Én felles plan for barnet på tvers av helse, kommune, barnehage og Nav, med mål og ansvarlige.",
+      "type": "object",
+      "required": ["ansvarlig", "mal"],
+      "properties": {
+        "ansvarlig": { "type": "string", "description": "Vanligvis barnekoordinatoren." },
+        "sistOppdatert": { "type": "string", "format": "date" },
+        "nesteMote": { "type": "string", "format": "date-time" },
+        "mal": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["mal", "ansvarlig"],
+            "properties": {
+              "mal": { "type": "string" },
+              "ansvarlig": { "type": "string" },
+              "status": { "type": "string", "enum": ["pagar", "nadd", "ikke-startet"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "pasientreiser": {
+      "title": "Pasientreiser",
+      "description": "Reiser til behandling og om det er søkt refusjon. Fristen er 6 måneder etter reisen.",
+      "type": "object",
+      "required": ["reiser"],
+      "properties": {
+        "reiser": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dato", "soktRefusjon"],
+            "properties": {
+              "dato": { "type": "string", "format": "date" },
+              "til": { "type": "string" },
+              "soktRefusjon": { "type": "boolean" },
+              "ledsager": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

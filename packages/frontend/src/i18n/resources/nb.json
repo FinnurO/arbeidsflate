@@ -635,5 +635,6 @@
   "oversikt.tjeneste.kjent": "Dette vet vi allerede",
   "oversikt.tjeneste.opplysning": "Opplysning",
   "oversikt.tjeneste.verdi": "Verdi",
-  "oversikt.tjeneste.katalog_status": "En spørring mot Felles datakatalog 30. oktober 2026 ga 1 462 offentlige tjenester og ingen livshendelser. Nesten alle er høstet fra Altinn ressursregister, og krav, resultat og relasjoner mellom tjenester er ikke fylt ut."
+  "oversikt.tjeneste.katalog_status": "En spørring mot Felles datakatalog 30. oktober 2026 ga 1 462 offentlige tjenester og ingen livshendelser. Nesten alle er høstet fra Altinn ressursregister, og krav, resultat og relasjoner mellom tjenester er ikke fylt ut.",
+  "oversikt.status.avslatt": "Avslått"
 }

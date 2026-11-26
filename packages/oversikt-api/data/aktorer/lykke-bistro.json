@@ -67,6 +67,27 @@
           "tittel": "Drive",
           "steg": [
             {
+              "id": "inntektsmelding-pleiepenger",
+              "tittel": "Send inntektsmelding for Noras pleiepenger",
+              "beskrivelse": "Nora er ansatt i selskapet, så Lykke Bistro AS må sende inntektsmeldingen. Nav kan be om arbeidsavtale og lønnsdokumentasjon.",
+              "status": "krever-handling",
+              "ansvarlig": "Nav",
+              "frist": "2026-12-03",
+              "dialogId": "01938a10-0000-7000-8000-00000000d011",
+              "bruker": [
+                {
+                  "opplysning": "Lønn og stillingsprosent",
+                  "kilde": "a-ordningen"
+                }
+              ],
+              "handling": {
+                "tittel": "Send inntektsmelding",
+                "type": "dialog",
+                "mal": "01938a10-0000-7000-8000-00000000d011",
+                "primar": true
+              }
+            },
+            {
               "id": "stedfortreder",
               "tittel": "Meld ny stedfortreder for skjenkebevillingen",
               "beskrivelse": "Jonas Berg har bestått kunnskapsprøven og kan bli stedfortreder.",
@@ -260,6 +281,11 @@
     }
   ],
   "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d011",
+      "livssituasjon": "starte-og-drive-bedrift",
+      "steg": "inntektsmelding-pleiepenger"
+    },
     {
       "dialogId": "01938a10-0000-7000-8000-00000000b001",
       "livssituasjon": "starte-og-drive-bedrift",

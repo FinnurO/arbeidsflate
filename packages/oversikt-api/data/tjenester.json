@@ -168,5 +168,232 @@
     "livshendelser": [
       "dodsfall-og-arv"
     ]
+  },
+  {
+    "id": "pleiepenger",
+    "tittel": "Pleiepenger for sykt barn",
+    "beskrivelse": "Erstatter inntekt når du må være borte fra jobb for å ta deg av et barn som er innlagt eller følges av spesialisthelsetjenesten.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Barnet trenger kontinuerlig tilsyn og pleie",
+        "beskrivelse": "Barnet er under 18 år og innlagt eller følges av spesialisthelsetjenesten."
+      },
+      {
+        "tittel": "Legeerklæring fra spesialisthelsetjenesten",
+        "beskrivelse": "Én erklæring per barn."
+      },
+      {
+        "tittel": "Arbeidstiden reduseres med minst 20 %",
+        "beskrivelse": "Tid barnet er i barnehage eller skole trekkes fra."
+      },
+      {
+        "tittel": "Inntektsmelding fra arbeidsgiver",
+        "beskrivelse": "Gjelder arbeidstakere, også ansatte i eget AS."
+      }
+    ],
+    "resultat": "Vedtak om pleiepenger, gradert etter hvor mye du er borte fra jobb. Behandlingstiden er normalt 8 uker.",
+    "relaterte": [
+      {
+        "tjenesteId": "omsorgsdager-utvidet",
+        "tittel": "Utvidet rett til omsorgsdager",
+        "relasjon": "kan bruke samme legeerklæring"
+      },
+      {
+        "tjenesteId": "opplaringspenger",
+        "tittel": "Opplæringspenger",
+        "relasjon": "for kurs om barnets sykdom"
+      },
+      {
+        "tjenesteId": "avlastning",
+        "tittel": "Kommunal omsorgsstønad",
+        "relasjon": "regnes som inntekt og reduserer pleiepengene"
+      }
+    ],
+    "kontaktpunkt": "Nav, 55 55 33 33",
+    "katalogdekning": [
+      {
+        "visning": "Navn og beskrivelse",
+        "felt": "dct:title, dct:description",
+        "dekning": "ja"
+      },
+      {
+        "visning": "Ansvarlig virksomhet",
+        "felt": "cv:hasCompetentAuthority",
+        "dekning": "ja"
+      },
+      {
+        "visning": "Hvem har rett",
+        "felt": "cv:holdsRequirement",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Dokumentasjon (legeerklæring, inntektsmelding)",
+        "felt": "cv:hasInputType",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Hva du får og behandlingstid",
+        "felt": "cpsvno:hasOutputType, cv:processingTime",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Henger sammen med",
+        "felt": "cv:relatedService",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Livssituasjonen «Alvorlig sykt barn»",
+        "felt": "cv:isGroupedBy → cv:LifeEvent",
+        "dekning": "nei"
+      },
+      {
+        "visning": "Dette vet vi allerede",
+        "felt": "Kommer fra kildene med hjemmel",
+        "dekning": "utenfor-katalogen"
+      }
+    ]
+  },
+  {
+    "id": "omsorgsdager-utvidet",
+    "tittel": "Utvidet rett til omsorgsdager",
+    "beskrivelse": "10 ekstra omsorgsdager i året per forelder når barnet har en kronisk eller langvarig sykdom.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Legeerklæring",
+        "beskrivelse": "Kan være den samme som til pleiepengene."
+      }
+    ]
+  },
+  {
+    "id": "opplaringspenger",
+    "tittel": "Opplæringspenger",
+    "beskrivelse": "Erstatter inntekt når du er på kurs eller opplæring for å kunne ta vare på barnet.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Opplæring ved godkjent helseinstitusjon eller kompetansesenter"
+      },
+      {
+        "tittel": "Legeerklæring"
+      }
+    ],
+    "resultat": "Kan gis inntil 3 måneder tilbake i tid."
+  },
+  {
+    "id": "hjelpestonad",
+    "tittel": "Hjelpestønad",
+    "beskrivelse": "Stønad når barnet trenger mer tilsyn og pleie enn andre barn på samme alder, over minst 2–3 år.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "resultat": "Vedtak om hjelpestønad eller forhøyet hjelpestønad. Behandlingstiden er normalt 4 måneder."
+  },
+  {
+    "id": "grunnstonad",
+    "tittel": "Grunnstønad",
+    "beskrivelse": "Dekker varige ekstrautgifter på grunn av sykdom, for eksempel transport, klær eller spesialkost.",
+    "ansvarlig": "Nav",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Ekstrautgifter på minst laveste sats",
+        "beskrivelse": "752 kroner i måneden i 2026."
+      }
+    ]
+  },
+  {
+    "id": "barnekoordinator",
+    "tittel": "Barnekoordinator",
+    "beskrivelse": "En fast person i kommunen som hjelper familien med å koordinere tjenestene rundt barnet.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Barnet har alvorlig sykdom, skade eller funksjonsnedsettelse med langvarige og sammensatte behov"
+      }
+    ]
+  },
+  {
+    "id": "avlastning",
+    "tittel": "Avlastning",
+    "beskrivelse": "Kommunen gir foreldre pauser fra særlig tyngende omsorgsarbeid.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ]
+  },
+  {
+    "id": "bpa",
+    "tittel": "Brukerstyrt personlig assistanse (BPA)",
+    "beskrivelse": "Familien styrer selv hvem som hjelper og når. Kan brukes som avlastning.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ]
+  },
+  {
+    "id": "spesialpedagogisk-hjelp",
+    "tittel": "Spesialpedagogisk hjelp i barnehagen",
+    "beskrivelse": "Hjelp i barnehagen etter sakkyndig vurdering fra PP-tjenesten.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Samtykke fra foreldrene"
+      },
+      {
+        "tittel": "Sakkyndig vurdering fra PP-tjenesten"
+      }
+    ]
+  },
+  {
+    "id": "pasientreiser",
+    "tittel": "Pasientreiser",
+    "beskrivelse": "Refusjon av reiser til og fra behandling. Barn under 18 år kan ha med ledsager uten dokumentasjon.",
+    "ansvarlig": "Pasientreiser HF",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ],
+    "krav": [
+      {
+        "tittel": "Søk innen 6 måneder etter reisen"
+      }
+    ]
+  },
+  {
+    "id": "parkeringstillatelse",
+    "tittel": "Parkeringstillatelse for forflytningshemmede",
+    "beskrivelse": "Kan gis til foreldre som kjører et barn med nedsatt bevegelsesevne.",
+    "ansvarlig": "Lykke kommune",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ]
+  },
+  {
+    "id": "sosken-tilbud",
+    "tittel": "Søskentilbud ved sykehuset",
+    "beskrivelse": "Mindreårige søsken av alvorlig syke barn har rett til informasjon og oppfølging. Sykehuset har barneansvarlig personell som kan hjelpe.",
+    "ansvarlig": "Lykke sykehus",
+    "livshendelser": [
+      "alvorlig-sykt-barn"
+    ]
   }
 ]

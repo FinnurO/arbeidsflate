@@ -56,6 +56,7 @@ const statusfarge: Record<Status, BadgeProps['color']> = {
   'ikke-startet': 'neutral',
   'ikke-aktuelt': 'neutral',
   senere: 'neutral',
+  avslatt: 'danger',
 };
 
 export const statusBadge = (status: Status, t: (key: string) => string): BadgeProps => ({
@@ -70,9 +71,16 @@ export const dialogstatusTilStatus: Partial<Record<DialogStatus, Status>> = {
   [DialogStatus.RequiresAttention]: 'krever-handling',
   [DialogStatus.InProgress]: 'under-arbeid',
   [DialogStatus.Draft]: 'utkast',
-  [DialogStatus.Awaiting]: 'venter',
+  [DialogStatus.Awaiting]: 'til-behandling',
   [DialogStatus.Completed]: 'utfort',
 };
+
+/**
+ * Status for et steg: dialogens status i Dialogporten når steget har en dialog, ellers stegets egen.
+ * «Avslått» har ingen egen status i Dialogporten (vedtaket er en avsluttet dialog), så den vinner.
+ */
+export const stegstatus = (status: Status, dialogstatus: DialogStatus | undefined): Status =>
+  status === 'avslatt' ? status : ((dialogstatus && dialogstatusTilStatus[dialogstatus]) ?? status);
 
 type Tekstverdi = { value?: { value: string; languageCode?: string | null }[] } | null | undefined;
 

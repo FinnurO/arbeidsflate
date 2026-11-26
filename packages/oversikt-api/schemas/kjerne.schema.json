@@ -85,7 +85,8 @@
         "utfort",
         "ikke-startet",
         "ikke-aktuelt",
-        "senere"
+        "senere",
+        "avslatt"
       ]
     },
     "Handling": {
@@ -233,6 +234,7 @@
           },
           "additionalProperties": false
         },
+        "handling": { "$ref": "#/$defs/Handling", "description": "Hvordan man når parten, f.eks. «Send melding»." },
         "synligFor": { "$ref": "#/$defs/SynligFor" }
       },
       "additionalProperties": false

@@ -7,7 +7,7 @@
     "avsender": "Lykke barneskole",
     "tjeneste": "lykke-skole-samtykke",
     "status": "RequiresAttention",
-    "frist": "2026-11-27T23:59:00+01:00",
+    "frist": "2026-12-04T23:59:00+01:00",
     "opprettet": "2026-11-10T08:00:00+01:00"
   },
   {
@@ -18,7 +18,7 @@
     "avsender": "Lykke barneskole",
     "tjeneste": "lykke-skole-samtale",
     "status": "RequiresAttention",
-    "frist": "2026-11-24T23:59:00+01:00",
+    "frist": "2026-12-01T23:59:00+01:00",
     "opprettet": "2026-11-12T08:00:00+01:00"
   },
   {
@@ -137,6 +137,103 @@
     "tjeneste": "lykke-oppvekst-melding",
     "status": "Completed",
     "opprettet": "2026-10-14T10:00:00+02:00",
+    "lest": true
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d001",
+    "party": "urn:altinn:person:identifier-no:lea-rahimi",
+    "tittel": "Vedtak om avlastning",
+    "sammendrag": "Lea får 12 timer avlastning i måneden fra 1. oktober.",
+    "avsender": "Lykke kommune",
+    "tjeneste": "lykke-avlastning",
+    "status": "Completed",
+    "opprettet": "2026-09-24T10:00:00+02:00",
+    "lest": true
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d002",
+    "party": "urn:altinn:person:identifier-no:lea-rahimi",
+    "tittel": "Samtykke til sakkyndig vurdering fra PPT",
+    "sammendrag": "Barnehagen ønsker at PP-tjenesten vurderer om Lea trenger spesialpedagogisk hjelp.",
+    "avsender": "Lykke kommune, PP-tjenesten",
+    "tjeneste": "lykke-ppt-samtykke",
+    "status": "RequiresAttention",
+    "frist": "2026-12-04T23:59:00+01:00",
+    "opprettet": "2026-11-20T09:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d003",
+    "party": "urn:altinn:person:identifier-no:lea-rahimi",
+    "tittel": "Innkalling til ansvarsgruppemøte",
+    "sammendrag": "Torsdag 3. desember kl. 14.00 i Lykke rådhus eller på video.",
+    "avsender": "Barnekoordinator, Lykke kommune",
+    "tjeneste": "lykke-koordinerende-enhet",
+    "status": "NotApplicable",
+    "opprettet": "2026-11-21T12:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d004",
+    "party": "urn:altinn:person:identifier-no:lea-rahimi",
+    "tittel": "Vedtak om grunnstønad",
+    "sammendrag": "Søknaden er avslått. Klagefrist 24. desember 2026.",
+    "avsender": "Nav",
+    "tjeneste": "grunnstonad",
+    "status": "Completed",
+    "utvidetStatus": "Avslått",
+    "opprettet": "2026-11-12T08:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d005",
+    "party": "urn:altinn:person:identifier-no:lea-rahimi",
+    "tittel": "Søknad om hjelpestønad",
+    "sammendrag": "Søknaden er mottatt og til behandling.",
+    "avsender": "Nav",
+    "tjeneste": "hjelpestonad",
+    "status": "Awaiting",
+    "utvidetStatus": "Til behandling",
+    "opprettet": "2026-11-08T14:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d006",
+    "party": "urn:altinn:person:identifier-no:lea-rahimi",
+    "tittel": "Tilpasset dag i barnehagen",
+    "sammendrag": "Lea kan hvile på eget rom etter lunsj. Si fra hvis noe bør endres.",
+    "avsender": "Lykke barnehage",
+    "tjeneste": "lykke-barnehage-melding",
+    "status": "NotApplicable",
+    "opprettet": "2026-11-24T15:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d010",
+    "party": "urn:altinn:person:identifier-no:nora-rahimi",
+    "tittel": "Søknad om pleiepenger",
+    "sammendrag": "Søknaden er mottatt. Nav venter på inntektsmelding fra arbeidsgiveren din.",
+    "avsender": "Nav",
+    "tjeneste": "pleiepenger",
+    "status": "Awaiting",
+    "utvidetStatus": "Venter på inntektsmelding",
+    "opprettet": "2026-11-05T11:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d011",
+    "party": "urn:altinn:organization:identifier-no:lykke-bistro",
+    "tittel": "Inntektsmelding for pleiepenger – Nora Rahimi",
+    "sammendrag": "Nav trenger inntektsmelding før pleiepengene kan behandles. Sendes på Min side – arbeidsgiver på nav.no.",
+    "avsender": "Nav",
+    "tjeneste": "inntektsmelding-pleiepenger",
+    "status": "RequiresAttention",
+    "frist": "2026-12-03T23:59:00+01:00",
+    "opprettet": "2026-11-06T08:00:00+01:00"
+  },
+  {
+    "id": "01938a10-0000-7000-8000-00000000d012",
+    "party": "urn:altinn:person:identifier-no:nora-rahimi",
+    "tittel": "Vedtak om utvidet rett til omsorgsdager",
+    "sammendrag": "Du har rett til 10 ekstra omsorgsdager i året for Lea.",
+    "avsender": "Nav",
+    "tjeneste": "omsorgsdager",
+    "status": "Completed",
+    "opprettet": "2026-11-15T09:00:00+01:00",
     "lest": true
   }
 ]

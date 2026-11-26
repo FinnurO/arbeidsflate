@@ -9,5 +9,12 @@
   "livssituasjoner": [],
   "opplysninger": [],
   "tjenesteforslag": [],
-  "dialoger": []
+  "dialoger": [
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d010"
+    },
+    {
+      "dialogId": "01938a10-0000-7000-8000-00000000d012"
+    }
+  ]
 }

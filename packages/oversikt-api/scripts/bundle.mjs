@@ -99,11 +99,19 @@ const eksempler = {
       summary: 'Nora ser dødsboet (rolle arving)',
       value: hentOversikt(kildedata, nora, aktor('dodsbo-reza-rahimi')).oversikt,
     },
+    alvorligSyktBarn: {
+      summary: 'Nora ser Lea, alvorlig sykt barn (rolle foresatt)',
+      value: hentOversikt(kildedata, nora, aktor('lea-rahimi')).oversikt,
+    },
   },
   '/aktorer/{aktorId}/tjenester/{tjenesteId}': {
     skoleskyss: {
       summary: 'Skoleskyss vurdert for Amir, sett av Nora',
       value: hentTjenestevurdering(kildedata, nora, aktor('amir-rahimi'), 'skoleskyss').vurdering,
+    },
+    pleiepenger: {
+      summary: 'Pleiepenger for Lea, sett av Nora',
+      value: hentTjenestevurdering(kildedata, nora, aktor('lea-rahimi'), 'pleiepenger').vurdering,
     },
   },
   '/sammenhenger': { nora: { summary: 'Noras sammenhenger', value: hentSammenhenger(kildedata, nora) } },
